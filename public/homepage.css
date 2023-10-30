@@ -1,0 +1,52 @@
+body {
+    height: 100vh;
+}
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 100px;
+}
+
+.box {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+}
+
+.players {
+    border: 3px solid white;
+    height: 20vh;
+    width: 20vh;
+    margin-top: 20px;
+}
+#camera {
+    border: 3px solid white;
+    height: 15vh;
+    max-width: 15vh;
+    margin: 20px 10px 0 10px;
+}
+
+#north {
+    top: 50%;
+}
+
+
+.topRow {
+    display: flex;
+    justify-content: center;
+}
+.middleRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bottomRow {
+    display: flex;
+    justify-content: center;
+}
