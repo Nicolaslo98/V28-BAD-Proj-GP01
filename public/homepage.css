@@ -2,6 +2,7 @@
 
 body {
     height: 100vh;
+    background: linear-gradient(rgb(134, 215, 221) 10%, rgb(40, 89, 252) 90%);
 }
 .navbar {
     position: fixed;
@@ -10,34 +11,95 @@ body {
     height: 100px;
 }
 
+.bottomBox {
+    width: 210px;
+    height: 65px;
+    border: 1px solid black;
+    border-radius: 50px;
+    background-color: rgb(73, 125, 223);
+    position: fixed;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.cameraBtn {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 3px 3px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+
+
 .box {
     position: fixed;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
+    width: 60%;
     height: 40%;
     display: flex;
     align-items: center;
 }
 
 .players {
-    border: 3px solid black;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 0 0 3px;
     height: 20vh;
-    width: 20vh;
+    max-width: 20vh;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(234, 241, 247);
 }
+.players:hover {
+    box-shadow: 0 0 15px 10px pink;
+}
+.compass {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+ul{
+    padding: 0;
+}
+li {
+    list-style-type: none;
+}
+
+
+
 #camera {
     /* border: 3px solid black; */
+    border-radius: 30px;
     height: 15vh;
     max-width: 15vh;
-    margin: 20px 10px 0 10px;
+    margin: 20px 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#camera:hover {
+    box-shadow: 0 0 15px 10px pink;
 }
 #camera i{
     color:black;
     font-size: 50px;
-    display: flex;
-    align-items: center;
+    
 }
 
 #north {
@@ -58,3 +120,10 @@ body {
     display: flex;
     justify-content: center;
 }
+
+@media only screen and (max-width: 650px) {
+    .box {
+        width: 90%;
+      }
+  }
+
