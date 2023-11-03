@@ -65,20 +65,25 @@ body {
     background-color: rgb(234, 241, 247);
 }
 .players:hover {
-    box-shadow: 0 0 15px 10px pink;
+    box-shadow: 0 0 15px 10px rgb(95, 119, 255);
 }
-.compass {
-    font-size: 50px;
+.profilePicHolder {
+    margin-top: 15px;
     display: flex;
     justify-content: center;
-    font-weight: 700;
 }
-
+.profilePic {
+    height: 8vh;
+    border-radius: 100%;
+    box-shadow: 3px 3px 3px;
+}
+ 
 ul{
     padding: 0;
 }
 li {
     list-style-type: none;
+    text-align: center;
 }
 
 
@@ -105,7 +110,14 @@ li {
 #north {
     top: 50%;
 }
-
+ 
+.score {
+    font-weight: 600;
+    font-size: x-large;
+}
+.name {
+    font-size: medium;
+}
 
 .topRow {
     display: flex;
