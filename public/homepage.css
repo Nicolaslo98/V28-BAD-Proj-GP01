@@ -5,7 +5,6 @@
     --secondary-color: #706233;
     --player-color: #FAE7C9
 }
-
 .background {
     height: 100vh;
     width: 100vw;
@@ -13,6 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
 }
 
 .navbar {
@@ -29,7 +29,7 @@
     transform: translate(-50%, -50%);
     width: 60%;
     height: 40%;
-    display: none;
+    display: flex;
     align-items: center;
 }
 
@@ -198,7 +198,7 @@ li {
 .leaderBoardBox {
     width: 370px;
     height: 80%;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
