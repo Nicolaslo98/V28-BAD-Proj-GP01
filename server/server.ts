@@ -4,6 +4,7 @@ import { sessionMiddleware } from "./session";
 import { Request, Response } from "express";
 import path from "path";
 import fs from 'fs';
+import { passBase64 } from 'ts-base64toimage'
 
 dotenv.config();
 const app = express();
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
 
 //Third party middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
 app.use(sessionMiddleware);
 
 
@@ -45,10 +46,17 @@ app.post('/', (req, res) => {
   // Generate a unique filename for the image
   const filename = `image_${Date.now()}.png`;
 
+  passBase64.toImage(imageData, 
+  {
+    path: folderPath,
+    fileName: filename,
+    fileExtension: 'png'
+  }
+)
+
   // Save the image data to the folder
-  console.log(imageData)
-  const filePath = path.join(folderPath, filename);
-  fs.writeFileSync(filePath, imageData, 'base64');
+  // const filePath = path.join(folderPath, filename);
+  // fs.writeFileSync(filePath, imageData, 'base64');
 
   res.sendStatus(200);
 });
