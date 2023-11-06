@@ -23,7 +23,6 @@ app.use(sessionMiddleware);
 
 
 //
-
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 

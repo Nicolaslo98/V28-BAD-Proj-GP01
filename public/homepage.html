@@ -7,59 +7,157 @@
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="homepage.css">
+    
 </head>
 
 <body>
-    <div class="box">
-        <div class="container-fluid">
-            <div class="row topRow">
-                <div class="col-4 players" id="north">
-                    <ul>
-                        <li class="profilePicHolder">
-                            <img class="profilePic" src="https://i.pinimg.com/originals/d5/72/ed/d572ed01adbaf8baf3a39b1db2c9b1c5.png">
-                        </li>
-                        <li class="name">Potato</li>
-                        <li class="score">+250</li>
-                      </ul>                      
+    <div class="background">
+        <div class="topBox">
+            <p>麻雀賽果</p>
+        </div>
+        
+        <div class="box">
+            <div class="container-fluid">
+                <div class="row topRow">
+                    <div class="col-4 players" id="north">
+                        <ul>
+                            <li class="profilePicHolder">
+                                <img class="profilePic"
+                                    src="https://i.pinimg.com/originals/d5/72/ed/d572ed01adbaf8baf3a39b1db2c9b1c5.png">
+                            </li>
+                            <li class="name">玩家</li>
+                            <li class="score">-250</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row middleRow flex-nowrap">
+                    <div class="col-4 players" id="west">
+                        <ul>
+                            <li class="profilePicHolder">
+                                <img class="profilePic"
+                                    src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+                            </li>
+                            <li class="name">玩家</li>
+                            <li class="score">-120</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-4 players" id="east">
+                        <ul>
+                            <li class="profilePicHolder">
+                                <img class="profilePic"
+                                    src="https://c4.wallpaperflare.com/wallpaper/280/258/513/cat-dark-black-profile-wallpaper-preview.jpg">
+                            </li>
+                            <li class="name">玩家</li>
+                            <li class="score">+250</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row bottomRow">
+                    <div class="col-4 players" id="south">
+                        <ul>
+                            <li class="profilePicHolder">
+                                <img class="profilePic"
+                                    src="https://i.pinimg.com/550x/b0/13/87/b01387575634a8df2ff08e4c681e51e1.jpg">
+                            </li>
+                            <li class="name">玩家</li>
+                            <li class="score">+120</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row middleRow flex-nowrap">
-                <div class="col-4 players" id="west"></div>
-                <div class="col-3 camera" id="camera">
-                    <!-- <i class="bi bi-camera"></i> -->
+        </div>
+        <div class="leaderBoardBox">
+            <div class="history">
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
                 </div>
-                <div class="col-4 players" id="east"></div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                
+
+
+                <div class="info">
+                    <p>排名</p>
+                    <p>玩家</p>
+                    <p>分數</p>
+                </div>
             </div>
-            <div class="row bottomRow">
-                <div class="col-4 players" id="south"></div>
+        </div>
+        <div class="container-fluid bottomBox">
+            <div class="row">
+                <div class="col-6 leftBtn">
+                    <i class="fa-solid fa-backward"></i>
+                    <p>重新開局</p>
+                </div>
+                <div class="col-6 rightBtn" id="leaderBoard">
+                    <i class="fa-solid fa-ranking-star"></i>
+                    <p>排行榜</p>
+                </div>
+            </div>
+            <div class="cameraBtn">
+                <i class="bi bi-camera"></i>
             </div>
         </div>
     </div>
 
-    <div class="bottomBox">
-        <div class="leftBtn"></div>
-        <div class="cameraBtn">
-            <i class="bi bi-camera"></i>
-        </div>
-        <div class="rightBtn"></div>
-    </div>
-
-    <!-- <nav class="navbar navbar-expand bg-body-tertiary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Features</a>
-                    
-                </div>
-            </div>
-        </div>
-    </nav> -->
 
 
 
