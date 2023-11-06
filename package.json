@@ -45,7 +45,11 @@
     "lib/**/*"
   ],
   "dependencies": {
+    "@types/express-session": "^1.17.9",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "grapheme-splitter": "^1.0.4",
     "hk-mahjong": "^3.2.0"
   }
