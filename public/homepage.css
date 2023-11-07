@@ -143,12 +143,26 @@ li {
     align-items: end;
     border-radius: 0 0 30px 30px;
     background-color: var(--player-color);
-    font-size: 25px;
     color: white;
     text-shadow: 0px 3px 3px rgb(0, 0, 0);
-    font-weight: 600;
+    position: relative;
+}
+.topBox i {
+    position: absolute;
+    right: 5%;
+    top: 80%;
+    width: 40px;
+    height: 40px;
+    background-color: #b0926a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 17px;
 }
 .topBox p {
+    font-weight: 600;
+    font-size: 25px;
     margin-bottom: 7px;
     letter-spacing: 10px;
     margin-right:-10px;
@@ -185,7 +199,7 @@ li {
     pointer-events: none;
 }
 
-.cameraBtn {
+.bottomBtn {
     position: absolute;
     top: 10%;
     left: 50%;
@@ -199,6 +213,9 @@ li {
     justify-content: center;
     align-items: center;
     font-size: xx-large;
+}
+.settingBtn {
+    display: none;
 }
 
 .leaderBoardBox {
