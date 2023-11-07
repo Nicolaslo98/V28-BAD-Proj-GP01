@@ -56,7 +56,28 @@ const topBoxIcon = document.querySelector(".topBox i")
 let check = true
 let check2 = true
 
+topBoxIcon.addEventListener("click", function(e){
+  Swal.fire({
 
+    confirmButtonText: "Return"
+  })
+})
+
+settingBtn.addEventListener("click", function(e){
+  Swal.fire({
+    html:`
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="theme">
+    <label class="form-check-label" for="theme">Theme</label>
+    </div>
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="language">
+    <label class="form-check-label" for="language">Language</label>
+    </div>
+    `,
+    confirmButtonText: "Return"
+  });
+})
 
 
 rightBtn.addEventListener("click", function(e){
