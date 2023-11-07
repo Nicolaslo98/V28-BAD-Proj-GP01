@@ -1,6 +1,6 @@
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
-    let { value: nameInput } = Swal.fire({
+    Swal.fire({
       html: `
       
       `,
@@ -11,10 +11,34 @@ document.querySelectorAll(".players").forEach((element) => {
         if (!value) {
           return "You need to write something!";
         }
+        console.log(value)
+        document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${value}`
       }
     });
+    
+    
   });
 })
+Swal.fire({
+  title: "Is this correct?",
+  text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes",
+  cancelButtonText: "Retry"
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+  } else {
+    console.log("nice")
+  }
+});
 
 const leaderBoard = document.querySelector(".leaderBoardBox")
 const home = document.querySelector(".box")
@@ -30,7 +54,6 @@ let check = true
 // }
 
 rightBtn.addEventListener("click", function(e){
-  console.log(check)
   if (check) {
     leaderBoard.style.display = 'flex';
     home.style.display = 'none';
@@ -40,7 +63,7 @@ rightBtn.addEventListener("click", function(e){
     topBoxText.innerHTML = "麻雀排行榜"
     check = false
 
-  } else if (!check) {
+  } else{
     home.style.display = 'flex';
     leaderBoard.style.display = 'none';
     cameraBtn.style.display = 'flex'
@@ -105,7 +128,7 @@ function capture() {
   const imageData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
   
   // Do something with the captured image (e.g., display it on the page)
-  // const imageElement = document.createElement('img');
+  const imageElement = document.createElement('img');
   imageElement.src = imageData;
   document.body.appendChild(imageElement);
   // console.log(imageData)
