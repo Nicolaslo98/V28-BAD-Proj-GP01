@@ -33,6 +33,8 @@
     align-items: center;
 }
 
+
+
 .players {
     border-radius: 30px;
     width: 19vh;
@@ -252,3 +254,30 @@ li {
     height: 400px;
     object-fit: cover;
 } 
+
+.startBox{
+    width: 370px;
+    height: 70%;
+    display: none;
+    justify-content: center;
+    align-items: start;
+}
+.startContainer {
+    height: 100%;
+    padding: 0;
+}
+.btn-outline-primary {
+    --bs-btn-border-color: black;
+    --bs-btn-color: black;
+    --bs-btn-active-color: black;
+    --bs-btn-active-border-color: black;
+    --bs-btn-active-bg: var(--player-color);
+}
+
+:root, [data-bs-theme=light]{
+    --bs-border-radius: 10px;
+}
+
+.startBox div .btn {
+    --bs-btn-padding-x: 25px
+}

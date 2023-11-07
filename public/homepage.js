@@ -19,35 +19,40 @@ document.querySelectorAll(".players").forEach((element) => {
     
   });
 })
-Swal.fire({
-  title: "Is this correct?",
-  text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes",
-  cancelButtonText: "Retry"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  } else {
-    console.log("nice")
-  }
-});
+// Swal.fire({
+//   title: "Is this correct?",
+//   text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
+//   icon: "warning",
+//   showCancelButton: true,
+//   confirmButtonColor: "#3085d6",
+//   cancelButtonColor: "#d33",
+//   confirmButtonText: "Yes",
+//   cancelButtonText: "Retry"
+// }).then((result) => {
+//   if (result.isConfirmed) {
+//     Swal.fire({
+//       title: "Deleted!",
+//       text: "Your file has been deleted.",
+//       icon: "success"
+//     });
+//   } else {
+//     console.log("nice")
+//   }
+// });
 
 const leaderBoard = document.querySelector(".leaderBoardBox")
 const home = document.querySelector(".box")
+const start = document.querySelector(".startBox")
 const rightBtn = document.querySelector(".rightBtn")
+const leftBtn = document.querySelector(".leftBtn")
 const cameraBtn = document.querySelector(".cameraBtn")
 const rightBtnText = document.querySelector(".rightBtn p")
 const rightBtnIcon = document.querySelector(".rightBtn i")
+const leftBtnText = document.querySelector(".leftBtn p")
+const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
 let check = true
+let check2 = true
 // function clickedRightBtn(e) {
 //   console.log(e.target.id)
   
@@ -60,8 +65,11 @@ rightBtn.addEventListener("click", function(e){
     cameraBtn.style.display = 'none'
     rightBtnText.innerHTML = "現時賽果"
     rightBtnIcon.classList = "fa-solid fa-house"
+    leftBtnText.innerHTML = "重新開局"
+    leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "麻雀排行榜"
     check = false
+    check2 = true
 
   } else{
     home.style.display = 'flex';
@@ -69,12 +77,40 @@ rightBtn.addEventListener("click", function(e){
     cameraBtn.style.display = 'flex'
     rightBtnText.innerHTML = "排行榜"
     rightBtnIcon.classList = "fa-solid fa-ranking-star"
+    leftBtnText.innerHTML = "重新開局"
+    leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "麻雀賽果"
     check = true
   }
 })
 
+leftBtn.addEventListener("click", function(e){
+  if (check2) {
+    leaderBoard.style.display = 'none';
+    home.style.display = 'none';
+    cameraBtn.style.display = 'none'
+    start.style.display = 'flex'
+    rightBtnText.innerHTML = "排行榜"
+    rightBtnIcon.classList = "fa-solid fa-ranking-star"
+    leftBtnText.innerHTML = "開局"
+    leftBtnIcon.classList = "fa-solid fa-backward"
+    topBoxText.innerHTML = "今晚打老虎"
+    check2 = false
+    check = true
 
+  } else{
+    home.style.display = 'flex';
+    leaderBoard.style.display = 'none';
+    cameraBtn.style.display = 'flex'
+    start.style.display = 'none'
+    rightBtnText.innerHTML = "排行榜"
+    rightBtnIcon.classList = "fa-solid fa-ranking-star"
+    leftBtnText.innerHTML = "重新開局"
+    leftBtnIcon.classList = "fa-solid fa-backward"
+    topBoxText.innerHTML = "麻雀賽果"
+    check2 = true
+  }
+})
 
 
 
