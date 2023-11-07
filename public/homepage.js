@@ -58,7 +58,48 @@ let check2 = true
 
 topBoxIcon.addEventListener("click", function(e){
   Swal.fire({
+    html:`
+      <div class="timeline noScrollBar">
+        <div class="timelineSpace"></div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">1</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">2</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">3</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">4</p>
+          <p id="">1204</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-1204</p>
+        </div>
+        
 
+        <div class="timelineInfo">
+          <p class="round">局數</p>
+          <p class="timelinePlayer" id="player1">玩家1</p>
+          <p class="timelinePlayer" id="player2">玩家2</p>
+          <p class="timelinePlayer" id="player3">玩家3</p>
+          <p class="timelinePlayer" id="player4">玩家4</p>
+        </div>
+      </div>
+    `,
     confirmButtonText: "Return"
   })
 })

@@ -147,6 +147,14 @@ li {
     text-shadow: 0px 3px 3px rgb(0, 0, 0);
     position: relative;
 }
+.topBox p {
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 7px;
+    letter-spacing: 10px;
+    margin-right:-10px;
+    -webkit-text-stroke: 0.7px var(--secondary-color);
+}
 .topBox i {
     position: absolute;
     right: 5%;
@@ -160,13 +168,51 @@ li {
     border-radius: 100%;
     font-size: 17px;
 }
-.topBox p {
-    font-weight: 600;
+.timeline {
+    margin-top: 40px;
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: var(--player-color);
+    border-radius: 30px;
+}
+.timeline .timelineMatchInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+.timeline .timelineInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 45px;
+    background-color: var(--secondary-color);
+    position: absolute;
+    border-radius: 20px;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    color: white;
+    
+}
+.timeline .timelineInfo p {
+    margin-bottom: 0;
+}
+.timeline .timelineInfo .round {
     font-size: 25px;
-    margin-bottom: 7px;
-    letter-spacing: 10px;
-    margin-right:-10px;
-    -webkit-text-stroke: 0.7px var(--secondary-color);
+    font-weight: 600;
+}
+.timeline .timelineInfo .timelinePlayer {
+    font-size: 20px;
+}
+.timelineSpace {
+    height: 20px;
+}
+.roundInfo {
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .bottomBox {
@@ -363,11 +409,11 @@ div:where(.swal2-container) .swal2-html-container {
 }
 
 /* get rid of scroll bar in leaderBoard */
-.history {
+.noScrollBar {
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 }
-.history::-webkit-scrollbar { 
+.noScrollBar::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
 
