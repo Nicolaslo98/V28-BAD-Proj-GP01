@@ -15,8 +15,8 @@ document.querySelectorAll(".players").forEach((element) => {
         document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${value}`
       }
     });
-    
-    
+
+
   });
 })
 // Swal.fire({
@@ -58,7 +58,7 @@ let check2 = true
 
 
 
-rightBtn.addEventListener("click", function(e){
+rightBtn.addEventListener("click", function (e) {
   if (check) {
     leaderBoard.style.display = 'flex';
     home.style.display = 'none';
@@ -72,7 +72,7 @@ rightBtn.addEventListener("click", function(e){
     check = false
     check2 = true
 
-  } else{
+  } else {
     home.style.display = 'flex';
     leaderBoard.style.display = 'none';
     cameraBtn.style.display = 'flex'
@@ -85,7 +85,7 @@ rightBtn.addEventListener("click", function(e){
   }
 })
 
-leftBtn.addEventListener("click", function(e){
+leftBtn.addEventListener("click", function (e) {
   if (check2) {
     leaderBoard.style.display = 'none';
     home.style.display = 'none';
@@ -99,7 +99,7 @@ leftBtn.addEventListener("click", function(e){
     check2 = false
     check = true
 
-  } else{
+  } else {
     home.style.display = 'flex';
     leaderBoard.style.display = 'none';
     cameraBtn.style.display = 'flex'
@@ -115,17 +115,13 @@ leftBtn.addEventListener("click", function(e){
 const selector1 = document.querySelector(".selector1")
 const eight = document.getElementById("8Radio")
 
-selector1.addEventListener("click", function(e){
-  if (eight.checked){
+selector1.addEventListener("click", function (e) {
+  if (eight.checked) {
     console.log("yes")
-  } else if (!eight.checked){
+  } else if (!eight.checked) {
     console.log("no")
   }
 })
-
-
-
-
 
 // Get references to HTML elements
 const video = document.getElementById('video');
@@ -168,13 +164,13 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 // Function to capture a picture
-function capture() {
+async function capture() {
   // Draw the current video frame onto the canvas
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-  
+
   // Get the image data from the canvas as a base64-encoded PNG
   const imageData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-  
+
   // Do something with the captured image (e.g., display it on the page)
   const imageElement = document.createElement('img');
   imageElement.src = imageData;
@@ -182,24 +178,29 @@ function capture() {
   // console.log(imageData)
 
   // Save the image data to the server
-  fetch('/homepage', {
+  const res = await fetch('/camera', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({data:imageData}),
+    body: JSON.stringify({ data: imageData }),
   })
-    .then(response => {
-      if (response.ok) {
-        console.log('Image saved successfully');
-      } else {
-        console.error('Failed to save the image');
-      }
-    })
-    .catch(error => {
-      console.error('Error saving the image:', error);
-    });
-
+  const result = res.json()
+  if(result.success){
+    console.log('Image saved successfully');
+  } else {
+    console.error('Failed to save the image');
+  }
+    // .then(response => {
+    //   if (response.ok) {
+    //     console.log('Image saved successfully');
+    //   } else {
+    //     console.error('Failed to save the image');
+    //   }
+    // })
+    // .catch(error => {
+    //   console.error('Error saving the image:', error);
+    // });
 }
 
 // Event listener for the capture button

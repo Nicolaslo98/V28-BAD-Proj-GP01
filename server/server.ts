@@ -5,10 +5,17 @@ import { Request, Response } from "express";
 import path from "path";
 import fs from 'fs';
 import { passBase64 } from 'ts-base64toimage'
+import { MjController } from "../controller/mj-controller";
+import { MjService } from "../service/mj-service";
+import { urlRoutes } from "./urlRoutes";
 
 dotenv.config();
 const app = express();
 
+//Knex
+import knex from "../main";
+export const mjService = new MjService(knex)
+export const mjController = new MjController(mjService)
 
 //Request Log
 app.use((req, res, next) => {
@@ -21,49 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use(sessionMiddleware);
 
+//Routes
+import { apiRoutes } from "./apiRoutes";
+app.use("/api", apiRoutes);
+app.use(express.static(path.join(__dirname, "..", "public")));
+app.use("/", urlRoutes);
 
-//
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'homepage.html'));
+//404 Handler
+app.use((_req, res) => {
+  res.sendFile(path.join(__dirname, "..", "public", "404.html"));
 });
-
-// Endpoint to handle the save image request
-app.post('/homepage', (req, res) => {
-  const imageData = req.body.data; // Assuming you have a body parser middleware to parse the request body
-
-  // Specify the path to the folder where the images will be saved
-  const folderPath = path.join(__dirname, 'photo');
-
-  // Create the folder if it doesn't exist
-  // if (!fs.existsSync(folderPath)) {
-  //   fs.mkdirSync(folderPath);
-  // }
-
-  // Generate a unique filename for the image
-  const filename = `image_${Date.now()}.png`;
-
-  passBase64.toImage(imageData, 
-  {
-    path: folderPath,
-    fileName: filename,
-    fileExtension: 'png'
-  }
-)
-
-  // Save the image data to the folder
-  // const filePath = path.join(folderPath, filename);
-  // fs.writeFileSync(filePath, imageData, 'base64');
-
-  res.sendStatus(200);
-});
-
-
-
-
-
-
-const publicPath = path.join(__dirname, '..', 'public');
-app.use(express.static(publicPath));
 
 //Port
 const PORT = 8080;
