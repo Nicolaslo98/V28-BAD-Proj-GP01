@@ -46,16 +46,79 @@ const start = document.querySelector(".startBox")
 const rightBtn = document.querySelector(".rightBtn")
 const leftBtn = document.querySelector(".leftBtn")
 const cameraBtn = document.querySelector(".cameraBtn")
+const settingBtn = document.querySelector(".settingBtn")
 const rightBtnText = document.querySelector(".rightBtn p")
 const rightBtnIcon = document.querySelector(".rightBtn i")
 const leftBtnText = document.querySelector(".leftBtn p")
 const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
-
+const topBoxIcon = document.querySelector(".topBox i")
 let check = true
 let check2 = true
 
+topBoxIcon.addEventListener("click", function(e){
+  Swal.fire({
+    html:`
+      <div class="timeline noScrollBar">
+        <div class="timelineSpace"></div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">1</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">2</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">3</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-8</p>
+          <p id="">+4</p>
+        </div>
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">4</p>
+          <p id="">1204</p>
+          <p id="">0</p>
+          <p id="">0</p>
+          <p id="">-1204</p>
+        </div>
+        
 
+        <div class="timelineInfo">
+          <p class="round">局數</p>
+          <p class="timelinePlayer" id="player1">玩家1</p>
+          <p class="timelinePlayer" id="player2">玩家2</p>
+          <p class="timelinePlayer" id="player3">玩家3</p>
+          <p class="timelinePlayer" id="player4">玩家4</p>
+        </div>
+      </div>
+    `,
+    confirmButtonText: "Return"
+  })
+})
+
+settingBtn.addEventListener("click", function(e){
+  Swal.fire({
+    html:`
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="theme">
+    <label class="form-check-label" for="theme">Theme</label>
+    </div>
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="language">
+    <label class="form-check-label" for="language">Language</label>
+    </div>
+    `,
+    confirmButtonText: "Return"
+  });
+})
 
 
 rightBtn.addEventListener("click", function (e) {
@@ -63,12 +126,14 @@ rightBtn.addEventListener("click", function (e) {
     leaderBoard.style.display = 'flex';
     home.style.display = 'none';
     cameraBtn.style.display = 'none'
+    settingBtn.style.display = 'flex'
     start.style.display = 'none'
     rightBtnText.innerHTML = "現時賽果"
     rightBtnIcon.classList = "fa-solid fa-house"
     leftBtnText.innerHTML = "重新開局"
     leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "麻雀排行榜"
+    topBoxIcon.style.display= 'none'
     check = false
     check2 = true
 
@@ -76,26 +141,29 @@ rightBtn.addEventListener("click", function (e) {
     home.style.display = 'flex';
     leaderBoard.style.display = 'none';
     cameraBtn.style.display = 'flex'
+    settingBtn.style.display = 'none'
     rightBtnText.innerHTML = "排行榜"
     rightBtnIcon.classList = "fa-solid fa-ranking-star"
     leftBtnText.innerHTML = "重新開局"
     leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "麻雀賽果"
+    topBoxIcon.style.display= 'flex'
     check = true
   }
 })
-
-leftBtn.addEventListener("click", function (e) {
+leftBtn.addEventListener("click", function(e){
   if (check2) {
     leaderBoard.style.display = 'none';
     home.style.display = 'none';
     cameraBtn.style.display = 'none'
+    settingBtn.style.display = 'none'
     start.style.display = 'flex'
     rightBtnText.innerHTML = "排行榜"
     rightBtnIcon.classList = "fa-solid fa-ranking-star"
     leftBtnText.innerHTML = "開局"
     leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "今晚打老虎"
+    topBoxIcon.style.display= 'none'
     check2 = false
     check = true
 
@@ -103,25 +171,51 @@ leftBtn.addEventListener("click", function (e) {
     home.style.display = 'flex';
     leaderBoard.style.display = 'none';
     cameraBtn.style.display = 'flex'
+    settingBtn.style.display = 'none'
     start.style.display = 'none'
     rightBtnText.innerHTML = "排行榜"
     rightBtnIcon.classList = "fa-solid fa-ranking-star"
     leftBtnText.innerHTML = "重新開局"
     leftBtnIcon.classList = "fa-solid fa-backward"
     topBoxText.innerHTML = "麻雀賽果"
+    topBoxIcon.style.display= 'flex'
     check2 = true
   }
 })
-const selector1 = document.querySelector(".selector1")
-const eight = document.getElementById("8Radio")
 
-selector1.addEventListener("click", function (e) {
-  if (eight.checked) {
-    console.log("yes")
-  } else if (!eight.checked) {
-    console.log("no")
-  }
+
+
+function genFan(fan){
+  startRow.innerHTML=''
+      for (let i = 3; i <= fan; i++){
+        startRow.innerHTML += `
+        <div class="col-6">
+          <p>${i} 番</p>
+          <input class="form-control" type="text" placeholder="" aria-label="default input example">
+        </div>
+        `
+      }
+}
+const startRow = document.querySelector(".startBox .container-fluid .row")
+document.querySelectorAll(".selector1 input").forEach((element) => {
+  element.addEventListener('click', async (e) => {
+    if(e.target.id === "8Radio"){
+      genFan(8)
+    } else if(e.target.id === "10Radio"){
+      genFan(10)
+    } else{
+      genFan(13)
+    }
+    
+    
+  });
 })
+
+
+
+
+
+
 
 // Get references to HTML elements
 const video = document.getElementById('video');
