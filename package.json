@@ -15,10 +15,7 @@
     "preversion": "npm run lint && npm run format",
     "postversion": "git add . && git commit -m 'formatted latest version with tslint and prettier'"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HSKPeter/hk-mahjong-hand-calculation.git"
-  },
+  "repository": "git+https://github.com/HSKPeter/hk-mahjong-hand-calculation.git",
   "keywords": [
     "mahjong"
   ],
@@ -54,6 +51,8 @@
     "express-session": "^1.17.3",
     "grapheme-splitter": "^1.0.4",
     "hk-mahjong": "^3.2.0",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3",
     "ts-base64toimage": "^1.0.3"
   }
 }
