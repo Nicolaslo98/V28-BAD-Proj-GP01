@@ -1,13 +1,14 @@
+
 const axios = require("axios");
 const fs = require("fs");
 
-const image = fs.readFileSync("./testImage/testing1.jpeg", {
+const image = fs.readFileSync("./testImage/testing.jpg", {
     encoding: "base64"
 });
 
 axios({
     method: "POST",
-    url: "https://detect.roboflow.com/mahjong-vtacs/1",
+    url: "https://detect.roboflow.com/master-oez61/7",
     params: {
         api_key: "xc35k34eGmKJ3agYQern"
     },
