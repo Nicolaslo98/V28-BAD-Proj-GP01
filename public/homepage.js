@@ -51,18 +51,19 @@ const rightBtnIcon = document.querySelector(".rightBtn i")
 const leftBtnText = document.querySelector(".leftBtn p")
 const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
+
 let check = true
 let check2 = true
-// function clickedRightBtn(e) {
-//   console.log(e.target.id)
-  
-// }
+
+
+
 
 rightBtn.addEventListener("click", function(e){
   if (check) {
     leaderBoard.style.display = 'flex';
     home.style.display = 'none';
     cameraBtn.style.display = 'none'
+    start.style.display = 'none'
     rightBtnText.innerHTML = "現時賽果"
     rightBtnIcon.classList = "fa-solid fa-house"
     leftBtnText.innerHTML = "重新開局"
@@ -111,6 +112,17 @@ leftBtn.addEventListener("click", function(e){
     check2 = true
   }
 })
+const selector1 = document.querySelector(".selector1")
+const eight = document.getElementById("8Radio")
+
+selector1.addEventListener("click", function(e){
+  if (eight.checked){
+    console.log("yes")
+  } else if (!eight.checked){
+    console.log("no")
+  }
+})
+
 
 
 
