@@ -70,7 +70,9 @@
             </div>
         </div>
         <div class="leaderBoardBox">
+            
             <div class="history">
+                <div class="historySpace"></div>
                 <div class="playerInfo">
                     <p>1</p>
                     <p>玩家</p>
@@ -131,14 +133,56 @@
                     <p>玩家</p>
                     <p>60</p>
                 </div>
-                
-
-
-                <div class="info">
-                    <p>排名</p>
+                <div class="playerInfo">
+                    <p>1</p>
                     <p>玩家</p>
-                    <p>分數</p>
+                    <p>60</p>
                 </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+                <div class="playerInfo">
+                    <p>1</p>
+                    <p>玩家</p>
+                    <p>60</p>
+                </div>
+            </div>
+            <div class="info">
+                <p>排名</p>
+                <p>玩家</p>
+                <p>分數</p>
             </div>
         </div>
         <div class="container-fluid bottomBox">
@@ -152,8 +196,33 @@
                     <p>排行榜</p>
                 </div>
             </div>
-            <div class="cameraBtn">
+            <!-- <button class="cameraBtn">
                 <i class="bi bi-camera"></i>
+            </button> -->
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary cameraBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-camera"></i>
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <video id="video" autoplay>
+                            <canvas id="canvas" width="640" height="480"></canvas>
+                        </video>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="captureButton">Capture</button>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </div>

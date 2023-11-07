@@ -23,15 +23,12 @@ app.use(sessionMiddleware);
 
 
 //
-const publicPath = path.join(__dirname, '..', 'public');
-app.use(express.static(publicPath));
-
 app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
+  res.sendFile(path.join(publicPath, 'homepage.html'));
 });
 
 // Endpoint to handle the save image request
-app.post('/', (req, res) => {
+app.post('/homepage', (req, res) => {
   const imageData = req.body.data; // Assuming you have a body parser middleware to parse the request body
 
   // Specify the path to the folder where the images will be saved
@@ -65,7 +62,8 @@ app.post('/', (req, res) => {
 
 
 
-
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
 
 //Port
 const PORT = 8080;
