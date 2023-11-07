@@ -105,7 +105,7 @@ function capture() {
   const imageData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
   
   // Do something with the captured image (e.g., display it on the page)
-  const imageElement = document.createElement('img');
+  // const imageElement = document.createElement('img');
   imageElement.src = imageData;
   document.body.appendChild(imageElement);
   // console.log(imageData)

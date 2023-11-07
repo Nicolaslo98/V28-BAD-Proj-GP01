@@ -83,6 +83,9 @@ li {
     align-items: center;
     justify-content: center;
 }
+.btn-primary {
+    --bs-btn-border-color: 0;
+}
 #camera:hover {
     box-shadow: 0 0 15px 10px pink;
 }
@@ -233,6 +236,11 @@ li {
     justify-content: space-around;
     font-weight: 600;
 }
+
+.modal-backdrop {
+    display: none;
+}
+
 
 #video {
     width: 450px;
