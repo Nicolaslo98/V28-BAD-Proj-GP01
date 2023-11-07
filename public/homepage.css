@@ -85,6 +85,7 @@ li {
 }
 .btn-primary {
     --bs-btn-border-color: 0;
+    --bs-btn-color: black;
 }
 #camera:hover {
     box-shadow: 0 0 15px 10px pink;
@@ -210,7 +211,7 @@ li {
     width: 260px;
     height: 50px;
     background-color: var(--secondary-color);
-    top: 1%;
+    top: 17%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
@@ -230,6 +231,10 @@ li {
     background-color: var(--player-color);
     border-radius: 30px;
     position: relative;
+    overflow: scroll;
+}
+.historySpace {
+    height: 50px;
 }
 .playerInfo {
     display: flex;
