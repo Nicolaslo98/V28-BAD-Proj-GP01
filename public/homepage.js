@@ -269,7 +269,6 @@ async function capture() {
   const imageElement = document.createElement('img');
   imageElement.src = imageData;
   document.body.appendChild(imageElement);
-  // console.log(imageData)
 
   // Save the image data to the server
   const res = await fetch('/camera', {

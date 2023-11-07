@@ -3,4 +3,4 @@ import { captureRoutes } from "./captureRoutes"
 
 export const apiRoutes = express.Router();
 
-apiRoutes.use('/homepage',captureRoutes);
+apiRoutes.use('/camera', captureRoutes);
