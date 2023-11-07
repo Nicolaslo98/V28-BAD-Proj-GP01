@@ -51,7 +51,6 @@ const rightBtnIcon = document.querySelector(".rightBtn i")
 const leftBtnText = document.querySelector(".leftBtn p")
 const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
-
 let check = true
 let check2 = true
 
@@ -84,7 +83,6 @@ rightBtn.addEventListener("click", function(e){
     check = true
   }
 })
-
 leftBtn.addEventListener("click", function(e){
   if (check2) {
     leaderBoard.style.display = 'none';
@@ -112,16 +110,36 @@ leftBtn.addEventListener("click", function(e){
     check2 = true
   }
 })
-const selector1 = document.querySelector(".selector1")
-const eight = document.getElementById("8Radio")
 
-selector1.addEventListener("click", function(e){
-  if (eight.checked){
-    console.log("yes")
-  } else if (!eight.checked){
-    console.log("no")
-  }
+
+
+function genFan(fan){
+  startRow.innerHTML=''
+      for (let i = 3; i <= fan; i++){
+        startRow.innerHTML += `
+        <div class="col-6">
+          <p>${i} 番</p>
+          <input class="form-control" type="text" placeholder="" aria-label="default input example">
+        </div>
+        `
+      }
+}
+const startRow = document.querySelector(".startBox .container-fluid .row")
+document.querySelectorAll(".selector1 input").forEach((element) => {
+  element.addEventListener('click', async (e) => {
+    if(e.target.id === "8Radio"){
+      genFan(8)
+    } else if(e.target.id === "10Radio"){
+      genFan(10)
+    } else{
+      genFan(13)
+    }
+    
+    
+  });
 })
+
+
 
 
 
