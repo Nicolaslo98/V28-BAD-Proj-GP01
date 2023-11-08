@@ -6,9 +6,9 @@ export class MjService {
 
     }
     //sample
-    async userSetUp() {
-        const result = await this.knex.select("*").from("building").where("is_public", "true").andWhere("is_publish", "true").orderBy("created_at", "desc");
-        return result
-    }
+    // async userSetUp() {
+    //     const result = await this.knex.select("*").from("building").where("is_public", "true").andWhere("is_publish", "true").orderBy("created_at", "desc");
+    //     return result
+    // }
 
 }
