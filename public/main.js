@@ -4,7 +4,11 @@ document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     Swal.fire({
       html: `
-      
+        <div class="videoContainer">
+          <video id="video" autoplay playsInline muted>
+              <canvas id="canvas"></canvas>
+          </video>
+        </div>
       `,
       input: "text",
       inputLabel: "Name",
