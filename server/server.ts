@@ -4,7 +4,7 @@ import { sessionMiddleware } from "./session";
 import { Request, Response } from "express";
 import path from "path";
 import fs from 'fs';
-import { passBase64 } from 'ts-base64toimage'
+// import { passBase64 } from 'ts-base64toimage'
 import { MjController } from "../controller/mj-controller";
 import { MjService } from "../service/mj-service";
 import { urlRoutes } from "./urlRoutes";
