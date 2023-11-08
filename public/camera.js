@@ -2,7 +2,7 @@ export function genCamera() {
     // Get references to HTML elements
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
-
+    
     // Check if the browser supports getUserMedia
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Access the webcam
@@ -48,6 +48,17 @@ export function genCamera() {
 
 }
 
+
+//stop camera
+export function stopCamera() {
+    const stream = document.getElementById('video').srcObject
+    stream.getTracks().forEach((track) => {
+        if (track.readyState == 'live' && track.kind === 'video') {
+            track.stop();
+        }
+    });
+}
+
 //camera capture 
 export function capture() {
     // Draw the current video frame onto the canvas
@@ -81,4 +92,5 @@ export function capture() {
         method: 'POST',
         body: fetchData,
     })
+
 }
