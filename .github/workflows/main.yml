@@ -50,7 +50,7 @@ jobs:
             git pull origin main
             yarn install
             yarn knex migrate:latest --env production
-            pm2 restart V28-BAD-Proj-GP01 
+            pm2 restart 0
           host: 46.51.223.210
           username: ubuntu
           port: 22
