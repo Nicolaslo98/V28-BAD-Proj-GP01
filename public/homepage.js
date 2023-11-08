@@ -83,7 +83,7 @@ function genCamera(){
         const webcam = devices.find(device => device.kind === 'videoinput');
         if (webcam) {
           // Access the webcam
-          const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: webcam.deviceId, facingMode: 'environment'}});
+          const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: webcam.deviceId, facingMode: {exact: 'environment'}}});
           // Set the video source
           video.srcObject = stream;
         } else {
