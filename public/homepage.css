@@ -417,3 +417,18 @@ div:where(.swal2-container) .swal2-html-container {
     display: none;  /* Safari and Chrome */
 }
 
+#capturedImg{
+    position: fixed;
+    z-index: -100;
+}
+
+#video {
+    object-fit: contain;
+    width: 190%;
+    height: auto;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
