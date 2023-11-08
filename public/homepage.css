@@ -37,8 +37,8 @@
 
 .players {
     border-radius: 30px;
-    width: 19vh;
-    height: 19vh;
+    width: 18vh;
+    height: 18vh;
     margin-top: 20px;
     display: flex;
     justify-content: center;
@@ -334,12 +334,6 @@ div:where(.swal2-container) .swal2-html-container {
 }
 
 
-#video {
-    width: 450px;
-    height: 400px;
-    object-fit: cover;
-} 
-
 .startBox{
     width: 370px;
     height: 70%;
@@ -417,3 +411,22 @@ div:where(.swal2-container) .swal2-html-container {
     display: none;  /* Safari and Chrome */
 }
 
+#capturedImg{
+    position: fixed;
+    z-index: -100;
+}
+
+#video {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+
+.videoContainer {
+    width: 80vw;
+    height: auto; 
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
