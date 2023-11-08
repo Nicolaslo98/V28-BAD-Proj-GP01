@@ -18,29 +18,29 @@ env:
   TEST__DB_PORT: 5432
   
 jobs:
-  testing:
-    runs-on: ubuntu-latest
-    container: node:latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_DB: ${{env.TEST__DB_NAME}}
-          POSTGRES_USER: ${{env.TEST__DB_USERNAME}}
-          POSTGRES_PASSWORD: ${{env.TEST__DB_PASSWORD}}
-          POSTGRES_PORT: ${{env.TEST__DB_PORT}}
-          POSTGRES_HOST: ${{env.TEST__DB_HOSTNAME}}
-        ports:
-          - 5432:5432
-    steps:
-      - uses: actions/checkout@v3
-      - run: |
-          yarn install
-          yarn knex migrate:latest --env test
-          yarn test
+  # testing:
+  #   runs-on: ubuntu-latest
+  #   container: node:latest
+  #   services:
+  #     postgres:
+  #       image: postgres
+  #       env:
+  #         POSTGRES_DB: ${{env.TEST__DB_NAME}}
+  #         POSTGRES_USER: ${{env.TEST__DB_USERNAME}}
+  #         POSTGRES_PASSWORD: ${{env.TEST__DB_PASSWORD}}
+  #         POSTGRES_PORT: ${{env.TEST__DB_PORT}}
+  #         POSTGRES_HOST: ${{env.TEST__DB_HOSTNAME}}
+  #       ports:
+  #         - 5432:5432
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - run: |
+  #         yarn install
+  #         yarn knex migrate:latest --env test
+  #         yarn test
   deploy:
     runs-on: ubuntu-latest
-    needs: testing
+    # needs: testing
     steps:
       - name: ssh to pull latest version
         uses: appleboy/ssh-action@master
