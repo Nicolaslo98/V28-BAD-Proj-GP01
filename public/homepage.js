@@ -321,39 +321,3 @@ document.querySelectorAll(".selector1 input").forEach((element) => {
   });
 })
 
-
-
-
-function capture() {
-  // Draw the current video frame onto the canvas
-  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-  
-  // Get the image data from the canvas as a base64-encoded PNG
-  const imageData = canvas.toDataURL('image/png');
-  const fetchData = new FormData();
-  const byteCharacters = atob(imageData.split(',')[1]);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  const imageFile = new Blob([byteArray], { type: 'image/png' });
-
-  console.log(imageFile);
-
-  // Rename the image file to have a .png extension
-  const renamedFile = new File([imageFile], 'image.png', { type: 'image/png' });
-
-  fetchData.append('image', renamedFile);
-
-  // Do something with the captured image (e.g., display it on the page)
-  const imageElement = document.createElement('img');
-  imageElement.src = imageData;
-  document.body.appendChild(imageElement);
-
-  // Save the image data to the server
-  fetch('/api/camera', {
-    method: 'POST',
-    body: fetchData,
-  })
-}
