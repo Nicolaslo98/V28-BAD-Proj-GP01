@@ -144,10 +144,11 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
       genCamera()
     },
     html:`
-      <video id="video" autoplay>
-          <canvas id="canvas"></canvas>
-      </video>
-      <button type="button" class="btn btn-primary" id="captureButton">Capture</button>
+      <div class="videoContainer">
+        <video id="video" autoplay>
+            <canvas id="canvas"></canvas>
+        </video>
+      </div>
     `,
     width: '100%',
     confirmButtonText: 'Capture'
