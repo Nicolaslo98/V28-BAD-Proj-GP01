@@ -389,16 +389,6 @@ async function capture() {
   } else {
     console.error('Failed to save the image');
   }
-    // .then(response => {
-    //   if (response.ok) {
-    //     console.log('Image saved successfully');
-    //   } else {
-    //     console.error('Failed to save the image');
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error('Error saving the image:', error);
-    // });
 }
 
 // Event listener for the capture button
