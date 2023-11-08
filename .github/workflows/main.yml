@@ -2,7 +2,7 @@ name: c28_bad_grp01
 on:
   push:
     branches:
-      - "*"
+      - "production"
   workflow_dispatch:
 
 env:
