@@ -22,11 +22,11 @@ const config: { [key: string]: Knex.Config } = {
     test: {
         client: "postgresql",
         connection: {
-            database: process.env.POSTGRES_DB,
-            user: process.env.POSTGRES_USERNAME,
-            password: process.env.POSTGRES_PASSWORD,
-            host: process.env.POSTGRES_HOST,
-            port: parseInt(process.env.POSTGRES_PORT || "5432"),
+            database: process.env.TEST__DB_NAME,
+            user: process.env.TEST__DB_USERNAME,
+            password: process.env.TEST__DB_PASSWORD,
+            host: process.env.TEST__DB_HOSTNAME,
+            port: parseInt(process.env.TEST__DB_PORT || "5432"),
         },
         pool: {
             min: 2,
