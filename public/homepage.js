@@ -67,7 +67,7 @@ function genCamera(){
     // Access the webcam
     (async function () {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({video: true, video: {facingMode: {exact: 'environment'} }});
         // Set the video source
         video.srcObject = stream;
       } catch (error) {
