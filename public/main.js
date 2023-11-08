@@ -1,4 +1,4 @@
-import {genCamera, capture, stopCamera} from "./camera.js"
+import { genCamera, capture, stopCamera } from "./camera.js"
 
 
 
@@ -10,7 +10,7 @@ document.querySelectorAll(".players").forEach((element) => {
       },
       allowOutsideClick: false,
       html: `
-        <div class="playerVideoContainer">
+        <form class="playerVideoContainer">
           <video id="video" autoplay playsInline muted>
               <canvas id="canvas"></canvas>
           </video>
@@ -27,8 +27,15 @@ document.querySelectorAll(".players").forEach((element) => {
         document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${value}`
       }
     }).then((result) => {
+      console.log(result)
       if (result.isConfirmed) {
-        capture()
+        const fetchData = capture()
+        fetchData.append("username", result.value)
+        console.log(fetchData)
+        fetch('/api/user', {
+          method: 'POST',
+          body: fetchData,
+        })
         stopCamera()
       } else {
         stopCamera()
@@ -62,14 +69,14 @@ document.querySelectorAll(".players").forEach((element) => {
 
 
 //run camera
-document.querySelector(".cameraBtn").addEventListener("click", function(e){
+document.querySelector(".cameraBtn").addEventListener("click", function (e) {
   Swal.fire({
     didOpen: () => {
       genCamera()
     },
     showCancelButton: true,
     allowOutsideClick: false,
-    html:`
+    html: `
       <div class="mainVideoContainer">
         <video id="video" autoplay playsInline muted>
             <canvas id="canvas"></canvas>
@@ -81,6 +88,11 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
   }).then((result) => {
     if (result.isConfirmed) {
       capture()
+      const fetchData = capture()
+      fetch('/api/camera', {
+        method: 'POST',
+        body: fetchData,
+      })
       stopCamera()
     } else {
       stopCamera()
@@ -89,9 +101,9 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
 })
 
 
-document.querySelector(".topBox i").addEventListener("click", function(e){
+document.querySelector(".topBox i").addEventListener("click", function (e) {
   Swal.fire({
-    html:`
+    html: `
       <div class="timeline noScrollBar">
         <div class="timelineSpace"></div>
         <div class="timelineMatchInfo">

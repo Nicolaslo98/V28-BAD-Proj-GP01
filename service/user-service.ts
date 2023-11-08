@@ -6,16 +6,17 @@ export class UserService {
 
     }
     
-    async userSetUp() {
+    async userSetUp(username:string, user_image:string) {
+        console.log("step2")
         const result = await this.knex('player')
         .insert(
             {
-                username: "username",
-                user_image: "user_image"
+                username: username,
+                user_image: user_image,
+                user_point: 0,
+                round: 0
             }
         )
-        .returning("id, user_image")
         return result
     }
-
 }

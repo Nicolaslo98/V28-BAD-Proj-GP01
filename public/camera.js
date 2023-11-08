@@ -87,10 +87,12 @@ export function capture() {
     imageElement.src = imageData;
     document.body.appendChild(imageElement);
 
+    return fetchData
+
     // Save the image data to the server
-    fetch('/api/camera', {
-        method: 'POST',
-        body: fetchData,
-    })
+    // fetch('/api/camera', {
+    //     method: 'POST',
+    //     body: fetchData,
+    // })
 
 }

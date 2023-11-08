@@ -16,6 +16,11 @@ import { CaptureService } from "../service/capture-service";
 export const captureService = new CaptureService(knex)
 export const captureController = new CaptureController(captureService)
 
+import { UserController } from "../controller/user-controller";
+import { UserService } from "../service/user-service";
+export const userService = new UserService(knex)
+export const userController = new UserController(userService)
+
 //Request Log
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] Request: ${req.path}`);
@@ -24,7 +29,7 @@ app.use((req, res, next) => {
 
 //Third party middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json());
 app.use(sessionMiddleware);
 
 //Routes

@@ -19,20 +19,9 @@ export class CaptureController {
             const formData = form.parse(req, (fields, files) => {
                 return { fields, files };
             });
-            res.json({ success: true, message: "capture image successfully" })
+            res.json({ success: true, message: "capture image successfully 22" })
         } catch (err) {
             res.json({ success: false, message: "fail to capture image", err })
-        }
-    }
-
-    createUser = async (req: Request, res: Response) => {
-        try {
-            const { username, user_image } = req.body
-            if(username.length >= 1 && user_image >= 1) {
-                res.json({ success: true, message: "create player successfully" })
-            }
-        } catch (err) {
-            res.json({ success: false, message: "fail to create user", err})
         }
     }
 }
