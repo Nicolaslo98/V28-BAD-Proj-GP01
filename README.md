@@ -1,6 +1,10 @@
 #1
 SELECT * FROM round JOIN game ON round.id = game.round_id WHERE round.id = ?
 
+History Controller
+User Controller
+Calculator Controller
+
 #API development
 
 #1.1 Create player part

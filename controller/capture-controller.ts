@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { MjService } from "../service/mj-service"
+import { CaptureService } from "../service/capture-service"
 import path from "path";
 // import { passBase64 } from 'ts-base64toimage'
 import formidable from 'formidable';
 
-export class MjController {
+export class CaptureController {
 
-    constructor(private mjService: MjService) {
+    constructor(private captureService: CaptureService) {
     }
 
     captureImage = async (req: Request, res: Response) => {
@@ -22,6 +22,17 @@ export class MjController {
             res.json({ success: true, message: "capture image successfully" })
         } catch (err) {
             res.json({ success: false, message: "fail to capture image", err })
+        }
+    }
+
+    createUser = async (req: Request, res: Response) => {
+        try {
+            const { username, user_image } = req.body
+            if(username.length >= 1 && user_image >= 1) {
+                res.json({ success: true, message: "create player successfully" })
+            }
+        } catch (err) {
+            res.json({ success: false, message: "fail to create user", err})
         }
     }
 }

@@ -4,11 +4,11 @@ document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     Swal.fire({
       html: `
-        <div class="videoContainer">
+        <form class="videoContainer">
           <video id="video" autoplay playsInline muted>
               <canvas id="canvas"></canvas>
           </video>
-        </div>
+        </form>
       `,
       input: "text",
       inputLabel: "Name",
@@ -118,9 +118,4 @@ document.querySelector(".topBox i").addEventListener("click", function(e){
     confirmButtonText: "Return"
   })
 })
-
-
-
-
-
 

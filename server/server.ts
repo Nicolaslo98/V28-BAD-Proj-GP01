@@ -4,18 +4,17 @@ import { sessionMiddleware } from "./session";
 import { Request, Response } from "express";
 import path from "path";
 import fs from 'fs';
-// import { passBase64 } from 'ts-base64toimage'
-import { MjController } from "../controller/mj-controller";
-import { MjService } from "../service/mj-service";
-import { urlRoutes } from "./urlRoutes";
+
 
 dotenv.config();
 const app = express();
 
 //Knex
 import knex from "../main";
-export const mjService = new MjService(knex)
-export const mjController = new MjController(mjService)
+import { CaptureController } from "../controller/capture-controller";
+import { CaptureService } from "../service/capture-service";
+export const captureService = new CaptureService(knex)
+export const captureController = new CaptureController(captureService)
 
 //Request Log
 app.use((req, res, next) => {
@@ -31,8 +30,8 @@ app.use(sessionMiddleware);
 //Routes
 import { apiRoutes } from "./apiRoutes";
 app.use("/api", apiRoutes);
-app.use(express.static(path.join(__dirname, "..", "public")));
-app.use("/", urlRoutes);
+app.use(express.static(path.join(__dirname, "..", "public"),{extensions: ['html', 'htm']}));
+// app.use("/", urlRoutes);
 
 //404 Handler
 app.use((_req, res) => {
