@@ -1,5 +1,7 @@
 import {genCamera, capture, stopCamera} from "./camera.js"
 
+
+
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     Swal.fire({
