@@ -6,7 +6,7 @@
     --player-color: #FAE7C9
 }
 .background {
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     display: flex;
     flex-direction: column;
