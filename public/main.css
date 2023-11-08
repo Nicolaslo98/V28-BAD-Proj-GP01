@@ -5,6 +5,7 @@
     --secondary-color: #706233;
     --player-color: #FAE7C9
 }
+
 .background {
     height: 100dvh;
     width: 100vw;
@@ -13,6 +14,11 @@
     justify-content: space-between;
     align-items: center;
     position: fixed;
+    background-image: url('https://t3.ftcdn.net/jpg/01/92/56/92/360_F_192569231_SEoh2RBLTRvKifEIuPTHR6LlSES4rtVA.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
 }
 
 .navbar {
@@ -416,15 +422,35 @@ div:where(.swal2-container) .swal2-html-container {
     z-index: -100;
 }
 
-#video {
+.mainVideoContainer #video {
     object-fit: cover;
     width: 100%;
     height: auto;
 }
 
-.videoContainer {
+.mainVideoContainer {
     width: 80vw;
     height: auto; 
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.playerVideoContainer {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+}
+
+.playerVideoContainer #video{
+    width: 200%;
+    height: auto;
     position: relative;
     top: 50%;
     left: 50%;

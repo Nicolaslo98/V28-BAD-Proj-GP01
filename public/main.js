@@ -1,17 +1,23 @@
-import {genCamera, capture} from "./camera.js"
+import {genCamera, capture, stopCamera} from "./camera.js"
+
+
 
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     Swal.fire({
+      didOpen: () => {
+        genCamera()
+      },
+      allowOutsideClick: false,
       html: `
-        <form class="videoContainer">
+        <div class="playerVideoContainer">
           <video id="video" autoplay playsInline muted>
               <canvas id="canvas"></canvas>
           </video>
         </form>
       `,
       input: "text",
-      inputLabel: "Name",
+      inputPlaceholder: "Enter Name",
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -20,7 +26,14 @@ document.querySelectorAll(".players").forEach((element) => {
         console.log(value)
         document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${value}`
       }
-    });
+    }).then((result) => {
+      if (result.isConfirmed) {
+        capture()
+        stopCamera()
+      } else {
+        stopCamera()
+      }
+    })
 
 
   });
@@ -54,8 +67,10 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
     didOpen: () => {
       genCamera()
     },
+    showCancelButton: true,
+    allowOutsideClick: false,
     html:`
-      <div class="videoContainer">
+      <div class="mainVideoContainer">
         <video id="video" autoplay playsInline muted>
             <canvas id="canvas"></canvas>
         </video>
@@ -66,6 +81,9 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
   }).then((result) => {
     if (result.isConfirmed) {
       capture()
+      stopCamera()
+    } else {
+      stopCamera()
     }
   })
 })
