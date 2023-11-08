@@ -145,7 +145,7 @@ document.querySelector(".cameraBtn").addEventListener("click", function(e){
     },
     html:`
       <div class="videoContainer">
-        <video id="video" autoplay>
+        <video id="video" autoplay playsInline muted>
             <canvas id="canvas"></canvas>
         </video>
       </div>
