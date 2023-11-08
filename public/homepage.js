@@ -56,7 +56,7 @@ const topBoxIcon = document.querySelector(".topBox i")
 let check = true
 let check2 = true
 
-
+//call camera
 function genCamera(){
   // Get references to HTML elements
   const video = document.getElementById('video');
@@ -67,7 +67,7 @@ function genCamera(){
     // Access the webcam
     (async function () {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({video: true, video: {facingMode: {exact: 'environment'} }});
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         // Set the video source
         video.srcObject = stream;
       } catch (error) {
@@ -83,7 +83,7 @@ function genCamera(){
         const webcam = devices.find(device => device.kind === 'videoinput');
         if (webcam) {
           // Access the webcam
-          const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: webcam.deviceId, facingMode: {exact: 'environment'}}});
+          const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: webcam.deviceId } });
           // Set the video source
           video.srcObject = stream;
         } else {
@@ -100,44 +100,43 @@ function genCamera(){
   // Function to capture a picture
   
 }
-async function capture() {
+
+//camera capture 
+function capture() {
   // Draw the current video frame onto the canvas
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-
+  
   // Get the image data from the canvas as a base64-encoded PNG
-  const imageData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+  const imageData = canvas.toDataURL('image/png');
+  const fetchData = new FormData();
+  const byteCharacters = atob(imageData.split(',')[1]);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const imageFile = new Blob([byteArray], { type: 'image/png' });
+
+  console.log(imageFile);
+
+  // Rename the image file to have a .png extension
+  const renamedFile = new File([imageFile], 'image.png', { type: 'image/png' });
+
+  fetchData.append('image', renamedFile);
 
   // Do something with the captured image (e.g., display it on the page)
   const imageElement = document.createElement('img');
-  imageElement.id = "capturedImg"
   imageElement.src = imageData;
   document.body.appendChild(imageElement);
 
   // Save the image data to the server
-  const res = await fetch('/camera', {
+  fetch('/api/camera', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data: imageData }),
+    body: fetchData,
   })
-  const result = res.json()
-  if(result.success){
-    console.log('Image saved successfully');
-  } else {
-    console.error('Failed to save the image');
-  }
-    // .then(response => {
-    //   if (response.ok) {
-    //     console.log('Image saved successfully');
-    //   } else {
-    //     console.error('Failed to save the image');
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error('Error saving the image:', error);
-    // });
 }
+
+//run camera
 document.querySelector(".cameraBtn").addEventListener("click", function(e){
   Swal.fire({
     didOpen: () => {
@@ -319,56 +318,27 @@ document.querySelectorAll(".selector1 input").forEach((element) => {
 
 
 
-
-
-
-// Get references to HTML elements
-const video = document.getElementById('video');
-const captureButton = document.getElementById('captureButton');
-const canvas = document.getElementById('canvas');
-
-// Check if the browser supports getUserMedia
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  // Access the webcam
-  (async function () {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      // Set the video source
-      video.srcObject = stream;
-    } catch (error) {
-      console.error('Error accessing the webcam:', error);
-    }
-  })();
-} else if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-  // Fallback for older browsers that only support enumerateDevices
-  (async function () {
-    try {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      // Find the webcam device
-      const webcam = devices.find(device => device.kind === 'videoinput');
-      if (webcam) {
-        // Access the webcam
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: webcam.deviceId } });
-        // Set the video source
-        video.srcObject = stream;
-      } else {
-        console.error('No webcam found');
-      }
-    } catch (error) {
-      console.error('Error enumerating devices:', error);
-    }
-  })();
-} else {
-  console.error('Webcam not supported');
-}
-
-// Function to capture a picture
-async function capture() {
+function capture() {
   // Draw the current video frame onto the canvas
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-
+  
   // Get the image data from the canvas as a base64-encoded PNG
-  const imageData = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+  const imageData = canvas.toDataURL('image/png');
+  const fetchData = new FormData();
+  const byteCharacters = atob(imageData.split(',')[1]);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const imageFile = new Blob([byteArray], { type: 'image/png' });
+
+  console.log(imageFile);
+
+  // Rename the image file to have a .png extension
+  const renamedFile = new File([imageFile], 'image.png', { type: 'image/png' });
+
+  fetchData.append('image', renamedFile);
 
   // Do something with the captured image (e.g., display it on the page)
   const imageElement = document.createElement('img');
@@ -376,20 +346,8 @@ async function capture() {
   document.body.appendChild(imageElement);
 
   // Save the image data to the server
-  const res = await fetch('/camera', {
+  fetch('/api/camera', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data: imageData }),
+    body: fetchData,
   })
-  const result = res.json()
-  if(result.success){
-    console.log('Image saved successfully');
-  } else {
-    console.error('Failed to save the image');
-  }
 }
-
-// Event listener for the capture button
-captureButton.addEventListener('click', capture);
