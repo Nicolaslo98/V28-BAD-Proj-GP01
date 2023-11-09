@@ -31,6 +31,11 @@ import { HistoryService } from "../service/history-service";
 export const historyService = new HistoryService(knex);
 export const historyController = new HistoryController(historyService);
 
+import { EplayerController } from "../controller/eplayer-controller";
+import { EplayerService } from "../service/eplayer-service";
+export const eplayerService = new EplayerService(knex);
+export const eplayerController = new EplayerController(eplayerService);
+
 //Request Log
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] Request: ${req.path}`);

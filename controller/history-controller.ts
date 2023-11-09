@@ -9,7 +9,7 @@ export class HistoryController {
   // }
   getRoundData = async(req: Request, res: Response)=> {
     const roundId: number = Number(req.params.roundId);
-    console.log('P'+roundId); 
+    // console.log('P'+roundId); 
     try {
       const roundData = await this.historyService.getRoundData(roundId);
       // console.log(roundData);
