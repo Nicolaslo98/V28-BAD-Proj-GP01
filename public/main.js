@@ -34,13 +34,13 @@ await Swal.fire({
       inputValidator: (value) => {
         if (!value) {
           return "You need to write something!";
-        } else if (value.length <= 5){
-          return "Password must be at least 6 letter long"
+        } else if (value.length <= 2){
+          return "Password must be at least 3 letter long"
         }
       }
     }).then(async (result) => {
       if (result.isConfirmed){
-        console.log(`${roomName} ${result.value}`)
+        console.log(roomName)
         const FormData = {
           room_name: roomName,
           password: result.value
