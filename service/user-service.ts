@@ -13,7 +13,7 @@ export class UserService {
             {
                 username: username,
                 user_image: user_image,
-                user_point: 0,
+                user_total_score: 0,
                 round: 0
             }
         )
