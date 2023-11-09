@@ -550,10 +550,10 @@ div:where(.swal2-container) .swal2-html-container {
             dimgrey 0,
             dimgrey 1ch,
             transparent 0,
-            transparent 1.5ch) 0 100%/100% 2px no-repeat;
+            transparent 1.7ch) 0 100%/100% 2px no-repeat;
     color: dimgrey;
     font: 5ch consolas, monospace;
-    letter-spacing: .5ch;
+    letter-spacing: .72ch;
     margin: 0 !important;
     box-shadow: 0 0 0 !important;
 }

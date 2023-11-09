@@ -81,7 +81,7 @@ async function createJoinRoom(){
       },
       html:`
         <div class="roomPinCode">
-          <input name="pinCode" type="text" class="pinCode swal2-input" id="pinCode" inputmode="numeric" maxlength="7">
+          <input name="pinCode" type="text" class="pinCode swal2-input" id="pinCode" inputmode="numeric" maxlength="5">
         </div>
       `,
       allowOutsideClick: false,
