@@ -456,3 +456,9 @@ div:where(.swal2-container) .swal2-html-container {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.dropSelect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
