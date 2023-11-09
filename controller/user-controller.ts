@@ -27,8 +27,8 @@ export class UserController {
             });
             form.parse(req, async (error, fields, files ) => {
                 const user_image = (files.file as formidable.File)?.newFilename
-                // const room_id = this.roomService.roomSetup
-                // await this.userService.userSetUp( (fields.username as string), user_image, room.id )
+                const room_id = req.session.room?.roomId
+                await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
             });
                 res.json({ success: true, message: "create player successfully" })
         } catch (err) {
