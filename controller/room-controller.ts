@@ -1,26 +1,40 @@
 import { Request, Response } from "express";
 import { RoomService } from "../service/room-service"
 import expressSession from "express-session"
+import "../server/session";
 import path, { dirname } from "path";
 
 export class RoomController {
 
     constructor(private roomService: RoomService) {
     }
-    
-    //Method: POST '/api/room
+
+    //Method: POST '/api/room/check
     checkRoom = async (req: Request, res: Response) => {
         try {
-            const room_name = req.body.room_name
+            // if (!req.session.room) {
+            //     res.status(200).json({ success: false, message: "Guest" });
+            //     return;
+            // }
+            // if (req.session.room){
+            //     res.json({
+            //         success: true,
+            //         message: "Logged in",
+            //         roomId: req.session.room,
+            //       });
+            //       return
+            // }
 
+            const room_name = req.body.room_name
             const room = await this.roomService.findRoom(room_name)
-            
+
             if (room.length == 0) {
                 res.json({ success: true, message: "no existing name" })
             } else {
                 res.status(400)
                 res.json({ success: false, message: "has existing room" })
-            } 
+            }
+
         } catch (err) {
             res.status(403)
             res.json({ success: false, message: "fail to check room", err })
@@ -30,15 +44,24 @@ export class RoomController {
     //Method: POST '/api/room/create
     createRoom = async (req: Request, res: Response) => {
         try {
-            const room_name = req.body.room_name
-            const password = req.body.password
+            const room_name: string = req.body.room_name
+            const password: number = req.body.password
             const room = await this.roomService.findRoom(room_name)
 
+            if (room.length > 0) {
+                res.json({ success: false, message: "please back to create room name" })
+            } else 
             if (room.length == 0) {
-                await this.roomService.roomSetup(room_name, password)
+                const result: any = await this.roomService.roomSetup(room_name, password)
                 res.json({ success: true, message: "create room successfully" })
+                req.session.room = {
+                    roomId: result[0].id,
+                    room_name: result[0].room_name
+                }
             }
+            return
         } catch (err) {
+            console.log(err)
             res.json({ success: false, message: "fail to create room", err })
         }
     }

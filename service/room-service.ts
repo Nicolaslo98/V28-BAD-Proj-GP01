@@ -20,7 +20,7 @@ export class RoomService {
                 password: password,
             }
         )
-        .returning (['password'])
+        .returning (['id','room_name'])
         return result
     }
 

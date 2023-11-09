@@ -5,3 +5,10 @@ export let sessionMiddleware = expressSession({
   resave: true,
   saveUninitialized: true,
 });
+
+declare module "express-session" {
+  interface SessionData {
+    room?: { room_name: string; roomId: number };
+    grant?: { response?: { access_token?: string } };
+  }
+}
