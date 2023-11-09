@@ -4,8 +4,7 @@ import { HistoryService } from '../service/history-service';
 export class HistoryController {
   private service: HistoryService;
 
-  constructor() {
-    this.service = new HistoryService();
+  constructor( private historyService: HistoryService) {
   }
 
   public async getRoundData(req: Request, res: Response): Promise<void> {
