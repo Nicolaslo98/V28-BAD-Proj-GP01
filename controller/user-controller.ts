@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../service/user-service"
-import path, { dirname } from "path";
 import formidable from 'formidable';
-import { RoomController } from "./room-controller";
 import { RoomService } from "../service/room-service";
 
 export class UserController {

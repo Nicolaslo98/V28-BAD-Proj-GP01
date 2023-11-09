@@ -96,7 +96,7 @@ async function createJoinRoom(){
         const FormData = {
           room_name: roomName,
         }
-        const res = await fetch('/api/room', {
+        const res = await fetch('/api/room/check', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
