@@ -1,46 +1,89 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
-
+function fetchExistingPlayer() {
+  
+}
 
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
+    let testDummy = "potato"
     Swal.fire({
       didOpen: () => {
-        genCamera()
+        // document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
       },
-      allowOutsideClick: false,
-      html: `
-        <form class="playerVideoContainer">
-          <video id="video" autoplay playsInline muted>
-              <canvas id="canvas"></canvas>
-          </video>
-        </form>
+      html:`
+        <div class="choosePlayer">
+          <div class="existingPlayer">
+            <ul>
+              <li class="existingPicHolder">
+                  <img class="existingPic"
+                      src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+              </li>
+              <form class="existingNameForm">
+                <label for="existingName">Name</label>
+                <select name="existingName" id="existingName">
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option> 
+                </select>
+              </form>
+            </ul>
+          </div>
+        </div>
       `,
-      input: "text",
-      inputPlaceholder: "Enter Name",
       showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      }
-    }).then( (result) => {
-      console.log(result)
-      if (result.isConfirmed) {
-        const fetchData = capture()
-        fetchData.append("username", result.value)
-        console.log(fetchData)
-        fetch('/api/user', {
-          method: 'POST',
-          body: fetchData,
-        })
-        document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`
-        document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`
-        stopCamera()
+      confirmButtonText: 'Select',
+      cancelButtonText: 'Add new player'
+    }).then((result) => {
+      if (result.isConfirmed){
+        console.log("nice")
       } else {
-        stopCamera()
+        Swal.fire({
+          didOpen: () => {
+            genCamera()
+          },
+          allowOutsideClick: false,
+          html: `
+            <form class="playerVideoContainer">
+              <video id="video" autoplay playsInline muted>
+                  <canvas id="canvas"></canvas>
+              </video>
+            </form>
+          `,
+          input: "text",
+          inputPlaceholder: "Enter Name",
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return "You need to write something!";
+            }
+          }
+        }).then( (result) => {
+          console.log(result)
+          if (result.isConfirmed) {
+            const fetchData = capture()
+            fetchData.append("username", result.value)
+            console.log(fetchData)
+            fetch('/api/user', {
+              method: 'POST',
+              body: fetchData,
+            })
+            document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`
+            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`
+            stopCamera()
+          } else {
+            stopCamera()
+          }
+        })
       }
     })
+
+
+
+
+
+    
   });
 })
 
@@ -82,6 +125,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         stopCamera()
         await Swal.fire({
           title: "Is this correct?",
+          allowOutsideClick: false,
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
           icon: "warning",
           showCancelButton: true,
@@ -98,17 +142,18 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 // const playerList = fetchPlayer()
               },
               title: "Select Winner and Loser",
+              allowOutsideClick: false,
               html:`
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
               <form class="dropSelect">
-                <label for="winner">Winner:</label>
+                <label for="winner">Winner</label>
                 <select name="winner" id="winner">
                   <option value="${testDummy}">${testDummy}</option>
                   <option value="${testDummy}">${testDummy}</option>
                   <option value="${testDummy}">${testDummy}</option>
                   <option value="${testDummy}">${testDummy}</option>
                 </select>
-                <label for="loser">Loser:</label>
+                <label for="loser">Loser</label>
                 <select name="loser" id="loser">
                   <option value="${testDummy}">${testDummy}</option>
                   <option value="${testDummy}">${testDummy}</option>

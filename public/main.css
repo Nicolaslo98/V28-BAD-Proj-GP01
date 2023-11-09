@@ -462,3 +462,25 @@ div:where(.swal2-container) .swal2-html-container {
     flex-direction: column;
     align-items: center;
 }
+
+.existingNameForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.existingPicHolder {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.existingPic {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 100%;
+    box-shadow: 3px 3px 3px;
+}
+#existingName {
+    font-size: 20px;
+    border-radius: 5px;
+}
