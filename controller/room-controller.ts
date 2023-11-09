@@ -18,9 +18,11 @@ export class RoomController {
             if (room.length == 0) {
                 res.json({ success: true, message: "no existing name" })
             } else {
+                res.status(400)
                 res.json({ success: false, message: "has existing room" })
             } 
         } catch (err) {
+            res.status(403)
             res.json({ success: false, message: "fail to check room", err })
         }
     }

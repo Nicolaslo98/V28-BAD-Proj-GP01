@@ -1,17 +1,12 @@
-import { RoundData } from '../server/historyRoutes'; // Assuming RoundData interface is defined in historyRoutes.ts
+import { Knex } from 'knex';
+import { RoundData } from '../utils/history'; // Assuming RoundData interface is defined in historyRoutes.ts
 
 export class HistoryService {
-  private roundData: RoundData[];
-
-  constructor() {
-    this.roundData = []; // Initialize with an empty array
-  }
-
-  public async addRoundData(data: RoundData): Promise<void> {
-    this.roundData.push(data);
+  constructor(private knex: Knex) {
   }
 
   public async getRoundData(roundId: number): Promise<RoundData | undefined> {
-    return this.roundData.find((data) => data.id === roundId);
+    const roundData = await this.knex('round').where({ id: roundId }).first();
+    return roundData;
   }
 }
