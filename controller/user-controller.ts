@@ -26,7 +26,7 @@ export class UserController {
             });
             form.parse(req, async (error, files, fields) => {
                 const user_image = (fields.file as formidable.File)?.newFilename
-                await this.userService.userSetUp( user_image, req.body.username )
+                await this.userService.userSetUp( req.body.username, user_image )
             });
                 res.json({ success: true, message: "create player successfully" })
         } catch (err) {

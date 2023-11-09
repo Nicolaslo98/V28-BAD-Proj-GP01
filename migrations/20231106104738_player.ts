@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
         table.increments();
         table.string("username");
         table.string("user_image");
-        table.integer("user_point");
+        table.integer("user_total_score");
         table.integer("round");
         table.timestamps(false, true);
       });
