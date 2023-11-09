@@ -4,12 +4,16 @@ import { HistoryService } from '../service/history-service';
 export class HistoryController {
   //private service: HistoryService;
   constructor(private historyService: HistoryService) {}
-  getRoundData=async(req: Request, res: Response)=> {
+  // function getRoundData(roundId: number): RoundData {
+  //   ...
+  // }
+  getRoundData = async(req: Request, res: Response)=> {
     const roundId: number = Number(req.params.roundId);
     console.log('P'+roundId); 
     try {
       const roundData = await this.historyService.getRoundData(roundId);
-      console.log(roundData);
+      // console.log(roundData);
+      res.json({success: true, message:'Get round history successfully ', roundData: roundData});
       // if (roundData) {
       //   res.json(roundData);
       // } else {
