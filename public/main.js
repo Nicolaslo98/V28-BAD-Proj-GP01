@@ -23,10 +23,8 @@ document.querySelectorAll(".players").forEach((element) => {
         if (!value) {
           return "You need to write something!";
         }
-        console.log(value)
-        document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${value}`
       }
-    }).then((result) => {
+    }).then( (result) => {
       console.log(result)
       if (result.isConfirmed) {
         const fetchData = capture()
@@ -36,13 +34,13 @@ document.querySelectorAll(".players").forEach((element) => {
           method: 'POST',
           body: fetchData,
         })
+        document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`
+        document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`
         stopCamera()
       } else {
         stopCamera()
       }
     })
-
-
   });
 })
 // Swal.fire({
@@ -65,6 +63,11 @@ document.querySelectorAll(".players").forEach((element) => {
 //     console.log("nice")
 //   }
 // });
+
+function genPlayer() {
+  
+}
+
 
 
 
