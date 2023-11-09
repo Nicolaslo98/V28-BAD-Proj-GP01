@@ -1,8 +1,63 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
-function fetchExistingPlayer() {
+// function fetchExistingPlayer() {
   
-}
+// }
+
+
+await Swal.fire({
+  didOpen: () => {
+  },
+  html:`
+  
+  `,
+  allowOutsideClick: false,
+  title: "Create a unique room name",
+  input: "text",
+  inputValidator: (value) => {
+    if (!value) {
+      return "You need to write something!";
+    }
+  }
+}).then((result) => {
+  if (result.isConfirmed){
+    let roomName = result.value
+    Swal.fire({
+      didOpen: () => {
+      },
+      html:`
+      
+      `,
+      allowOutsideClick: false,
+      title: "Create a unique password",
+      input: "text",
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to write something!";
+        } else if (value.length <= 5){
+          return "Password must be at least 6 letter long"
+        }
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed){
+        console.log(`${roomName} ${result.value}`)
+        const FormData = {
+          room_name: roomName,
+          password: result.value
+        }
+        const res = await fetch('/api/room', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(FormData),
+        })
+      }
+    })
+  }
+})
+
+
 
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
