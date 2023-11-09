@@ -33,12 +33,10 @@ document.querySelectorAll(".players").forEach((element) => {
         </div>
       `,
       showCancelButton: true,
-      confirmButtonText: 'Select',
-      cancelButtonText: 'Add new player'
+      confirmButtonText: 'Add new player',
+      cancelButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed){
-        console.log("nice")
-      } else {
         Swal.fire({
           didOpen: () => {
             genCamera()
@@ -47,7 +45,7 @@ document.querySelectorAll(".players").forEach((element) => {
           html: `
             <form class="playerVideoContainer">
               <video id="video" autoplay playsInline muted>
-                  <canvas id="canvas"></canvas>
+                  <canvas id="canvas" width="640" height="480"></canvas>
               </video>
             </form>
           `,
@@ -76,6 +74,8 @@ document.querySelectorAll(".players").forEach((element) => {
             stopCamera()
           }
         })
+      } else {
+        
       }
     })
 
