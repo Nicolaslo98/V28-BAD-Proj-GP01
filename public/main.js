@@ -81,7 +81,7 @@ async function createJoinRoom(){
       },
       html:`
         <div class="roomPinCode">
-          <input name="pinCode" type="text" class="pinCode" inputmode="numeric" maxlength="7">
+          <input name="pinCode" type="text" class="pinCode swal2-input" id="pinCode" inputmode="numeric" maxlength="7">
         </div>
       `,
       allowOutsideClick: false,
@@ -89,15 +89,12 @@ async function createJoinRoom(){
       showCancelButton: true,
       cancelButtonText: 'Join room',
       confirmButtonText:'Create',
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      }
     }).then(async(result) => {
       if (result.isConfirmed){
+        const roomName = document.querySelector("#pinCode").value
+        console.log(roomName)
         const FormData = {
-          room_name: result.value,
+          room_name: roomName,
         }
         const res = await fetch('/api/room', {
           method: 'POST',

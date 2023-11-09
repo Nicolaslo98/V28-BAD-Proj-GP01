@@ -59,11 +59,13 @@
 .players:hover {
     box-shadow: 0 0 15px 10px var(--main-color);
 }
+
 .profilePicHolder {
     margin-top: 15px;
     display: flex;
     justify-content: center;
 }
+
 .profilePic {
     height: 8vh;
     width: 8vh;
@@ -71,10 +73,11 @@
     border-radius: 100%;
     box-shadow: 3px 3px 3px;
 }
- 
-ul{
+
+ul {
     padding: 0;
 }
+
 li {
     list-style-type: none;
     text-align: center;
@@ -91,23 +94,26 @@ li {
     align-items: center;
     justify-content: center;
 }
+
 .btn-primary {
     --bs-btn-border-color: 0;
     --bs-btn-color: black;
 }
+
 #camera:hover {
     box-shadow: 0 0 15px 10px pink;
 }
-#camera i{
-    color:black;
+
+#camera i {
+    color: black;
     font-size: 50px;
-    
+
 }
 
 #north {
     top: 50%;
 }
- 
+
 #west {
     margin-right: 50px;
 }
@@ -116,24 +122,27 @@ li {
     font-weight: 600;
     font-size: x-large;
     letter-spacing: 5px;
-    margin-right:-5px;
+    margin-right: -5px;
 }
+
 .name {
     font-size: 20px;
     margin-top: 10px;
     letter-spacing: 10px;
-    margin-right:-10px;
+    margin-right: -10px;
 }
 
 .topRow {
     display: flex;
     justify-content: center;
 }
+
 .middleRow {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .bottomRow {
     display: flex;
     justify-content: center;
@@ -153,14 +162,16 @@ li {
     text-shadow: 0px 3px 3px rgb(0, 0, 0);
     position: relative;
 }
+
 .topBox p {
     font-weight: 600;
     font-size: 25px;
     margin-bottom: 7px;
     letter-spacing: 10px;
-    margin-right:-10px;
+    margin-right: -10px;
     -webkit-text-stroke: 0.7px var(--secondary-color);
 }
+
 .topBox i {
     position: absolute;
     right: 5%;
@@ -174,6 +185,7 @@ li {
     border-radius: 100%;
     font-size: 17px;
 }
+
 .timeline {
     margin-top: 40px;
     height: 300px;
@@ -182,12 +194,14 @@ li {
     background-color: var(--player-color);
     border-radius: 30px;
 }
+
 .timeline .timelineMatchInfo {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 30px;
 }
+
 .timeline .timelineInfo {
     display: flex;
     justify-content: space-around;
@@ -201,21 +215,26 @@ li {
     transform: translate(-50%, -50%);
     width: 85%;
     color: white;
-    
+
 }
+
 .timeline .timelineInfo p {
     margin-bottom: 0;
 }
+
 .timeline .timelineInfo .round {
     font-size: 25px;
     font-weight: 600;
 }
+
 .timeline .timelineInfo .timelinePlayer {
     font-size: 20px;
 }
+
 .timelineSpace {
     height: 20px;
 }
+
 .roundInfo {
     font-size: 30px;
     font-weight: 700;
@@ -230,9 +249,11 @@ li {
     padding: 0;
     margin: 0;
 }
+
 .bottomBox .row {
     height: 100%;
 }
+
 .bottomBox .row div {
     display: flex;
     flex-direction: column;
@@ -243,9 +264,11 @@ li {
     letter-spacing: 7px;
     padding: 0;
 }
+
 .bottomBox .row div i {
     pointer-events: none;
 }
+
 .bottomBox .row div p {
     margin-bottom: 0;
     pointer-events: none;
@@ -266,14 +289,17 @@ li {
     align-items: center;
     font-size: xx-large;
 }
+
 .settingBtn {
     display: none;
 }
+
 .form-switch .form-check-input {
     height: 2.5rem;
     width: 5rem;
     margin-right: 30px;
 }
+
 .form-switch .form-check-label {
     font-size: 30px;
     font-weight: 800;
@@ -282,16 +308,19 @@ li {
     -webkit-text-stroke: 2px grey;
     letter-spacing: 3px;
 }
-.form-switch{
+
+.form-switch {
     height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px 0;
 }
+
 div:where(.swal2-container) .swal2-html-container {
     overflow: visible;
 }
+
 .leaderBoardBox {
     width: 370px;
     height: 80%;
@@ -299,6 +328,7 @@ div:where(.swal2-container) .swal2-html-container {
     justify-content: center;
     align-items: center;
 }
+
 .info {
     position: absolute;
     width: 260px;
@@ -313,11 +343,13 @@ div:where(.swal2-container) .swal2-html-container {
     align-items: center;
     color: white;
 }
+
 .info p {
     margin: 0;
     letter-spacing: 7px;
     margin-right: -8px;
 }
+
 .history {
     width: 80%;
     height: 90%;
@@ -326,9 +358,11 @@ div:where(.swal2-container) .swal2-html-container {
     position: relative;
     overflow-y: scroll;
 }
+
 .historySpace {
     height: 50px;
 }
+
 .playerInfo {
     display: flex;
     justify-content: space-around;
@@ -340,7 +374,7 @@ div:where(.swal2-container) .swal2-html-container {
 }
 
 
-.startBox{
+.startBox {
     width: 370px;
     height: 70%;
     display: none;
@@ -348,10 +382,12 @@ div:where(.swal2-container) .swal2-html-container {
     justify-content: start;
     align-items: center;
 }
+
 .startContainer {
     height: 100%;
     padding: 0;
 }
+
 .btn-outline-primary {
     --bs-btn-border-color: black;
     --bs-btn-color: black;
@@ -360,19 +396,21 @@ div:where(.swal2-container) .swal2-html-container {
     --bs-btn-active-bg: var(--main-color);
 }
 
-:root, [data-bs-theme=light]{
+:root,
+[data-bs-theme=light] {
     --bs-border-radius: 10px;
 }
 
 .startBox div .btn {
-    --bs-btn-bg: var(--player-color) ;
-    --bs-btn-border-width: 1px ;
+    --bs-btn-bg: var(--player-color);
+    --bs-btn-border-width: 1px;
     box-shadow: 3px 3px 7px;
 }
 
 .startBox .selector1 .btn {
     --bs-btn-padding-x: 34px;
 }
+
 .startBox .selector2 .btn {
     --bs-btn-padding-x: 15px;
 }
@@ -384,6 +422,7 @@ div:where(.swal2-container) .swal2-html-container {
     position: relative;
     right: 3%;
 }
+
 .startBox .container-fluid .row .col-6 p {
     margin-bottom: 0;
     margin-right: 15px;
@@ -404,20 +443,25 @@ div:where(.swal2-container) .swal2-html-container {
     border: 1px solid grey;
     background-color: rgb(255, 248, 240);
 }
+
 .selector {
     margin-bottom: 20px;
 }
 
 /* get rid of scroll bar in leaderBoard */
 .noScrollBar {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-}
-.noScrollBar::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-#capturedImg{
+.noScrollBar::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+#capturedImg {
     position: fixed;
     z-index: -100;
 }
@@ -430,7 +474,7 @@ div:where(.swal2-container) .swal2-html-container {
 
 .mainVideoContainer {
     width: 80vw;
-    height: auto; 
+    height: auto;
     position: relative;
     top: 50%;
     left: 50%;
@@ -448,7 +492,7 @@ div:where(.swal2-container) .swal2-html-container {
     border-radius: 100%;
 }
 
-.playerVideoContainer #video{
+.playerVideoContainer #video {
     width: 200%;
     height: auto;
     position: relative;
@@ -468,11 +512,13 @@ div:where(.swal2-container) .swal2-html-container {
     flex-direction: column;
     align-items: center;
 }
+
 .existingPicHolder {
     margin-top: 15px;
     display: flex;
     justify-content: center;
 }
+
 .existingPic {
     height: 150px;
     width: 150px;
@@ -480,10 +526,12 @@ div:where(.swal2-container) .swal2-html-container {
     border-radius: 100%;
     box-shadow: 3px 3px 3px;
 }
+
 #existingName {
     font-size: 20px;
     border-radius: 5px;
 }
+
 .contact-details-modal {
     top: 15%;
     border-radius: 3px;
@@ -492,21 +540,45 @@ div:where(.swal2-container) .swal2-html-container {
     width: 80%;
     left: 10%;
 }
+
 .roomPinCode input {
-    border: none;
+    border: none !important;
+    border-radius: 0 !important;
     width: 10.5ch;
-    background: 
-      repeating-linear-gradient(90deg, 
-          dimgrey 0, 
-          dimgrey 1ch, 
-          transparent 0, 
-          transparent 1.5ch) 
-        0 100%/100% 2px no-repeat;
+    background:
+        repeating-linear-gradient(90deg,
+            dimgrey 0,
+            dimgrey 1ch,
+            transparent 0,
+            transparent 1.5ch) 0 100%/100% 2px no-repeat;
     color: dimgrey;
     font: 5ch consolas, monospace;
     letter-spacing: .5ch;
-  }
-  .roomPinCode input:focus {
+    margin: 0 !important;
+    box-shadow: 0 0 0 !important;
+}
+
+.roomPinCode input:focus {
     outline: none;
     color: rgb(0, 0, 0);
-  }
+}
+
+.roomPinCode input {
+    height: auto !important;
+    padding: 0 !important;
+
+    /* display: none;
+    position: relative;
+    box-sizing: border-box;
+    grid-template-columns: minmax(0, 100%);
+    width: 32em;
+    max-width: 100%;
+    padding: 0 0 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: #fff; */
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+    width: auto !important;
+}
