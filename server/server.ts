@@ -26,6 +26,11 @@ import { UserService } from "../service/user-service";
 export const userService = new UserService(knex)
 export const userController = new UserController(userService, roomService)
 
+import { HistoryController } from "../controller/history-controller";
+import { HistoryService } from "../service/history-service";
+export const historyService = new HistoryService(knex);
+export const historyController = new HistoryController(historyService);
+
 //Request Log
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] Request: ${req.path}`);

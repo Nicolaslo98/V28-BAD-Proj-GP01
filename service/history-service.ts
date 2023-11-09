@@ -5,8 +5,10 @@ export class HistoryService {
   constructor(private knex: Knex) {
   }
 
-  public async getRoundData(roundId: number): Promise<RoundData | undefined> {
-    const roundData = await this.knex('round').where({ id: roundId }).first();
+  async getRoundData(roundId: number){
+    console.log({roundId});
+    const roundData = await this.knex('round')
+    .select('*')
     return roundData;
   }
 }
