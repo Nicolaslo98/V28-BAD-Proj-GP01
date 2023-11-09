@@ -43,65 +43,101 @@ document.querySelectorAll(".players").forEach((element) => {
     })
   });
 })
-// Swal.fire({
-//   title: "Is this correct?",
-//   text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
-//   icon: "warning",
-//   showCancelButton: true,
-//   confirmButtonColor: "#3085d6",
-//   cancelButtonColor: "#d33",
-//   confirmButtonText: "Yes",
-//   cancelButtonText: "Retry"
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//     Swal.fire({
-//       title: "Deleted!",
-//       text: "Your file has been deleted.",
-//       icon: "success"
-//     });
-//   } else {
-//     console.log("nice")
-//   }
-// });
 
-function genPlayer() {
+// function genPlayer() {
   
-}
+// }
 
 
 
 
 //run camera
-document.querySelector(".cameraBtn").addEventListener("click", function (e) {
-  Swal.fire({
-    didOpen: () => {
-      genCamera()
-    },
-    showCancelButton: true,
-    allowOutsideClick: false,
-    html: `
-      <div class="mainVideoContainer">
-        <video id="video" autoplay playsInline muted>
-            <canvas id="canvas"></canvas>
-        </video>
-      </div>
-    `,
-    width: '100%',
-    confirmButtonText: 'Capture'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      capture()
-      const fetchData = capture()
-      fetch('/api/camera', {
-        method: 'POST',
-        body: fetchData,
-      })
-      stopCamera()
-    } else {
-      stopCamera()
-    }
-  })
+document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
+  let isPhotoCorrect = 0
+
+  while (!isPhotoCorrect){
+    await Swal.fire({
+      didOpen: () => {
+        genCamera()
+      },
+      showCancelButton: true,
+      allowOutsideClick: false,
+      html: `
+        <div class="mainVideoContainer">
+          <video id="video" autoplay playsInline muted>
+              <canvas id="canvas"></canvas>
+          </video>
+        </div>
+      `,
+      width: '100%',
+      confirmButtonText: 'Capture'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        capture()
+        const fetchData = capture()
+        fetch('/api/camera', {
+          method: 'POST',
+          body: fetchData,
+        })
+        stopCamera()
+        await Swal.fire({
+          title: "Is this correct?",
+          text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes",
+          cancelButtonText: "Retry"
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+
+            let testDummy = "potato"
+            await Swal.fire({
+              didOpen: () => {
+                // const playerList = fetchPlayer()
+              },
+              title: "Select Winner and Loser",
+              html:`
+              <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
+              <form class="dropSelect">
+                <label for="winner">Winner:</label>
+                <select name="winner" id="winner">
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                </select>
+                <label for="loser">Loser:</label>
+                <select name="loser" id="loser">
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="${testDummy}">${testDummy}</option>
+                  <option value="none">None</option>
+                </select>
+              </form>
+              `,
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes",
+              cancelButtonText: "Retry"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                isPhotoCorrect = 1
+              }
+            });
+          }
+        });
+      } else {
+        stopCamera()
+        isPhotoCorrect = 1
+      }
+    })  
+  }
 })
+
+
 
 
 document.querySelector(".topBox i").addEventListener("click", function (e) {
