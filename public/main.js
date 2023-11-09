@@ -3,47 +3,101 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 // function fetchExistingPlayer() {
   
 // }
-
-
-await Swal.fire({
-  didOpen: () => {
-  },
-  html:`
-  
-  `,
-  allowOutsideClick: false,
-  title: "Create a unique room name",
-  input: "text",
-  inputValidator: (value) => {
-    if (!value) {
-      return "You need to write something!";
+function createPassword(results){
+  let roomName = results.value
+  Swal.fire({
+    didOpen: () => {
+    },
+    html:`
+    
+    `,
+    allowOutsideClick: false,
+    title: "Create a unique password",
+    input: "text",
+    inputValidator: (value) => {
+      if (!value) {
+        return "You need to write something!";
+      } else if (value.length <= 5){
+        return "Password must be at least 6 letter long"
+      } 
     }
-  }
-}).then((result) => {
-  if (result.isConfirmed){
-    let roomName = result.value
-    Swal.fire({
+  }).then(async (result) => {
+    if (result.isConfirmed){
+      console.log(`${roomName} ${result.value}`)
+      const FormData = {
+        room_name: roomName,
+        password: result.value
+      }
+      const res = await fetch('/api/room/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(FormData),
+      })
+    }
+  })
+}
+function enterPassword(){
+  let roomName = results.value
+  Swal.fire({
+    didOpen: () => {
+    },
+    html:`
+    
+    `,
+    allowOutsideClick: false,
+    title: "Enter password",
+    input: "text",
+    inputValidator: (value) => {
+      if (!value) {
+        return "You need to write something!";
+      } else if (value.length <= 5){
+        return "Password must be at least 6 letter long"
+      } 
+    }
+  }).then(async (result) => {
+    if (result.isConfirmed){
+      console.log(`${roomName} ${result.value}`)
+      const FormData = {
+        room_name: roomName,
+        password: result.value
+      }
+      const res = await fetch('/api/room/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(FormData),
+      })
+    }
+  })
+}
+async function createJoinRoom(){
+  const isNameValid = false
+  while (!isNameValid){
+    await Swal.fire({
       didOpen: () => {
       },
       html:`
-      
+        <div class="roomPinCode">
+          <input name="pinCode" type="text" class="pinCode" inputmode="numeric" maxlength="7">
+        </div>
       `,
       allowOutsideClick: false,
-      title: "Create a unique password",
-      input: "text",
+      title: "Create or Join a room",
+      showCancelButton: true,
+      cancelButtonText: 'Join room',
+      confirmButtonText:'Create',
       inputValidator: (value) => {
         if (!value) {
           return "You need to write something!";
-        } else if (value.length <= 2){
-          return "Password must be at least 3 letter long"
         }
       }
-    }).then(async (result) => {
+    }).then(async(result) => {
       if (result.isConfirmed){
-        console.log(roomName)
         const FormData = {
-          room_name: roomName,
-          password: result.value
+          room_name: result.value,
         }
         const res = await fetch('/api/room', {
           method: 'POST',
@@ -52,11 +106,39 @@ await Swal.fire({
           },
           body: JSON.stringify(FormData),
         })
+        const result = await res.json()
+        if (result){
+          console.log(result)
+          // createPassword(result)
+          // isNameValid = true
+        }
+
+
+      } else {
+        const FormData = {
+          room_name: result.value,
+        }
+        const res = await fetch('/api/room', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(FormData),
+        })
+        const result = await res.json()
+        if (result){
+          console.log(result)
+          // enterPassword(result)
+          // isNameValid = true
+        }
       }
     })
   }
-})
+}
 
+
+
+createJoinRoom()
 
 
 document.querySelectorAll(".players").forEach((element) => {

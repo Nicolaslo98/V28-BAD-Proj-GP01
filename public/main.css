@@ -484,3 +484,29 @@ div:where(.swal2-container) .swal2-html-container {
     font-size: 20px;
     border-radius: 5px;
 }
+.contact-details-modal {
+    top: 15%;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    min-height: 70% !important;
+    width: 80%;
+    left: 10%;
+}
+.roomPinCode input {
+    border: none;
+    width: 10.5ch;
+    background: 
+      repeating-linear-gradient(90deg, 
+          dimgrey 0, 
+          dimgrey 1ch, 
+          transparent 0, 
+          transparent 1.5ch) 
+        0 100%/100% 2px no-repeat;
+    color: dimgrey;
+    font: 5ch consolas, monospace;
+    letter-spacing: .5ch;
+  }
+  .roomPinCode input:focus {
+    outline: none;
+    color: rgb(0, 0, 0);
+  }
