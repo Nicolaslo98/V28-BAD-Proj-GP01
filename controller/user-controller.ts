@@ -2,15 +2,16 @@ import { Request, Response } from "express";
 import { UserService } from "../service/user-service"
 import path, { dirname } from "path";
 import formidable from 'formidable';
+import { RoomController } from "./room-controller";
+import { RoomService } from "../service/room-service";
 
 export class UserController {
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private roomService: RoomService) {
     }
 
     createUser = async (req: Request, res: Response) => {
         try {
-            console.log('step1')
             const form = formidable({
                 uploadDir: "./server/photo",
                 keepExtensions: true,
@@ -26,7 +27,8 @@ export class UserController {
             });
             form.parse(req, async (error, fields, files ) => {
                 const user_image = (files.file as formidable.File)?.newFilename
-                await this.userService.userSetUp( (fields.username as string), user_image )
+                // const room_id = this.roomService.roomSetup
+                // await this.userService.userSetUp( (fields.username as string), user_image, room.id )
             });
                 res.json({ success: true, message: "create player successfully" })
         } catch (err) {

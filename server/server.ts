@@ -16,10 +16,15 @@ import { CaptureService } from "../service/capture-service";
 export const captureService = new CaptureService(knex)
 export const captureController = new CaptureController(captureService)
 
+import { RoomController } from "../controller/room-controller";
+import { RoomService } from "../service/room-service";
+export const roomService = new RoomService(knex)
+export const roomController = new RoomController(roomService)
+
 import { UserController } from "../controller/user-controller";
 import { UserService } from "../service/user-service";
 export const userService = new UserService(knex)
-export const userController = new UserController(userService)
+export const userController = new UserController(userService, roomService)
 
 //Request Log
 app.use((req, res, next) => {
