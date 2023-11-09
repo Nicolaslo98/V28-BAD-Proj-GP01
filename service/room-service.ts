@@ -26,13 +26,9 @@ export class RoomService {
 
     async joinRoom(room_name:string, password:number){
         const result = await this.knex('room')
-        .insert(
-            {
-                room_name: room_name,
-                password: password,
-            }
-        )
-        .returning (['room_name'])
+        .select('*')
+        .where('room_name', room_name)
+        .andWhere('password', password)
         return result
     }
 }
