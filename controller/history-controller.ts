@@ -8,10 +8,13 @@ export class HistoryController {
   //   ...
   // }
   getRoundData = async(req: Request, res: Response)=> {
-    const roundId: number = Number(req.params.roundId);
+    const roomId: number = Number(req.params.roomId);
+    const game: number = Number(req.params.game);
+    console.log(req.params.roomId);
+    
     // console.log('P'+roundId); 
     try {
-      const roundData = await this.historyService.getRoundData(roundId);
+      const roundData = await this.historyService.getRoundData(roomId, game);
       // console.log(roundData);
       res.json({success: true, message:'Get round history successfully ', roundData: roundData});
       // if (roundData) {

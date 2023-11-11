@@ -1,14 +1,17 @@
 import { Knex } from 'knex';
 import { RoundData } from '../utils/history'; // Assuming RoundData interface is defined in historyRoutes.ts
+import { get } from 'http';
 
 export class HistoryService {
   constructor(private knex: Knex) {
   }
 
-  async getRoundData(roundId: number){
-    console.log({roundId});
+  async getRoundData(room_id: number, game: number){
     const roundData = await this.knex('round')
     .select('*')
+    .where('room_id', room_id)
+    .andWhere('game', game)
     return roundData;
   }
 }
+
