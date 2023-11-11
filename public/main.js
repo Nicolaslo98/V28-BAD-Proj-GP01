@@ -111,6 +111,7 @@ async function createJoinRoom() {
       cancelButtonText: 'Join room',
       confirmButtonText: 'Create',
     }).then(async (result) => {
+      //create
       if (result.isConfirmed) {
         const roomName = document.querySelector("#pinCode").value
         console.log(roomName)
@@ -124,20 +125,21 @@ async function createJoinRoom() {
           },
           body: JSON.stringify(FormData),
         })
-        console.log(result.value)
-        if (!res.ok) {
+        if ( ! (await res.json()).success) {
+          console.log("hi23412314")
           createPassword(roomName)
           isNameValid = true
           // createPassword(result)
           // isNameValid = true
-        } else if (res.ok) {
+        } else {
           await Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Has this room!",
           });
         }
-      } else
+      } //join
+      else
         if (result.isDismissed) {
           const roomName = document.querySelector("#pinCode").value
           console.log(roomName)
@@ -151,7 +153,8 @@ async function createJoinRoom() {
           },
           body: JSON.stringify(FormData),
         })
-        if (!res.ok) {
+        if (! (await res.json()).success) {
+          console.log("Join button")
           await Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -159,7 +162,7 @@ async function createJoinRoom() {
           });
           // createPassword(result)
           // isNameValid = true
-        } else if (res.ok){
+        } else {
           enterPassword(roomName)
           isNameValid = true
         }}

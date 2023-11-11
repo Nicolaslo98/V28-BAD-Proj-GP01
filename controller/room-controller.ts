@@ -12,26 +12,12 @@ export class RoomController {
     //Method: POST '/api/room/check
     checkRoom = async (req: Request, res: Response) => {
         try {
-            // if (!req.session.room) {
-            //     res.status(200).json({ success: false, message: "Guest" });
-            //     return;
-            // }
-            // if (req.session.room){
-            //     res.json({
-            //         success: true,
-            //         message: "Logged in",
-            //         roomId: req.session.room,
-            //       });
-            //       return
-            // }
-
             const room_name = req.body.room_name
             const room = await this.roomService.findRoom(room_name)
 
             if (room.length > 0) {
                 res.json({ success: true, message: "has existing name" })
             } else {
-                res.status(400)
                 res.json({ success: false, message: "no existing room" })
             }
 
@@ -94,4 +80,15 @@ export class RoomController {
             res.json({ success: false, message: " fail to join room", err })
         }
     }
+
+    logoutRoom = async (req: Request, res: Response) => {
+        try {
+          req.session.destroy((err) => {
+            res.json({ success: true, message: "User logout" });
+          });
+        } catch (err) {
+          res.json({ success: false, message: "fail to logout", err });
+        }
+      }
+
 }

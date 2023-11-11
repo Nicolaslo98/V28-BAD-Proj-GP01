@@ -186,6 +186,21 @@ li {
     font-size: 17px;
 }
 
+.leftTopBox i {
+    position: absolute;
+    left: 28%;
+    top: 8%;
+    width: 40px;
+    height: 40px;
+    background-color: #b0926a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 17px;
+}
+
 .timeline {
     margin-top: 40px;
     height: 300px;
