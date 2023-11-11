@@ -25,7 +25,7 @@ function createPassword(roomName) {
     }
   }).then(async (result) => {
     if (result.isConfirmed) {
-      console.log(`name: ${roomName} , password${result.value}`)
+      console.log(`room_name: ${roomName} , password: ${result.value}`)
       const FormData = {
         room_name: roomName,
         password: result.value
@@ -62,7 +62,7 @@ function enterPassword(roomName) {
       }
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(`${roomName} ${result.value}`)
+        console.log(`checking: ${roomName} ${result.value}`)
         const FormData = {
           room_name: roomName,
           password: result.value
@@ -83,6 +83,7 @@ function enterPassword(roomName) {
           });
           enterPassword(roomName)
         } else if (res.ok) {
+          console.log("check password")
           console.log(await res.json())
         }
       }

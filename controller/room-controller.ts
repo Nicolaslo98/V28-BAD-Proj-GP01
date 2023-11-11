@@ -72,7 +72,7 @@ export class RoomController {
             const room_name = req.body.room_name
             const password = req.body.password
             const room = await this.roomService.joinRoom(room_name, password)
-
+            console.log(room)
             if (room.length == 0) {
                 res.status(400)
                     .json({
@@ -81,12 +81,14 @@ export class RoomController {
                     });
             } else 
             if (room.length > 0) {
-                const result: any = await this.roomService.roomSetup(room_name, password)
+                console.log("backend check pw")
+                // const result: any = await this.roomService.joinRoom(room_name, password)
                 req.session.room = {
-                    roomId: result[0].id,
-                    room_name: result[0].room_name
+                    roomId: room[0].id,
+                    room_name: room[0].room_name
                 }
-                res.json({ success: true, message: "create room successfully", room: req.session.room })
+                res.json({ success: true, message: "join room successfully", room: req.session.room })
+                console.log("backend check pw step 2")
             }
         } catch (err) {
             res.json({ success: false, message: " fail to join room", err })
