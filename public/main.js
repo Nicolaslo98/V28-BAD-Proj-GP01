@@ -172,12 +172,24 @@ createJoinRoom()
 
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
-    let testDummy = "potato"
-    Swal.fire({
-      didOpen: () => {
-        // document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
-      },
-      html: `
+    try {
+      const res = await fetch('/api/eplayer/room');
+      const ePlayerData = (await res.json()).ePlayerData;
+
+      let choosePlayerHTML = '';
+      for (let i = 0; i < ePlayerData.length; i++) {
+        const username = ePlayerData[i].username;
+        console.log(username);
+        choosePlayerHTML += `
+        <option value="${username}">${username}</option>
+        `;
+      }
+
+      Swal.fire({
+        didOpen: () => {
+          // document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+        },
+        html: `
         <div class="choosePlayer">
           <div class="existingPlayer">
             <ul>
@@ -188,69 +200,63 @@ document.querySelectorAll(".players").forEach((element) => {
               <form class="existingNameForm">
                 <label for="existingName">Name</label>
                 <select name="existingName" id="existingName">
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option> 
+                  ${choosePlayerHTML}
                 </select>
               </form>
             </ul>
           </div>
         </div>
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Add new player',
-      cancelButtonText: 'Ok'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          didOpen: () => {
-            genCamera()
-          },
-          html: `
-            <form class="playerVideoContainer">
-              <video id="video" autoplay playsInline muted>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Add new player',
+        cancelButtonText: 'Ok'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            didOpen: () => {
+              genCamera();
+            },
+            html: `
+              <form class="playerVideoContainer">
+                <video id="video" autoplay playsInline muted>
                   <canvas id="canvas" width="640" height="480"></canvas>
-              </video>
-            </form>
-          `,
-          input: "text",
-          inputPlaceholder: "Enter Name",
-          showCancelButton: true,
-          inputValidator: (value) => {
-            if (!value) {
-              return "You need to write something!";
+                </video>
+              </form>
+            `,
+            input: "text",
+            inputPlaceholder: "Enter Name",
+            showCancelButton: true,
+            inputValidator: (value) => {
+              if (!value) {
+                return "You need to write something!";
+              }
             }
-          }
-        }).then((result) => {
-          console.log(result)
-          if (result.isConfirmed) {
-            const fetchData = capture()
-            fetchData.append("username", result.value)
-            console.log(fetchData)
-            fetch('/api/user', {
-              method: 'POST',
-              body: fetchData,
-            })
-            document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`
-            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`
-            stopCamera()
-          } else {
-            stopCamera()
-          }
-        })
-      } else {
-
-      }
-    })
-
-
-
-
-
-
+          }).then((result) => {
+            console.log(result);
+            if (result.isConfirmed) {
+              const fetchData = capture();
+              fetchData.append("username", result.value);
+              console.log(fetchData);
+              fetch('/api/user', {
+                method: 'POST',
+                body: fetchData,
+              });
+              document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`;
+              stopCamera();
+            } else {
+              stopCamera();
+            }
+          });
+        } else {
+          // Handle cancel button clicked
+        }
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
   });
-})
+});
 
 // function genPlayer() {
 
