@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { RoomService } from "../service/room-service"
 import expressSession from "express-session"
-import "../server/session";
+import '../server/session'
 import path, { dirname } from "path";
 
 export class RoomController {
@@ -79,7 +79,14 @@ export class RoomController {
                         success: false,
                         message: "wrong room_name or password"
                     });
-                return;
+            } else 
+            if (room.length > 0) {
+                const result: any = await this.roomService.roomSetup(room_name, password)
+                req.session.room = {
+                    roomId: result[0].id,
+                    room_name: result[0].room_name
+                }
+                res.json({ success: true, message: "create room successfully", room: req.session.room })
             }
         } catch (err) {
             res.json({ success: false, message: " fail to join room", err })

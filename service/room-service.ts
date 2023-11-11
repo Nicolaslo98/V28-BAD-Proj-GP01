@@ -9,6 +9,7 @@ export class RoomService {
         const result = await this.knex('room')
         .select('*')
         .where('room_name', room_name)
+        .returning(room_name)
         return result
     }
     

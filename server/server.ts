@@ -15,7 +15,7 @@ import { CaptureController } from "../controller/capture-controller";
 import { CaptureService } from "../service/capture-service";
 export const captureService = new CaptureService(knex)
 export const captureController = new CaptureController(captureService)
-
+import "./session";
 import { RoomController } from "../controller/room-controller";
 import { RoomService } from "../service/room-service";
 export const roomService = new RoomService(knex)

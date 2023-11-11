@@ -1,14 +1,16 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
 // function fetchExistingPlayer() {
-  
+
 // }
-function createPassword(results){
-  let roomName = results.value
+
+//Function: CreatePassword
+function createPassword(roomName) {
+  // let roomName = results.value
   Swal.fire({
     didOpen: () => {
     },
-    html:`
+    html: `
     
     `,
     allowOutsideClick: false,
@@ -17,13 +19,13 @@ function createPassword(results){
     inputValidator: (value) => {
       if (!value) {
         return "You need to write something!";
-      } else if (value.length <= 5){
+      } else if (value.length <= 5) {
         return "Password must be at least 6 letter long"
-      } 
+      }
     }
   }).then(async (result) => {
-    if (result.isConfirmed){
-      console.log(`${roomName} ${result.value}`)
+    if (result.isConfirmed) {
+      console.log(`name: ${roomName} , password${result.value}`)
       const FormData = {
         room_name: roomName,
         password: result.value
@@ -38,59 +40,77 @@ function createPassword(results){
     }
   })
 }
-function enterPassword(){
-  let roomName = results.value
-  Swal.fire({
-    didOpen: () => {
-    },
-    html:`
+
+//Function: Has Room 
+function enterPassword(roomName) {
+  console.log("hi")
+    Swal.fire({
+      didOpen: () => {
+      },
+      html: `
     
     `,
-    allowOutsideClick: false,
-    title: "Enter password",
-    input: "text",
-    inputValidator: (value) => {
-      if (!value) {
-        return "You need to write something!";
-      } else if (value.length <= 5){
-        return "Password must be at least 6 letter long"
-      } 
-    }
-  }).then(async (result) => {
-    if (result.isConfirmed){
-      console.log(`${roomName} ${result.value}`)
-      const FormData = {
-        room_name: roomName,
-        password: result.value
+      allowOutsideClick: false,
+      title: "Enter password",
+      input: "text",
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to write something!";
+        } else if (value.length <= 2) {
+          return "Password must be at least 2 letter long"
+        }
       }
-      const res = await fetch('/api/room/join', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(FormData),
-      })
-    }
-  })
-}
-async function createJoinRoom(){
-  const isNameValid = false
-  while (!isNameValid){
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log(`${roomName} ${result.value}`)
+        const FormData = {
+          room_name: roomName,
+          password: result.value
+        }
+        const res = await fetch('/api/room/join', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(FormData),
+        })
+        //when password false
+        if (!res.ok) {
+          await Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Wrong Password",
+          });
+          enterPassword(roomName)
+        } else if (res.ok) {
+          console.log(await res.json())
+        }
+      }
+    })
+  }
+
+async function createJoinRoom() {
+  let isNameValid = false
+  while (!isNameValid) {
     await Swal.fire({
       didOpen: () => {
       },
-      html:`
+      html: `
         <div class="roomPinCode">
-          <input name="pinCode" type="text" class="pinCode swal2-input" id="pinCode" inputmode="numeric" maxlength="5">
+          <input name="pinCode" type="text" 
+          class="pinCode swal2-input" 
+          id="pinCode" 
+          inputmode="numeric" 
+          maxlength="5">
         </div>
       `,
       allowOutsideClick: false,
       title: "Create or Join a room",
       showCancelButton: true,
       cancelButtonText: 'Join room',
-      confirmButtonText:'Create',
-    }).then(async(result) => {
-      if (result.isConfirmed){
+      confirmButtonText: 'Create',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         const roomName = document.querySelector("#pinCode").value
         console.log(roomName)
         const FormData = {
@@ -103,39 +123,30 @@ async function createJoinRoom(){
           },
           body: JSON.stringify(FormData),
         })
-        const result = await res.json()
-        if (result){
-          console.log(result)
+        console.log(result.value)
+        if (!res.ok) {
+          await Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Has this room!",
+          });
           // createPassword(result)
           // isNameValid = true
+        } else if (res.ok) {
+          createPassword(roomName)
+          isNameValid = true
         }
-
-
-      } else {
-        const FormData = {
-          room_name: result.value,
+      } else
+        if (result.isDismissed) {
+          const roomName = document.querySelector("#pinCode").value
+          enterPassword(roomName)
+          isNameValid = true
         }
-        const res = await fetch('/api/room', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(FormData),
-        })
-        const result = await res.json()
-        if (result){
-          console.log(result)
-          // enterPassword(result)
-          // isNameValid = true
-        }
-      }
     })
   }
 }
-
-
-
 createJoinRoom()
+
 
 
 document.querySelectorAll(".players").forEach((element) => {
@@ -145,7 +156,7 @@ document.querySelectorAll(".players").forEach((element) => {
       didOpen: () => {
         // document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
       },
-      html:`
+      html: `
         <div class="choosePlayer">
           <div class="existingPlayer">
             <ul>
@@ -170,7 +181,7 @@ document.querySelectorAll(".players").forEach((element) => {
       confirmButtonText: 'Add new player',
       cancelButtonText: 'Ok'
     }).then((result) => {
-      if (result.isConfirmed){
+      if (result.isConfirmed) {
         Swal.fire({
           didOpen: () => {
             genCamera()
@@ -190,7 +201,7 @@ document.querySelectorAll(".players").forEach((element) => {
               return "You need to write something!";
             }
           }
-        }).then( (result) => {
+        }).then((result) => {
           console.log(result)
           if (result.isConfirmed) {
             const fetchData = capture()
@@ -208,7 +219,7 @@ document.querySelectorAll(".players").forEach((element) => {
           }
         })
       } else {
-        
+
       }
     })
 
@@ -216,12 +227,12 @@ document.querySelectorAll(".players").forEach((element) => {
 
 
 
-    
+
   });
 })
 
 // function genPlayer() {
-  
+
 // }
 
 
@@ -231,7 +242,7 @@ document.querySelectorAll(".players").forEach((element) => {
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
   let isPhotoCorrect = 0
 
-  while (!isPhotoCorrect){
+  while (!isPhotoCorrect) {
     await Swal.fire({
       didOpen: () => {
         genCamera()
@@ -273,7 +284,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 // const playerList = fetchPlayer()
               },
               title: "Select Winner and Loser",
-              html:`
+              html: `
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
               <form class="dropSelect">
                 <label for="winner">Winner</label>
@@ -308,7 +319,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         stopCamera()
         isPhotoCorrect = 1
       }
-    })  
+    })
   }
 })
 

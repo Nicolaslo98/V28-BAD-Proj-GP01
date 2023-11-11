@@ -18,7 +18,7 @@ axios({
     }
 })
 .then(function(response) {
-    console.log(response.data);
+    console.log(response.data.predictions[1].x);
 })
 .catch(function(error) {
     console.log(error.message);
