@@ -14,6 +14,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer("score_n");
         table.integer("room_id").unsigned();
         table.foreign("room_id").references("room.id");
+        table.integer("game");
         table.timestamps(false, true);
     });
 }
