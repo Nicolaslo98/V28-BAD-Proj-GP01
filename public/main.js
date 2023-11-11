@@ -125,23 +125,43 @@ async function createJoinRoom() {
         })
         console.log(result.value)
         if (!res.ok) {
+          createPassword(roomName)
+          isNameValid = true
+          // createPassword(result)
+          // isNameValid = true
+        } else if (res.ok) {
           await Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Has this room!",
           });
-          // createPassword(result)
-          // isNameValid = true
-        } else if (res.ok) {
-          createPassword(roomName)
-          isNameValid = true
         }
       } else
         if (result.isDismissed) {
           const roomName = document.querySelector("#pinCode").value
+          console.log(roomName)
+        const FormData = {
+          room_name: roomName,
+        }
+        const res = await fetch('/api/room/check', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(FormData),
+        })
+        if (!res.ok) {
+          await Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Cannot find this room!",
+          });
+          // createPassword(result)
+          // isNameValid = true
+        } else if (res.ok){
           enterPassword(roomName)
           isNameValid = true
-        }
+        }}
     })
   }
 }

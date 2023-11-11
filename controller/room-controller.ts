@@ -28,11 +28,11 @@ export class RoomController {
             const room_name = req.body.room_name
             const room = await this.roomService.findRoom(room_name)
 
-            if (room.length == 0) {
-                res.json({ success: true, message: "no existing name" })
+            if (room.length > 0) {
+                res.json({ success: true, message: "has existing name" })
             } else {
                 res.status(400)
-                res.json({ success: false, message: "has existing room" })
+                res.json({ success: false, message: "no existing room" })
             }
 
         } catch (err) {

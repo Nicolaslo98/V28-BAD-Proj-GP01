@@ -18,7 +18,23 @@ axios({
     }
 })
 .then(function(response) {
-    console.log(response.data.predictions[1].x);
+    const {predictions} = response.data;
+    // console.dir(predictions.map(e => e.x)); 
+    const result = predictions.map((e=>e.x))
+    result.sort(function( a , b){
+        if(a > b) return 1;
+        if(a < b) return -1;
+        return 0;
+    })
+    console.log(result)
+    // console.log(response.data.predictions);
+    // for (let i of response.data.predictions){
+        // for (let x of i.x)
+        // console.log(i.x)
+        // result.push(i.x)
+        // console.log(result)
+        // console.log(i)
+    // }
 })
 .catch(function(error) {
     console.log(error.message);
