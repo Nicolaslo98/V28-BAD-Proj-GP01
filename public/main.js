@@ -90,7 +90,7 @@ function enterPassword(roomName) {
     })
   }
 
-async function createJoinRoom() {
+export async function createJoinRoom() {
   let isNameValid = false
   while (!isNameValid) {
     await Swal.fire({
@@ -246,12 +246,6 @@ document.querySelectorAll(".players").forEach((element) => {
 
       }
     })
-
-
-
-
-
-
   });
 })
 
