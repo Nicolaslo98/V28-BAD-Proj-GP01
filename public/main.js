@@ -43,54 +43,60 @@ function createPassword(roomName) {
 
 //Function: Has Room 
 function enterPassword(roomName) {
-  console.log("hi")
-    Swal.fire({
-      didOpen: () => {
-      },
-      html: `
+  Swal.fire({
+    didOpen: () => {
+    },
+    html: `
     
     `,
-      allowOutsideClick: false,
-      title: "Enter password",
-      input: "text",
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        } else if (value.length <= 2) {
-          return "Password must be at least 2 letter long"
-        }
+    allowOutsideClick: false,
+    title: "Enter password",
+    input: "text",
+    inputValidator: (value) => {
+      if (!value) {
+        return "You need to write something!";
+      } else if (value.length <= 2) {
+        return "Password must be at least 2 letter long"
       }
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        console.log(`checking: ${roomName} ${result.value}`)
-        const FormData = {
-          room_name: roomName,
-          password: result.value
-        }
-        const res = await fetch('/api/room/join', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(FormData),
-        })
-        //when password false
-        if (!res.ok) {
-          await Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Wrong Password",
-          });
-          enterPassword(roomName)
-        } else if (res.ok) {
-          console.log("check password")
-          console.log(await res.json())
-        }
+    }
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      console.log(`checking: ${roomName} ${result.value}`)
+      const FormData = {
+        room_name: roomName,
+        password: result.value
       }
-    })
-  }
+      const res = await fetch('/api/room/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(FormData),
+      })
+      //when password false
+      if (!res.ok) {
+        await Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Password",
+        });
+        enterPassword(roomName)
+      } else if (res.ok) {
+        console.log("check password")
+        console.log(await res.json())
+      }
+    }
+  })
+}
 
 export async function createJoinRoom() {
+  const res = await fetch('/api/room', {
+    method: 'GET',
+  })
+  const result = await res.json()
+  if (result.haveSession) {
+    return
+  }
   let isNameValid = false
   while (!isNameValid) {
     await Swal.fire({
@@ -125,7 +131,7 @@ export async function createJoinRoom() {
           },
           body: JSON.stringify(FormData),
         })
-        if ( ! (await res.json()).success) {
+        if (!(await res.json()).success) {
           console.log("hi23412314")
           createPassword(roomName)
           isNameValid = true
@@ -142,30 +148,30 @@ export async function createJoinRoom() {
       else
         if (result.isDismissed) {
           const roomName = document.querySelector("#pinCode").value
-          console.log(roomName)
-        const FormData = {
-          room_name: roomName,
+          const FormData = {
+            room_name: roomName,
+          }
+          const res = await fetch('/api/room/check', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(FormData),
+          })
+          if (!(await res.json()).success) {
+            console.log("Join button")
+            await Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Cannot find this room!",
+            });
+            // createPassword(result)
+            // isNameValid = true
+          } else {
+            enterPassword(roomName)
+            isNameValid = true
+          }
         }
-        const res = await fetch('/api/room/check', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(FormData),
-        })
-        if (! (await res.json()).success) {
-          console.log("Join button")
-          await Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Cannot find this room!",
-          });
-          // createPassword(result)
-          // isNameValid = true
-        } else {
-          enterPassword(roomName)
-          isNameValid = true
-        }}
     })
   }
 }

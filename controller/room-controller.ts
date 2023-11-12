@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { RoomService } from "../service/room-service"
 import expressSession from "express-session"
 import '../server/session'
@@ -9,8 +9,20 @@ export class RoomController {
     constructor(private roomService: RoomService) {
     }
 
+    loginGuard = async (req:Request, res: Response, next: NextFunction) => {
+        try {
+            if (req.session.room) {
+                res.json({ success: true, haveSession: true })
+            } else {
+                res.json({ success: true, haveSession: false })
+            }
+        } catch (err) {
+            res.json({ success: false, message: "fail to check loginGuard", err })
+        }
+    }
+
     //Method: POST '/api/room/check
-    checkRoom = async (req: Request, res: Response) => {
+    checkRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const room_name = req.body.room_name
             const room = await this.roomService.findRoom(room_name)
@@ -28,7 +40,7 @@ export class RoomController {
     }
 
     //Method: POST '/api/room/create
-    createRoom = async (req: Request, res: Response) => {
+    createRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const room_name: string = req.body.room_name
             const password: number = req.body.password
@@ -53,7 +65,7 @@ export class RoomController {
     }
 
     //Method: POST '/api/room/join
-    joinRoom = async (req: Request, res: Response) => {
+    joinRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const room_name = req.body.room_name
             const password = req.body.password
@@ -81,7 +93,7 @@ export class RoomController {
         }
     }
 
-    logoutRoom = async (req: Request, res: Response) => {
+    logoutRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
           req.session.destroy((err) => {
             res.json({ success: true, message: "User logout" });
