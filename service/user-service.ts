@@ -7,14 +7,16 @@ export class UserService {
     }
     
     async userSetUp(username:string, user_image:string, room_id: number) {
-        await this.knex('player')
+        const result = await this.knex('player')
         .insert(
             {
                 username: username,
                 user_image: user_image,
                 user_total_score: 0,
                 room_id: room_id
-            }
+            }      
         )
+        .returning (['id','room_name', 'room_id'])
+        return result
     }
 }
