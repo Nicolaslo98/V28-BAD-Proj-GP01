@@ -3,4 +3,4 @@ import { historyController } from './server';
 
 export const historyRoutes = express.Router();
 
-historyRoutes.get('/room/:roomId/:game', historyController.getRoundData)//Method: GET '/api/history/round/:roomId/:game
+historyRoutes.get('/game', historyController.getRoundData)//Method: GET '/api/history/game/:gameId

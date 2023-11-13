@@ -374,53 +374,43 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 //history
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
-  const roomId = 2;
-  const game = 2;
   try {
-    const res = await fetch('/api/history/room/${roomId}/${game}');
+    const res = await fetch('/api/history/game');
     const historyData = (await res.json()).roundData;
     console.log(historyData);
 
-    let roundHTML = '';
     let historyScoreHTML = '';
-    let historyPlayerHTML = '';
 
     for (let i = 0; i < historyData.length; i++) {
-      const playerE = historyData[i].player_e;
-      const playerS = historyData[i].player_s;
-      const playerW = historyData[i].player_w;
-      const playerN = historyData[i].player_n;
       const scoreE = historyData[i].score_e;
       const scoreS = historyData[i].score_s;
       const scoreW = historyData[i].score_w;
       const scoreN = historyData[i].score_n;
-      const round = historyData[i].id;
+      const round = (historyData[i].id)-1;
 
-      roundHTML +=
-        `<p class="roundInfo">${round}</p>`
       historyScoreHTML +=
-        `<p id="">${scoreE}</p>
-      <p id="">${scoreS}</p>
-      <p id="">${scoreW}</p>
-      <p id="">${scoreN}</p>`
-      historyPlayerHTML +=
-        `<p class="timelinePlayer" id="player1">${playerE}</p>
-      <p class="timelinePlayer" id="player2">${playerS}</p>
-      <p class="timelinePlayer" id="player3">${playerW}</p>
-      <p class="timelinePlayer" id="player4">${playerN}</p>`
+        `
+        <div class="timelineMatchInfo">
+          <p class="roundInfo">${round}</p>
+          <p id="">${scoreE}</p>
+          <p id="">${scoreS}</p>
+          <p id="">${scoreW}</p>
+          <p id="">${scoreN}</p>
+        </div> 
+        `
     }
     Swal.fire({
       html: `
       <div class="timeline noScrollBar">
         <div class="timelineSpace"></div>
-        <div class="timelineMatchInfo">
-        ${roundHTML}
         ${historyScoreHTML}
-        </div>       
-
+             
         <div class="timelineInfo">
           <p class="round">局數</p>
-          ${historyPlayerHTML}
+          <p class="timelinePlayer" id="player1">東</p>
+          <p class="timelinePlayer" id="player2">南</p>
+          <p class="timelinePlayer" id="player3">西</p>
+          <p class="timelinePlayer" id="player4">北</p>
         </div>
       </div>
     `,
