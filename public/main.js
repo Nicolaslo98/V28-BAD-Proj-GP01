@@ -189,7 +189,6 @@ document.querySelectorAll(".players").forEach((element) => {
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
-        console.log(username);
         choosePlayerHTML += `
         <option value="${username}">${username}</option>
         `;
