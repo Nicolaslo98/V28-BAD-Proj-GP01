@@ -191,20 +191,11 @@ document.querySelectorAll(".players").forEach((element) => {
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
         const userimage = ePlayerData[i].user_image;
+        
         choosePlayerHTML += `
         <option value="${userimage}">${username}</option>
         `;
       }
-      // let choosePlayerHTML2 = '';
-      // for (let i = 0; i < ePlayerData.length; i++) {
-      //   const userimage = ePlayerData[i].user_image;
-      //   choosePlayerHTML += `
-      //   <img class="existingPic"
-      //   src="${userimage}">
-      //   `;
-      // }
-
-
       Swal.fire({
         didOpen: () => {
           let existingName = document.querySelector("#existingName")
@@ -278,7 +269,12 @@ document.querySelectorAll(".players").forEach((element) => {
               stopCamera();
             }
           });
-        } else {
+        } else if (result.isDismissed) {
+          console.log(document.querySelector(`#${e.target.id} ul .name`));
+          
+          document.querySelector(`#${e.target.id} ul .name`).innerHTML = (`${document.querySelector("#existingName option:checked").innerText}`);
+          document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value}`;
+        
           // Handle cancel button clicked
         }
       });
