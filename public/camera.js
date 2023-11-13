@@ -86,6 +86,7 @@ export function capture() {
     const imageElement = document.createElement('img');
     imageElement.src = imageData;
     document.body.appendChild(imageElement);
+    console.log(fetchData)
 
     return fetchData
 

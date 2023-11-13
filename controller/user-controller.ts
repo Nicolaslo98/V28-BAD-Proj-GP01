@@ -26,7 +26,9 @@ export class UserController {
                   },
             });
             form.parse(req, async (error, fields, files ) => {
-                const user_image = (files.file as formidable.File)?.newFilename
+                // console.log(files.image.new)
+                const user_image = (files.image as formidable.File)?.newFilename
+                console.log(user_image)
                 const room_id = req.session.room?.roomId
                 await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
             });
