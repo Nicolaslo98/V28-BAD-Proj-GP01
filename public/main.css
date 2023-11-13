@@ -5,7 +5,18 @@
     --secondary-color: #706233;
     --player-color: #FAE7C9
 }
+.background-image{
+    height: 100dvh;
+    width: 100vw;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6a/2005-07-08_Mahjong.JPG');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    filter: blur(3px);
 
+
+}
 .background {
     height: 100dvh;
     width: 100vw;
@@ -14,16 +25,9 @@
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6a/2005-07-08_Mahjong.JPG');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     
 }
 
-background-image{
-    filter: blur(4px);
-}
 
 .navbar {
     position: fixed;
@@ -169,7 +173,7 @@ li {
 
 .topBox p {
     font-weight: 600;
-    font-size: 25px;
+    font-size: 30px;
     margin-bottom: 7px;
     letter-spacing: 10px;
     margin-right: -10px;
@@ -448,12 +452,12 @@ div:where(.swal2-container) .swal2-html-container {
 .startBox .container-fluid .row .col-6 p {
     margin-bottom: 0;
     margin-right: 15px;
-    font-size: 20px;
-    font-weight: 600;
-    text-shadow: 0px 3px 10px grey;
-    background-color: var(--player-color);
-    padding: 0 10px;
-    border-radius: 2px;
+    font-size: 25px;
+    font-weight: 900;
+    color: WHITE;
+    text-shadow: 0px 3px 10px black;
+    padding: 0;
+    -webkit-text-stroke: 0.4px var(--secondary-color);
 }
 
 .startBox .container-fluid .row .col-6 {
@@ -466,11 +470,21 @@ div:where(.swal2-container) .swal2-html-container {
 .startBox .container-fluid .row .col-6 input {
     width: 60px;
     border: 1px solid grey;
-    background-color: rgb(255, 248, 240);
+    background-color: rgba(255, 248, 240, 0.7);
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .selector {
     margin-bottom: 20px;
+}
+.selector1 label{
+    font-weight: 800;
+    font-size: 20px;
+}
+.selector2 label{
+    font-weight: 700;
+    font-size: 20px;
 }
 
 /* get rid of scroll bar in leaderBoard */
