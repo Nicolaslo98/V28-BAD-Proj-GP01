@@ -51,12 +51,12 @@ export class RoomController {
             } else 
             if (room.length == 0) {
                 const result: any = await this.roomService.roomSetup(room_name, password)
-                res.json({ success: true, message: "create room successfully" })
                 req.session.room = {
                     roomId: result[0].id,
                     room_name: result[0].room_name
                 }
             }
+                res.json({ success: true, message: "create room successfully", room: req.session.room })
             return
         } catch (err) {
             console.log(err)

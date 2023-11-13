@@ -3,7 +3,7 @@ import { UserService } from "../service/user-service"
 import formidable from 'formidable';
 import { RoomService } from "../service/room-service";
 import '../server/session'
-
+import expressSession from "express-session"
 
 export class UserController {
 
@@ -26,12 +26,17 @@ export class UserController {
                   },
             });
             form.parse(req, async (error, fields, files ) => {
-                // console.log(files.image.new)
                 const user_image = (files.image as formidable.File)?.newFilename
                 console.log(user_image)
                 const room_id = req.session.room?.roomId
                 await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
+                // req.session.room = {
+                //     roomId: result[0].id,
+                //     room_name: result[0].room_name
+                // }
             });
+            
+            
                 res.json({ success: true, message: "create player successfully" })
         } catch (err) {
             res.json({ success: false, message: "fail to create user", err })
