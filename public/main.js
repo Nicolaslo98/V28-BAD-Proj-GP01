@@ -191,29 +191,31 @@ document.querySelectorAll(".players").forEach((element) => {
         const username = ePlayerData[i].username;
         console.log(username);
         choosePlayerHTML += `
-        <option value="${username}">${username}</option>
+        <option value="${i}">${username}</option>
         `;
       }
+      
+
 
       Swal.fire({
         didOpen: () => {
-          // let existingName = document.querySelector("#existingName")
-          // let existingPic = document.querySelector(".existingPic")
-          // if (existingName.innerHTML) {
-          //   existingName.addEventListener('change', function () {
-          //     alert(this.value)
-          //   })
-          // } else {
-          //   document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
-          // }
+          let existingName = document.querySelector("#existingName")
+          let existingPic = document.querySelector(".existingPic")
+          if (existingName.innerHTML) {
+            existingName.addEventListener('change', function () {
+              existingPic.src = `/${ePlayerData[this.value].user_image}`
+            })
+          } else {
+            document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+          }
         },
         html: `
         <div class="choosePlayer">
           <div class="existingPlayer">
             <ul>
               <li class="existingPicHolder">
-                  <img class="existingPic"
-                      src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+                <img class="existingPic"
+                  src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
               </li>
               <form class="existingNameForm">
                 <label for="existingName">Name</label>
@@ -371,10 +373,12 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 
 //history
-document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
+document.querySelector(".topBox i").addEventListener("click", async function (e) {
+  const roomId = 2;
+  const game = 2;
   try {
-    const res = await fetch('/api/history/room/:roomId');
-    const historyData = (await res.json()).historyData;
+    const res = await fetch('/api/history/room/${roomId}/${game}');
+    const historyData = (await res.json()).roundData;
     console.log(historyData);
 
     let roundHTML = '';
@@ -426,4 +430,6 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     console.error('Error:', error);
   }
 });
+
+
 //rank

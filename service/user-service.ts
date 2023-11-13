@@ -16,7 +16,7 @@ export class UserService {
                 room_id: room_id
             }      
         )
-        .returning (['id','room_name', 'room_id'])
+        .returning (['id','username', 'room_id'])
         return result
     }
 }

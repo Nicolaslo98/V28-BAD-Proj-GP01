@@ -12,7 +12,7 @@ export class CaptureController {
     captureImage = async (req: Request, res: Response) => {
         try {
             const form = formidable({
-                uploadDir: path.join('server', 'photo'),
+                uploadDir: path.join('private', 'photo'),
                 keepExtensions: true
             });
 
