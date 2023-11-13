@@ -1,13 +1,9 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
-// window.onload= function(){
-//   createJoinRoom()
-// }
-// function fetchExistingPlayer() {
+window.onload= function(){
+  createJoinRoom()
+}
 
-// }
-
-//Function: CreatePassword
 function createPassword(roomName) {
   // let roomName = results.value
   Swal.fire({
@@ -98,9 +94,9 @@ export async function createJoinRoom() {
     method: 'GET',
   })
   const result = await res.json()
-  if (result.haveSession) {
-    return
-  }
+  // if (result.haveSession) {
+  //   return
+  // }
   let isNameValid = false
   while (!isNameValid) {
     await Swal.fire({
