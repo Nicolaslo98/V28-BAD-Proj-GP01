@@ -185,7 +185,6 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const ePlayerData = (await res.json()).ePlayerData;
-      console.log(ePlayerData)
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
@@ -250,13 +249,12 @@ document.querySelectorAll(".players").forEach((element) => {
                 return "You need to write something!";
               }
             }
-          }).then((result) => {
-            console.log(result);
+          }).then(async (result) => {
             if (result.isConfirmed) {
               const fetchData = capture();
-              fetchData.append("username", result.value);
               console.log(fetchData);
-              fetch('/api/user', {
+              fetchData.append("username", result.value);
+              await fetch('/api/user', {
                 method: 'POST',
                 body: fetchData,
               });
