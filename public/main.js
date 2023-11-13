@@ -185,28 +185,29 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const ePlayerData = (await res.json()).ePlayerData;
-
+      console.log(ePlayerData)
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
         console.log(username);
         choosePlayerHTML += `
-        <option value="${username}">${username}</option>
+        <option value="${i}">${username}</option>
         `;
       }
-      // let choosePlayerHTML2 = '';
-      // const userImage = ePlayerData[i].user_image;
-      // console.log(userImage);
-      // choosePlayerHTML2 += `
-      //   <img class="existingPic"
-      //                 src="../server/photo/${userImage}">
-        // `
       
 
 
       Swal.fire({
         didOpen: () => {
-          // document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+          let existingName = document.querySelector("#existingName")
+          let existingPic = document.querySelector(".existingPic")
+          if (existingName.innerHTML) {
+            existingName.addEventListener('change', function () {
+              existingPic.src = `/${ePlayerData[this.value].user_image}`
+            })
+          } else {
+            document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+          }
         },
         html: `
         <div class="choosePlayer">
@@ -261,7 +262,7 @@ document.querySelectorAll(".players").forEach((element) => {
                 body: fetchData,
               });
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://scitechdaily.com/images/Potato-Sunlight.jpg`;
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `/server/photo/${fetchData[0]}`;
               stopCamera();
             } else {
               stopCamera();
@@ -381,9 +382,9 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     console.log(historyData);
 
     let roundHTML = '';
-    let  historyScoreHTML= '';
-    let  historyPlayerHTML= '';
-   
+    let historyScoreHTML = '';
+    let historyPlayerHTML = '';
+
     for (let i = 0; i < historyData.length; i++) {
       const playerE = historyData[i].player_e;
       const playerS = historyData[i].player_s;
@@ -396,20 +397,20 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
       const round = historyData[i].id;
 
       roundHTML +=
-      `<p class="roundInfo">${round}</p>`
-      historyScoreHTML += 
-      `<p id="">${scoreE}</p>
+        `<p class="roundInfo">${round}</p>`
+      historyScoreHTML +=
+        `<p id="">${scoreE}</p>
       <p id="">${scoreS}</p>
       <p id="">${scoreW}</p>
       <p id="">${scoreN}</p>`
-      historyPlayerHTML +=  
-      `<p class="timelinePlayer" id="player1">${playerE}</p>
+      historyPlayerHTML +=
+        `<p class="timelinePlayer" id="player1">${playerE}</p>
       <p class="timelinePlayer" id="player2">${playerS}</p>
       <p class="timelinePlayer" id="player3">${playerW}</p>
       <p class="timelinePlayer" id="player4">${playerN}</p>`
     }
-  Swal.fire({
-    html: `
+    Swal.fire({
+      html: `
       <div class="timeline noScrollBar">
         <div class="timelineSpace"></div>
         <div class="timelineMatchInfo">
@@ -423,11 +424,11 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
         </div>
       </div>
     `,
-    confirmButtonText: "Return"
-  })
-}catch (error){
-  console.error('Error:', error);
-}
+      confirmButtonText: "Return"
+    })
+  } catch (error) {
+    console.error('Error:', error);
+  }
 });
 
 
