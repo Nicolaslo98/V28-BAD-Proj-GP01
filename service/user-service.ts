@@ -16,6 +16,7 @@ export class UserService {
                 room_id: room_id
             }      
         )
+        .returning('user_image')
         return result
     }
 }

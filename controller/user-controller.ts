@@ -29,16 +29,13 @@ export class UserController {
                 console.log({
                     error
                 })
-                console.log('fields', {fields}, 'files', {files})
                 const user_image = (files.image as formidable.File)?.newFilename
-                console.log(user_image)
-                console.log(fields)
                 const room_id = req.session.room?.roomId
-                await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
+                const imageData= await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
+                res.json({ success: true, message: "create player successfully", imageData: imageData });
             });
-            res.json({ success: true, message: "create player successfully" })
         } catch (err) {
-            res.json({ success: false, message: "fail to create user", err })
+            res.json({ success: false, message: "fail to create user", err });
         }
     }
 }

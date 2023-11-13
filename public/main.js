@@ -254,12 +254,14 @@ document.querySelectorAll(".players").forEach((element) => {
               const fetchData = capture();
               console.log(fetchData);
               fetchData.append("username", result.value);
-              await fetch('/api/user', {
+              const result2 = await fetch('/api/user', {
                 method: 'POST',
                 body: fetchData,
               });
+              const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `/server/photo/${fetchData[0]}`;
+              console.log(result3) 
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               stopCamera();
             } else {
               stopCamera();
