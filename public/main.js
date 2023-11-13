@@ -193,6 +193,15 @@ document.querySelectorAll(".players").forEach((element) => {
         <option value="${username}">${username}</option>
         `;
       }
+      // let choosePlayerHTML2 = '';
+      // const userImage = ePlayerData[i].user_image;
+      // console.log(userImage);
+      // choosePlayerHTML2 += `
+      //   <img class="existingPic"
+      //                 src="../server/photo/${userImage}">
+        // `
+      
+
 
       Swal.fire({
         didOpen: () => {
@@ -203,8 +212,8 @@ document.querySelectorAll(".players").forEach((element) => {
           <div class="existingPlayer">
             <ul>
               <li class="existingPicHolder">
-                  <img class="existingPic"
-                      src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+                <img class="existingPic"
+                  src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
               </li>
               <form class="existingNameForm">
                 <label for="existingName">Name</label>
@@ -363,9 +372,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 //history
 document.querySelector(".topBox i").addEventListener("click", async function (e) {
+  const roomId = 2;
+  const game = 2;
   try {
-    const res = await fetch('/api/history/room/:roomId');
-    const historyData = (await res.json()).historyData;
+    const res = await fetch('/api/history/room/${roomId}/${game}');
+    const historyData = (await res.json()).roundData;
     console.log(historyData);
 
     let roundHTML = '';
@@ -417,4 +428,6 @@ document.querySelector(".topBox i").addEventListener("click", async function (e)
   console.error('Error:', error);
 }
 });
+
+
 //rank
