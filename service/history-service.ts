@@ -5,11 +5,10 @@ export class HistoryService {
   constructor(private knex: Knex) {
   }
 
-  async getRoundData(room_id: number, game: number){
+  async getRoundData(game_id: number){
     const roundData = await this.knex('round')
     .select('*')
-    .where('room_id', room_id)
-    .andWhere('game', game)
+    .where('game_id', game_id)
     return roundData;
   }
 }

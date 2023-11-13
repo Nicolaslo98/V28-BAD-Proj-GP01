@@ -30,7 +30,7 @@ async function pythonReturn() {
         if (keyA > keyB) return 1;
         return 0;
     });
-    //console.log(predictions)
+    // console.log(predictions)
     return predictions
     //   console.log(predictions.length)
 }
@@ -61,7 +61,7 @@ async function pythonReturn() {
 //           //console.log(predictions)
 //           result.push(predictions) 
 //           return result
-//         //   console.log(predictions.length)
+//           console.log(predictions.length)
 //     })
 //     .catch(function(error) {
 //         console.log(error.message);
@@ -69,60 +69,138 @@ async function pythonReturn() {
 // }
 async function log() {
     const result = await pythonReturn();
+    const arr = []
     for (let className of result) {
         switch (className.class) {
             case ('1m'):
-                className.class = { value: '1', suit: 'character' };
+                arr.push(new Tile({value: 1, suit: 'character' }));
                 break;
             case ('2m'):
-                className.class = { value: '2', suit: 'character' };
+                arr.push(new Tile({value: 2, suit: 'character' }));
                 break;
             case ('3m'):
-                className.class = { value: '3', suit: 'character' };
+                arr.push(new Tile({value: 3, suit: 'character' }));
                 break;
             case ('4m'):
-                className.class = { value: '4', suit: 'character' };
+                arr.push(new Tile({value: 4, suit: 'character' }));
                 break;
             case ('5m'):
-                className.class = { value: '5', suit: 'character' };
+                arr.push(new Tile({value: 5, suit: 'character' }));
                 break;
             case ('6m'):
-                className.class = { value: '6', suit: 'character' };
+                arr.push(new Tile({value: 6, suit: 'character' }));
                 break;
             case ('7m'):
-                className.class = { value: '7', suit: 'character' };
+                arr.push(new Tile({value: 7, suit: 'character' }));
                 break;
             case ('8m'):
-                className.class = { value: '8', suit: 'character' };
+                arr.push(new Tile({value: 8, suit: 'character' }));
                 break;
             case ('8m'):
-                className.class = { value: '8', suit: 'character' };
+                arr.push(new Tile({value: 8, suit: 'character' }));
+                break;
+            case ('9m'):
+                arr.push(new Tile({value: 9, suit: 'character' }));
+                break;
+            case ('0m'):
+                arr.push(new Tile({value: 5, suit: 'character' }));
+                break;
+            case ('1s'):
+                arr.push(new Tile({value: 1, suit: 'bamboo' }));
+                break;
+            case ('2s'):
+                arr.push(new Tile({value: 2, suit: 'bamboo' }));
+                break;
+            case ('3s'):
+                arr.push(new Tile({value: 3, suit: 'bamboo' }));
+                break;
+            case ('4s'):
+                arr.push(new Tile({value: 4, suit: 'bamboo' }));
+                break;
+            case ('5s'):
+                arr.push(new Tile({value: 5, suit: 'bamboo' }));
+                break;
+            case ('6s'):
+                arr.push(new Tile({value: 6, suit: 'bamboo' }));
+                break;
+            case ('7s'):
+                arr.push(new Tile({value: 7, suit: 'bamboo' }));
+                break;
+            case ('8s'):
+                arr.push(new Tile({value: 8, suit: 'bamboo' }));
+                break;
+            case ('9s'):
+                arr.push(new Tile({value: 9, suit: 'bamboo' }));
+                break;
+            case ('0s'):
+                arr.push(new Tile({value: 5, suit: 'bamboo' }));
+                break;
+            case ('1p'):
+                arr.push(new Tile({value: 1, suit: 'dot' }));
+                break;
+            case ('2p'):
+                arr.push(new Tile({value: 2, suit: 'dot' }));
+                break;
+            case ('3p'):
+                arr.push(new Tile({value: 3, suit: 'dot' }));
+                break;
+            case ('4p'):
+                arr.push(new Tile({value: 4, suit: 'dot' }));
+                break;
+            case ('5p'):
+                arr.push(new Tile({value: 5, suit: 'dot' }));
+                break;
+            case ('6p'):
+                arr.push(new Tile({value: 6, suit: 'dot' }));
+                break;
+            case ('7p'):
+                arr.push(new Tile({value: 7, suit: 'dot' }));
+                break;
+            case ('8p'):
+                arr.push(new Tile({value: 8, suit: 'dot' }));
+                break;
+            case ('9p'):
+                arr.push(new Tile({value: 9, suit: 'dot' }));
+                break;
+            case ('0p'):
+                arr.push(new Tile({value: 5, suit: 'dot' }));
+                break;
+            case ('1z'):
+                arr.push(new Tile({value: 1, suit: 'honor' }));
+                break;
+            case ('2z'):
+                arr.push(new Tile({value: 2, suit: 'honor' }));
+                break;
+            case ('3z'):
+                arr.push(new Tile({value: 3, suit: 'honor' }));
+                break;
+            case ('4z'):
+                arr.push(new Tile({value: 4, suit: 'honor' }));
+                break;
+            case ('7z'):
+                arr.push(new Tile({value: 5, suit: 'honor' }));
+                break;
+            case ('6z'):
+                arr.push(new Tile({value: 6, suit: 'honor' }));
+                break;
+            case ('5z'):
+                arr.push(new Tile({value: 7, suit: 'honor' }));
                 break;
             default:
                 console.log('fail')
         }
-        console.log(className.class)
-
     }
-
-    // const classToObj =  result.map(x => ({
-    //      value : x.class[0], suit : x.class[1]
-    //     }))
-    //     for (let suit of classToObj){
-    //         if (suit.suit = 'm') {
-    //             suit.suit = 'character'
-    //         } else 
-    //         if (suit.suit = 's') {
-    //             suit.suit = 'bamboo'
-    //         } else 
-    //         if ( suit.suit = 'p' ){
-    //             suit.suit = 'dot'
-    //         } 
-    //         }
-    //     }
-
+    for (let tile of arr){
+        console.log(tile)
+    }
+    return arr
 }
 log()
+
+
+
+
+
 
 
 //Calculate Fan
@@ -142,3 +220,4 @@ const winningHand = new WinningHand([meld1, meld2, meld3, meld4, meld5]);
 const config = { selfPick: true };
 
 const faanValue = FaanCalculator.calculate(winningHand, config);
+console.log()

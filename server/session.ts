@@ -9,6 +9,7 @@ export let sessionMiddleware = expressSession({
 declare module "express-session" {
   interface SessionData {
     room?: { room_name: number; roomId: number };
+    game?: { game_Id: number };
     grant?: { response?: { access_token?: string } };
   }
 }
