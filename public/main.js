@@ -1,12 +1,9 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
-// function fetchExistingPlayer() {
+window.onload= function(){
+}
 
-// }
-
-//Function: CreatePassword
 function createPassword(roomName) {
-  // let roomName = results.value
   Swal.fire({
     didOpen: () => {
     },
@@ -41,7 +38,7 @@ function createPassword(roomName) {
     }
   })
 }
-
+console.log("5")
 //Function: Has Room 
 function enterPassword(roomName) {
   Swal.fire({
@@ -89,17 +86,21 @@ function enterPassword(roomName) {
     }
   })
 }
-
-export async function createJoinRoom() {
+console.log("6")
+async function createJoinRoom() {
+  console.log("3")
   const res = await fetch('/api/room', {
     method: 'GET',
   })
   const result = await res.json()
+  console.log("result")
   if (result.haveSession) {
     return
   }
   let isNameValid = false
+  console.log("1")
   while (!isNameValid) {
+    console.log("2")
     await Swal.fire({
       didOpen: () => {
       },
@@ -177,6 +178,7 @@ export async function createJoinRoom() {
   }
 }
 createJoinRoom()
+
 
 
 
