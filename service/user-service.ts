@@ -16,6 +16,10 @@ export class UserService {
                 room_id: room_id
             }      
         )
+<<<<<<< HEAD
+=======
+        .returning (['id','username', 'room_id'])
+>>>>>>> 3dd991459fa96dff0a6e7cbed394647fe261f9aa
         return result
     }
 }

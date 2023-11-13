@@ -41,6 +41,8 @@ import { RankService } from "../service/rank-service";
 export const rankService = new RankService(knex);
 export const rankController = new RankController(rankService);
 
+
+
 //Request Log
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] Request: ${req.path}`);
@@ -56,6 +58,7 @@ app.use(sessionMiddleware);
 import { apiRoutes } from "./apiRoutes";
 app.use("/api", apiRoutes);
 app.use(express.static(path.join(__dirname, "..", "public"),{extensions: ['html', 'htm']}));
+app.use(express.static(path.join(__dirname, "..", "private/photo")));
 // app.use("/", urlRoutes);
 
 //404 Handler

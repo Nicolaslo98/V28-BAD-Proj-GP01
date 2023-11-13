@@ -6,7 +6,7 @@ export class EplayerService {
 
   async getEPlayerData(room_id: number){
     const ePlayerData = await this.knex('player')
-    .select('username')
+    .select('username', 'user_image')
     .where('room_id', room_id)
     return ePlayerData;
   }
