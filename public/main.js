@@ -1,5 +1,8 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
+window.onload= function(){
+  createJoinRoom()
+}
 // function fetchExistingPlayer() {
 
 // }
@@ -176,7 +179,7 @@ export async function createJoinRoom() {
     })
   }
 }
-createJoinRoom()
+
 
 
 
