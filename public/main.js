@@ -188,11 +188,19 @@ document.querySelectorAll(".players").forEach((element) => {
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
+        const userimage = ePlayerData[i].user_image;
         choosePlayerHTML += `
-        <option value="${i}">${username}</option>
+        <option value="${userimage}">${username}</option>
         `;
       }
-      
+      // let choosePlayerHTML2 = '';
+      // for (let i = 0; i < ePlayerData.length; i++) {
+      //   const userimage = ePlayerData[i].user_image;
+      //   choosePlayerHTML += `
+      //   <img class="existingPic"
+      //   src="${userimage}">
+      //   `;
+      // }
 
 
       Swal.fire({
@@ -200,8 +208,9 @@ document.querySelectorAll(".players").forEach((element) => {
           let existingName = document.querySelector("#existingName")
           let existingPic = document.querySelector(".existingPic")
           if (existingName.innerHTML) {
-            existingName.addEventListener('change', function () {
-              existingPic.src = `/${ePlayerData[this.value].user_image}`
+
+            existingName.addEventListener('change', function (e) {
+              existingPic.src = `/image/${e.target.value}`
             })
           } else {
             document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
@@ -213,7 +222,7 @@ document.querySelectorAll(".players").forEach((element) => {
             <ul>
               <li class="existingPicHolder">
                 <img class="existingPic"
-                  src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+                src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
               </li>
               <form class="existingNameForm">
                 <label for="existingName">Name</label>
