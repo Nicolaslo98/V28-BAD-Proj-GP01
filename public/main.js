@@ -89,7 +89,7 @@ function enterPassword(roomName) {
   })
 }
 
-export async function createJoinRoom() {
+async function createJoinRoom() {
   const res = await fetch('/api/room', {
     method: 'GET',
   })
