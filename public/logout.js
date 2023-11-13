@@ -1,4 +1,4 @@
-document.querySelector('.leftTopBox').addEventListener("click", async function (e) {
+document.querySelector('.topBox i:first-child').addEventListener("click", async function (e) {
     const res = await fetch('/api/room/logout', {
         method: 'PUT',
       })

@@ -18,7 +18,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    
+}
 
+background-image{
+    filter: blur(4px);
 }
 
 .navbar {
@@ -172,7 +176,7 @@ li {
     -webkit-text-stroke: 0.7px var(--secondary-color);
 }
 
-.topBox i {
+.topBox > i:nth-child(2) {
     position: absolute;
     right: 5%;
     top: 80%;
@@ -186,10 +190,10 @@ li {
     font-size: 17px;
 }
 
-.leftTopBox i {
+.topBox > i:first-child {
     position: absolute;
-    left: 28%;
-    top: 8%;
+    left: 5%;
+    top: 80%;
     width: 40px;
     height: 40px;
     background-color: #b0926a;
@@ -444,6 +448,9 @@ div:where(.swal2-container) .swal2-html-container {
     font-size: 20px;
     font-weight: 600;
     text-shadow: 0px 3px 10px grey;
+    background-color: var(--player-color);
+    padding: 0 10px;
+    border-radius: 2px;
 }
 
 .startBox .container-fluid .row .col-6 {
@@ -559,7 +566,7 @@ div:where(.swal2-container) .swal2-html-container {
 .roomPinCode input {
     border: none !important;
     border-radius: 0 !important;
-    width: 10.5ch;
+    width: 8.5ch;
     background:
         repeating-linear-gradient(90deg,
             dimgrey 0,
