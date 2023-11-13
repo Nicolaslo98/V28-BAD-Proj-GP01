@@ -1,8 +1,8 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 
-window.onload= function(){
-  createJoinRoom()
-}
+// window.onload= function(){
+//   createJoinRoom()
+// }
 // function fetchExistingPlayer() {
 
 // }
