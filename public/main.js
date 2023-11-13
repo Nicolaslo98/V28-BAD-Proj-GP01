@@ -361,53 +361,60 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 
 
+//history
+document.querySelector(".topBox i").addEventListener("click", async function (e) {
+  try {
+    const res = await fetch('/api/history/room/:roomId');
+    const historyData = (await res.json()).historyData;
+    console.log(historyData);
 
-document.querySelector(".topBox i").addEventListener("click", function (e) {
+    let roundHTML = '';
+    let  historyScoreHTML= '';
+    let  historyPlayerHTML= '';
+   
+    for (let i = 0; i < historyData.length; i++) {
+      const playerE = historyData[i].player_e;
+      const playerS = historyData[i].player_s;
+      const playerW = historyData[i].player_w;
+      const playerN = historyData[i].player_n;
+      const scoreE = historyData[i].score_e;
+      const scoreS = historyData[i].score_s;
+      const scoreW = historyData[i].score_w;
+      const scoreN = historyData[i].score_n;
+      const round = historyData[i].id;
+
+      roundHTML +=
+      `<p class="roundInfo">${round}</p>`
+      historyScoreHTML += 
+      `<p id="">${scoreE}</p>
+      <p id="">${scoreS}</p>
+      <p id="">${scoreW}</p>
+      <p id="">${scoreN}</p>`
+      historyPlayerHTML +=  
+      `<p class="timelinePlayer" id="player1">${playerE}</p>
+      <p class="timelinePlayer" id="player2">${playerS}</p>
+      <p class="timelinePlayer" id="player3">${playerW}</p>
+      <p class="timelinePlayer" id="player4">${playerN}</p>`
+    }
   Swal.fire({
     html: `
       <div class="timeline noScrollBar">
         <div class="timelineSpace"></div>
         <div class="timelineMatchInfo">
-          <p class="roundInfo">1</p>
-          <p id="">0</p>
-          <p id="">0</p>
-          <p id="">-8</p>
-          <p id="">+4</p>
-        </div>
-        <div class="timelineMatchInfo">
-          <p class="roundInfo">2</p>
-          <p id="">0</p>
-          <p id="">0</p>
-          <p id="">-8</p>
-          <p id="">+4</p>
-        </div>
-        <div class="timelineMatchInfo">
-          <p class="roundInfo">3</p>
-          <p id="">0</p>
-          <p id="">0</p>
-          <p id="">-8</p>
-          <p id="">+4</p>
-        </div>
-        <div class="timelineMatchInfo">
-          <p class="roundInfo">4</p>
-          <p id="">1204</p>
-          <p id="">0</p>
-          <p id="">0</p>
-          <p id="">-1204</p>
-        </div>
-        
+        ${roundHTML}
+        ${historyScoreHTML}
+        </div>       
 
         <div class="timelineInfo">
           <p class="round">局數</p>
-          <p class="timelinePlayer" id="player1">玩家1</p>
-          <p class="timelinePlayer" id="player2">玩家2</p>
-          <p class="timelinePlayer" id="player3">玩家3</p>
-          <p class="timelinePlayer" id="player4">玩家4</p>
+          ${historyPlayerHTML}
         </div>
       </div>
     `,
     confirmButtonText: "Return"
   })
-})
-
-//history
+}catch (error){
+  console.error('Error:', error);
+}
+});
+//rank
