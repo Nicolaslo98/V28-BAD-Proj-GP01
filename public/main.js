@@ -372,7 +372,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 
 //history
-document.querySelector(".topBox i").addEventListener("click", async function (e) {
+document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   const roomId = 2;
   const game = 2;
   try {
