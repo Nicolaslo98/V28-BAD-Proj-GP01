@@ -3,100 +3,104 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 window.onload= function(){
 }
 
-// function createPassword(roomName) {
-//   Swal.fire({
-//     didOpen: () => {
-//     },
-//     html: `
+function createPassword(roomName) {
+  Swal.fire({
+    didOpen: () => {
+    },
+    html: `
     
-//     `,
-//     allowOutsideClick: false,
-//     title: "Create a unique password",
-//     input: "text",
-//     inputValidator: (value) => {
-//       if (!value) {
-//         return "You need to write something!";
-//       } else if (value.length <= 5) {
-//         return "Password must be at least 6 letter long"
-//       }
-//     }
-//   }).then(async (result) => {
-//     if (result.isConfirmed) {
-//       console.log(`room_name: ${roomName} , password: ${result.value}`)
-//       const FormData = {
-//         room_name: roomName,
-//         password: result.value
-//       }
-//       const res = await fetch('/api/room/create', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(FormData),
-//       })
-//       console.log(await res.json())
-//     }
-//   })
-// }
-
-// //Function: Has Room 
-// function enterPassword(roomName) {
-//   Swal.fire({
-//     didOpen: () => {
-//     },
-//     html: `
+    `,
+    allowOutsideClick: false,
+    title: "Create a unique password",
+    input: "text",
+    inputValidator: (value) => {
+      if (!value) {
+        return "You need to write something!";
+      } else if (value.length <= 5) {
+        return "Password must be at least 6 letter long"
+      }
+    }
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      console.log(`room_name: ${roomName} , password: ${result.value}`)
+      const FormData = {
+        room_name: roomName,
+        password: result.value
+      }
+      const res = await fetch('/api/room/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(FormData),
+      })
+      console.log(await res.json())
+    }
+  })
+}
+console.log("5")
+//Function: Has Room 
+function enterPassword(roomName) {
+  Swal.fire({
+    didOpen: () => {
+    },
+    html: `
     
-//     `,
-//     allowOutsideClick: false,
-//     title: "Enter password",
-//     input: "text",
-//     inputValidator: (value) => {
-//       if (!value) {
-//         return "You need to write something!";
-//       } else if (value.length <= 2) {
-//         return "Password must be at least 2 letter long"
-//       }
-//     }
-//   }).then(async (result) => {
-//     if (result.isConfirmed) {
-//       console.log(`checking: ${roomName} ${result.value}`)
-//       const FormData = {
-//         room_name: roomName,
-//         password: result.value
-//       }
-//       const res = await fetch('/api/room/join', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(FormData),
-//       })
-//       //when password false
-//       if (!res.ok) {
-//         await Swal.fire({
-//           icon: "error",
-//           title: "Oops...",
-//           text: "Wrong Password",
-//         });
-//         enterPassword(roomName)
-//       } else if (res.ok) {
-//         console.log("check password")
-//         console.log(await res.json())
-//       }
-//     }
-//   })
-// }
-
+    `,
+    allowOutsideClick: false,
+    title: "Enter password",
+    input: "text",
+    inputValidator: (value) => {
+      if (!value) {
+        return "You need to write something!";
+      } else if (value.length <= 2) {
+        return "Password must be at least 2 letter long"
+      }
+    }
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      console.log(`checking: ${roomName} ${result.value}`)
+      const FormData = {
+        room_name: roomName,
+        password: result.value
+      }
+      const res = await fetch('/api/room/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(FormData),
+      })
+      //when password false
+      if (!res.ok) {
+        await Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Password",
+        });
+        enterPassword(roomName)
+      } else if (res.ok) {
+        console.log("check password")
+        console.log(await res.json())
+      }
+    }
+  })
+}
+console.log("6")
 async function createJoinRoom() {
+  console.log("3")
   const res = await fetch('/api/room', {
     method: 'GET',
   })
   const result = await res.json()
+  console.log("result")
   if (result.haveSession) {
     return
   }
   let isNameValid = false
+  console.log("1")
   while (!isNameValid) {
+    console.log("2")
     await Swal.fire({
       didOpen: () => {
       },
