@@ -41,10 +41,7 @@ import { RankService } from "../service/rank-service";
 export const rankService = new RankService(knex);
 export const rankController = new RankController(rankService);
 
-import { StartController } from "../controller/start-controller";
-import { StartService } from "../service/start-service";
-export const startService = new RankService(knex);
-export const startController = new RankController(startService);
+
 
 //Request Log
 app.use((req, res, next) => {
