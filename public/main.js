@@ -37,6 +37,7 @@ function createPassword(roomName) {
         },
         body: JSON.stringify(FormData),
       })
+      console.log(await res.json())
     }
   })
 }
