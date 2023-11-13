@@ -58,7 +58,7 @@ app.use(sessionMiddleware);
 import { apiRoutes } from "./apiRoutes";
 app.use("/api", apiRoutes);
 app.use(express.static(path.join(__dirname, "..", "public"),{extensions: ['html', 'htm']}));
-app.use(express.static(path.join(__dirname, "..", "private/photo")));
+app.use("/image",express.static(path.join(__dirname, "..", "private/photo")));
 // app.use("/", urlRoutes);
 
 //404 Handler
