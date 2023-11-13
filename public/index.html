@@ -99,59 +99,59 @@
                 <p>分數</p>
             </div>
         </div>
-        <form class="startBox">
+        <form class="startBox" id="startForm">
             <div class="btn-group selector selector1" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="FAn" id="8Radio" autocomplete="off" checked>
+                <input type="radio" class="btn-check" name="FAn" id="8Radio" value="8" autocomplete="off" checked>
                 <label class="btn btn-outline-primary" for="8Radio">8 番</label>
               
-                <input type="radio" class="btn-check" name="FAn" id="10Radio" autocomplete="off">
+                <input type="radio" class="btn-check" name="FAn" id="10Radio" value="10" autocomplete="off">
                 <label class="btn btn-outline-primary" for="10Radio">10 番</label>
               
-                <input type="radio" class="btn-check" name="FAn" id="13Radio" autocomplete="off">
+                <input type="radio" class="btn-check" name="FAn" id="13Radio" value="13" autocomplete="off">
                 <label class="btn btn-outline-primary" for="13Radio">13 番</label>
             </div>  
             <div class="btn-group selector selector2" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio11" autocomplete="off" checked>
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio11" autocomplete="off" checked value="32">
                 <label class="btn btn-outline-primary" for="btnradio11">32</label>
               
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio22" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio22" autocomplete="off" value="64">
                 <label class="btn btn-outline-primary" for="btnradio22">64</label>
               
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio33" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio33" autocomplete="off" value="96">
                 <label class="btn btn-outline-primary" for="btnradio33">96</label>
 
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio44" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio44" autocomplete="off" value="128">
                 <label class="btn btn-outline-primary" for="btnradio44">128</label>
               
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio55" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio55" autocomplete="off" value="256">
                 <label class="btn btn-outline-primary" for="btnradio55">256</label>
         
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio66" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio66" autocomplete="off" value="512">
                 <label class="btn btn-outline-primary" for="btnradio66">512</label>
             </div>  
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>3 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>4 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>5 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>6 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>7 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 fanInputHolder">
                         <p>8 番</p>
                         <input class="form-control" type="text" placeholder="" aria-label="default input example">
                     </div>
@@ -160,10 +160,10 @@
         </form>
         <div class="container-fluid bottomBox">
             <div class="row">
-                <div class="col-6 leftBtn">
+                <button class="col-6 leftBtn" type="submit" form="startForm">
                     <i class="fa-solid fa-backward"></i>
-                    <p>重新開局</p>
-                </div>
+                    <p>開局</p>
+                </button>
                 <div class="col-6 rightBtn" id="leaderBoard">
                     <i class="fa-solid fa-ranking-star"></i>
                     <p>排行榜</p>

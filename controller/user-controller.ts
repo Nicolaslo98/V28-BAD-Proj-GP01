@@ -13,7 +13,7 @@ export class UserController {
     createUser = async (req: Request, res: Response) => {
         try {
             const form = formidable({
-                uploadDir: "./server/photo",
+                uploadDir: "/private/photo",
                 keepExtensions: true,
                 maxFiles: 1,
                 maxFileSize: 1024 ** 2 * 200,

@@ -12,7 +12,7 @@ const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
 const topBoxIcon = document.querySelector(".topBox i")
 let check = true
-let check2 = true
+let check2 = false
 
 settingBtn.addEventListener("click", function(e){
     Swal.fire({
@@ -78,6 +78,15 @@ settingBtn.addEventListener("click", function(e){
       check = true
   
     } else {
+
+      const isFanInputEmpty = document.querySelectorAll(".fanInputHolder input")
+
+      if (!isFanInputEmpty.values){
+        Swal.fire({
+          text: 'Please do not leave blanks'
+        })
+      }
+
       home.style.display = 'flex';
       leaderBoard.style.display = 'none';
       cameraBtn.style.display = 'flex'

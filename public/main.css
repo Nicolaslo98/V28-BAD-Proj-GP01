@@ -39,7 +39,7 @@ background-image{
     transform: translate(-50%, -50%);
     width: 60%;
     height: 40%;
-    display: flex;
+    display: none;
     align-items: center;
 }
 
@@ -273,7 +273,7 @@ li {
     height: 100%;
 }
 
-.bottomBox .row div {
+.bottomBox .row .col-6 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -283,12 +283,15 @@ li {
     letter-spacing: 7px;
     padding: 0;
 }
+button {
+    all: unset;
+}
 
-.bottomBox .row div i {
+.bottomBox .row .col-6 i {
     pointer-events: none;
 }
 
-.bottomBox .row div p {
+.bottomBox .row .col-6 p {
     margin-bottom: 0;
     pointer-events: none;
 }
@@ -303,7 +306,7 @@ li {
     border-radius: 20px;
     box-shadow: 0px 3px 3px black;
     background-color: var(--player-color);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     font-size: xx-large;
@@ -396,7 +399,7 @@ div:where(.swal2-container) .swal2-html-container {
 .startBox {
     width: 370px;
     height: 70%;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
