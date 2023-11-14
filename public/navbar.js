@@ -42,14 +42,15 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       formData.push(i.id)
     }
   }
-  const formObject = {
-    player_e: formData[2],
-    player_s: formData[3],
-    player_w: formData[1],
-    player_n: formData[0],
-  }
-  console.log(formObject)
+  
   if (isName){
+    const formObject = {
+      player_e: formData[2],
+      player_s: formData[3],
+      player_w: formData[1],
+      player_n: formData[0],
+    }
+    console.log(formObject)
     const res = await fetch('/api/start', {
       method: 'POST',
       headers:{
@@ -57,15 +58,16 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       },
       body: JSON.stringify(formObject)
     });
-    const result = await res.json();
+    // const result = await res.json();
+    startingBtn.style.display = 'none';
+    cameraBtn.style.display = 'flex';
+    showBottomBtn = cameraBtn
   }
 
 
 
 
-  startingBtn.style.display = 'none';
-  cameraBtn.style.display = 'flex';
-  showBottomBtn = cameraBtn
+  
 })
 
 rightBtn.addEventListener("click", function (e) {

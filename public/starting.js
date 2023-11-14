@@ -1,8 +1,6 @@
 // import { resolve } from "path";
 
-window.onload = function(){
-  genFan(8, 32);
-}
+
   
 let multiplyNumber = 32
 let fanNumber = 8
@@ -115,8 +113,5 @@ export async function fanLimit() {
   })
 }
 
-// function main(){
-//   // console.log(fanLimit())
-// }
-// main()
 
+genFan(8, 32);
