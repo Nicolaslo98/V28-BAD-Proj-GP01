@@ -266,9 +266,9 @@ document.querySelectorAll(".players").forEach((element) => {
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
               console.log(result3) 
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
-              stopCamera();
+              await stopCamera();
             } else {
-              stopCamera();
+              await stopCamera();
             }
           });
         } else if (result.isDismissed) {
@@ -317,7 +317,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           method: 'POST',
           body: fetchData,
         })
-        stopCamera()
+        await stopCamera()
         await Swal.fire({
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
@@ -372,16 +372,41 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           }
         });
       } else {
-        stopCamera()
+        await stopCamera()
         isPhotoCorrect = 1
       }
     })
   }
 })
 
+document.querySelector(".startingBtn").addEventListener("click", async function(e) {
+  const players = document.querySelectorAll(".name")
+  let isName = true
+  for (let i of players){
+    if (!i.innerHTML){
+      isName = false
+    }
+  }
+  // if (isName){
+  //   const res = await fetch('/api/user', {
+  //     method: 'POST',
+  //     body: fetchData,
+  //   });
+  //   const result = await res.json();
+  // }
 
 
+<<<<<<< Updated upstream
 //Function: call history
+=======
+
+
+
+  
+})
+
+//history
+>>>>>>> Stashed changes
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   try {
     const res = await fetch('/api/history/game');

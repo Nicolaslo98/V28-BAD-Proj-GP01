@@ -3,7 +3,7 @@ const home = document.querySelector(".box")
 const start = document.querySelector(".startBox")
 const rightBtn = document.querySelector(".rightBtn")
 const leftBtn = document.querySelector(".leftBtn")
-const cameraBtn = document.querySelector(".cameraBtn")
+const startingBtn = document.querySelector(".startingBtn")
 const settingBtn = document.querySelector(".settingBtn")
 const rightBtnText = document.querySelector(".rightBtn p")
 const rightBtnIcon = document.querySelector(".rightBtn i")
@@ -34,7 +34,7 @@ settingBtn.addEventListener("click", function(e){
     if (check) {
       leaderBoard.style.display = 'flex';
       home.style.display = 'none';
-      cameraBtn.style.display = 'none'
+      startingBtn.style.display = 'none'
       settingBtn.style.display = 'flex'
       start.style.display = 'none'
       rightBtnText.innerHTML = "現時賽果"
@@ -49,7 +49,7 @@ settingBtn.addEventListener("click", function(e){
     } else {
       home.style.display = 'flex';
       leaderBoard.style.display = 'none';
-      cameraBtn.style.display = 'flex'
+      startingBtn.style.display = 'flex'
       settingBtn.style.display = 'none'
       rightBtnText.innerHTML = "排行榜"
       rightBtnIcon.classList = "fa-solid fa-ranking-star"
@@ -65,7 +65,7 @@ settingBtn.addEventListener("click", function(e){
     if (check2) {
       leaderBoard.style.display = 'none';
       home.style.display = 'none';
-      cameraBtn.style.display = 'none'
+      startingBtn.style.display = 'none'
       settingBtn.style.display = 'none'
       start.style.display = 'flex'
       rightBtnText.innerHTML = "排行榜"
@@ -89,7 +89,7 @@ settingBtn.addEventListener("click", function(e){
 
       home.style.display = 'flex';
       leaderBoard.style.display = 'none';
-      cameraBtn.style.display = 'flex'
+      startingBtn.style.display = 'flex'
       settingBtn.style.display = 'none'
       start.style.display = 'none'
       rightBtnText.innerHTML = "排行榜"
