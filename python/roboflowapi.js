@@ -28,6 +28,7 @@ async function pythonReturn() {
         if (keyA > keyB) return 1;
         return 0;
     });
+    console.log(predictions)
     return predictions
 }
 
@@ -190,16 +191,16 @@ const winningHand = new WinningHand([meld1, meld2, meld3, meld4, meld5]);
 const config = 
 {
 //自摸 
-// selfPick: true,
+selfPick: true,
 //無花加一番
-extraTiles : {spring: true,
-    summer: false,
-    autumn: false,
-    winter: false,
-    plum: false,
-    lily: false,
-    chrysanthemum: false,
-    bamboo: false},
+// extraTiles : {spring: true,
+//     summer: false,
+//     autumn: false,
+//     winter: false,
+//     plum: false,
+//     lily: false,
+//     chrysanthemum: false,
+//     bamboo: false},
 //門前清
 // fullyConcealedHand: true,
 //門風
@@ -221,4 +222,4 @@ flowerHand: true,
  };
 
 const faanValue = FaanCalculator.calculate(winningHand, config);
-console.log(faanValue)
+// console.log(faanValue)

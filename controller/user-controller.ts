@@ -32,6 +32,7 @@ export class UserController {
                 const user_image = (files.image as formidable.File)?.newFilename
                 const room_id = req.session.room?.roomId
                 const playerResult = await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
+                //insert position
                 res.json({ success: true, message: "create player successfully", imageData: playerResult });
             });
         } catch (err) {

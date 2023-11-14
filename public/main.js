@@ -1,7 +1,15 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
+import { fanLimit } from "./starting.js"
+import { fanLimit } from "./starting.js"
 
-window.onload= function(){
+window.onload= async () => {
+  const maxFan = await fanLimit()
+  console.log(maxFan)
 }
+// const maxFan = fanLimit()
+// console.log(maxFan)
+// const maxFan = fanLimit()
+// console.log(maxFan)
 
 //Function: Don't have room createPassword
 function createPassword(roomName) {
@@ -387,6 +395,7 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       isName = false
     }
   }
+})
   // if (isName){
   //   const res = await fetch('/api/user', {
   //     method: 'POST',
@@ -396,17 +405,6 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
   // }
 
 
-<<<<<<< Updated upstream
-//Function: call history
-=======
-
-
-
-  
-})
-
-//history
->>>>>>> Stashed changes
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   try {
     const res = await fetch('/api/history/game');
@@ -456,4 +454,4 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
 });
 
 
-//rank
+

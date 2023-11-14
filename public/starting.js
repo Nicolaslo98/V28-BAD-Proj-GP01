@@ -1,3 +1,5 @@
+// import { resolve } from "path";
+
 window.onload = function(){
   genFan(8, 32);
 }
@@ -98,15 +100,23 @@ document.querySelectorAll(".selector2 input").forEach((element) => {
   })
 })
 
-export function fanLimit() {
-  document.querySelector("#startForm").addEventListener("submit", function(event) {
-    event.preventDefault()
-    const form = event.target
-    const formObject = {
-      fan: form.Fan.value
-    }  
-    console.log(formObject)
+export async function fanLimit() {
+  return new Promise((resolve, reject) => {
+    document.querySelector("#startForm").addEventListener("submit", function(event) {
+      event.preventDefault()
+      const form = event.target
+      const formObject = {
+        fan: form.Fan.value
+      }  
+      // console.log(formObject)
+      // return formObject
+      resolve(formObject)
+    })
   })
 }
-fanLimit()
+
+// function main(){
+//   // console.log(fanLimit())
+// }
+// main()
 
