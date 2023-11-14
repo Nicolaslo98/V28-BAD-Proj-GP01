@@ -269,7 +269,8 @@ document.querySelectorAll(".players").forEach((element) => {
               });
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              console.log(result3) 
+              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`; 
+              console.log(result3.imageData[0])
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
             } else {
@@ -331,12 +332,23 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         await stopCamera()
         console.log(await maxFanLimit)
         await Swal.fire({
+          didOpen: () => {
+            const fanSelect = document.querySelector('#fanSelect')
+            fanSelect.innerHTML = ''
+            for (let i = 3; i <= maxFanLimit.fan; i++){
+              fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+            }
+          },
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
-          input: "select",
-          inputOptions: {
-            3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8
-          },
+          html:`
+          <form class="fanDropSelectForm">
+            <label for="fanSelect">fanSelect</label>
+            <select name="fanSelect" id="fanSelect">
+              
+            </select>
+        </form>
+          `,
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
