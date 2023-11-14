@@ -1,10 +1,10 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-
+let maxFanLimit = ""
 window.onload= async () => {
   createJoinRoom()
-  const maxFan = await fanLimit()
-  console.log(maxFan)
+  maxFanLimit = await fanLimit()
+  console.log(maxFanLimit)
 }
 
 //Function: Don't have room createPassword
@@ -329,16 +329,13 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           body: fetchData,
         })
         await stopCamera()
-        async () => {
-          const maxFan = await fanLimit()
-          console.log(maxFan)
-        }
+        console.log(await maxFanLimit)
         await Swal.fire({
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
           input: "select",
           inputOptions: {
-            1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8
+            3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8
           },
           icon: "warning",
           showCancelButton: true,
@@ -346,7 +343,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes",
           cancelButtonText: "Retry"
-        }).then(async (result) => {
+        })
+        .then(async (result) => {
           if (result.isConfirmed) {
 
             let testDummy = "potato"
