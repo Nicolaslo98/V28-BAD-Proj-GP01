@@ -187,6 +187,7 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const ePlayerData = (await res.json()).ePlayerData;
+      console.log(ePlayerData)
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
