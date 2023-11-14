@@ -127,9 +127,8 @@ async function createJoinRoom() {
       confirmButtonText: 'Create',
     }).then(async (result) => {
       //create
-      if (result.isConfirmed) {
+      if (result.isConfirmed && document.querySelector("#pinCode").value) {
         const roomName = document.querySelector("#pinCode").value
-        console.log(roomName)
         const FormData = {
           room_name: roomName,
         }
@@ -141,7 +140,6 @@ async function createJoinRoom() {
           body: JSON.stringify(FormData),
         })
         if (!(await res.json()).success) {
-          console.log("hi23412314")
           createPassword(roomName)
           isNameValid = true
           // createPassword(result)
@@ -155,7 +153,7 @@ async function createJoinRoom() {
         }
       } //join
       else
-        if (result.isDismissed) {
+        if (result.isDismissed && document.querySelector("#pinCode").value) {
           const roomName = document.querySelector("#pinCode").value
           const FormData = {
             room_name: roomName,
