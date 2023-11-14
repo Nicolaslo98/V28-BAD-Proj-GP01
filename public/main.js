@@ -1,6 +1,5 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-import { fanLimit } from "./starting.js"
 
 window.onload= async () => {
   const maxFan = await fanLimit()
@@ -203,7 +202,7 @@ document.querySelectorAll(".players").forEach((element) => {
         const userid = ePlayerData[i].id
         
         choosePlayerHTML += `
-        <option value="${userimage}.${userid}">${username}</option>
+        <option value="${userimage}_${userid}">${username}</option>
         `;
       }
       Swal.fire({
@@ -213,7 +212,7 @@ document.querySelectorAll(".players").forEach((element) => {
           if (existingName.innerHTML) {
 
             existingName.addEventListener('change', function (e) {
-              existingPic.src = `/image/${e.target.value.split(".")[0]}`
+              existingPic.src = `./image/${e.target.value.split("_")[0]}`
             })
           } else {
             document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
@@ -273,17 +272,22 @@ document.querySelectorAll(".players").forEach((element) => {
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
               console.log(result3) 
-              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}.png`;
               await stopCamera();
             } else {
               await stopCamera();
             }
           });
         } else if (result.isDismissed) {
-          console.log(document.querySelector(`#${e.target.id} ul .name`));
-          
-          document.querySelector(`#${e.target.id} ul .name`).innerHTML = (`${document.querySelector("#existingName option:checked").innerText}`);
-          document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value}`;
+          const selectedName = document.querySelector("#existingName option:checked").innerText
+
+          if(selectedName){
+            document.querySelector(`#${e.target.id} ul .name`).innerHTML = (`${selectedName}`);
+            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
+          }else{
+            document.querySelector(`#${e.target.id} ul .name`).innerHTML = ("");
+            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
+          }
         
           // Handle cancel button clicked
         }
@@ -395,14 +399,14 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       isName = false
     }
   }
+  if (isName){
+    const res = await fetch('/api/user', {
+      method: 'PUT',
+      body: fetchData,
+    });
+    const result = await res.json();
+  }
 })
-  // if (isName){
-  //   const res = await fetch('/api/user', {
-  //     method: 'POST',
-  //     body: fetchData,
-  //   });
-  //   const result = await res.json();
-  // }
 
 
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
