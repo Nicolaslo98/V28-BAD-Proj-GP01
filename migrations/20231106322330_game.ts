@@ -8,6 +8,8 @@ export async function up(knex: Knex): Promise<void> {
         table.integer("player_s");
         table.integer("player_w");
         table.integer("player_n");
+        table.integer("room_id").unsigned();
+        table.foreign("room_id").references("room.id");
         table.timestamps(false, true);
     });
 }
