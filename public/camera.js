@@ -83,10 +83,11 @@ export function capture() {
     fetchData.append('image', renamedFile);
 
     // Do something with the captured image (e.g., display it on the page)
-    const imageElement = document.createElement('img');
-    imageElement.src = imageData;
-    document.body.appendChild(imageElement);
-    console.log(fetchData)
+
+    // const imageElement = document.createElement('img');
+    // imageElement.src = imageData;
+    // document.body.appendChild(imageElement);
+    // console.log(fetchData)
 
     return fetchData
 
