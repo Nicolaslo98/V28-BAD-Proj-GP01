@@ -108,5 +108,5 @@ export function fanLimit() {
     console.log(formObject)
   })
 }
-
+fanLimit()
 
