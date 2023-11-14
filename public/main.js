@@ -194,7 +194,6 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const ePlayerData = (await res.json()).ePlayerData;
-      console.log(ePlayerData)
       let choosePlayerHTML = '';
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
@@ -282,7 +281,8 @@ document.querySelectorAll(".players").forEach((element) => {
           const selectedName = document.querySelector("#existingName option:checked").innerText
 
           if(selectedName){
-            document.querySelector(`#${e.target.id} ul .name`).innerHTML = (`${selectedName}`);
+            document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
+            document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
             document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
           }else{
             document.querySelector(`#${e.target.id} ul .name`).innerHTML = ("");
@@ -391,22 +391,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
   }
 })
 
-document.querySelector(".startingBtn").addEventListener("click", async function(e) {
-  const players = document.querySelectorAll(".name")
-  let isName = true
-  for (let i of players){
-    if (!i.innerHTML){
-      isName = false
-    }
-  }
-  if (isName){
-    const res = await fetch('/api/user', {
-      method: 'PUT',
-      body: fetchData,
-    });
-    const result = await res.json();
-  }
-})
 
 
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {

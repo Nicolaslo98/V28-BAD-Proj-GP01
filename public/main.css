@@ -316,15 +316,7 @@ button {
     font-size: xx-large;
 }
 
-.settingBtn {
-    display: none;
-}
-.cameraBtn {
-    display: none !important;
-}
-.startingBtn {
-    display: flex;
-}
+
 
 .form-switch .form-check-input {
     height: 2.5rem;
