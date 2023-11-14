@@ -52,6 +52,9 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
   if (isName){
     const res = await fetch('/api/start', {
       method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(formObject)
     });
     const result = await res.json();

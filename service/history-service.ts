@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { RoundData } from '../utils/history'; // Assuming RoundData interface is defined in historyRoutes.ts
+import { RoundData } from '../utils/model'; // Assuming RoundData interface is defined in historyRoutes.ts
 
 export class HistoryService {
   constructor(private knex: Knex) {
