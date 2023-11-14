@@ -319,7 +319,10 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           body: fetchData,
         })
         await stopCamera()
-        console.log(maxFan)
+        async () => {
+          const maxFan = await fanLimit()
+          console.log(maxFan)
+        }
         await Swal.fire({
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
