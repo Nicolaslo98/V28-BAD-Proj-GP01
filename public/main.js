@@ -1,7 +1,7 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
 let maxFanLimit = ""
-window.onload= async () => {
+window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
   console.log(maxFanLimit)
@@ -198,7 +198,7 @@ document.querySelectorAll(".players").forEach((element) => {
         const username = ePlayerData[i].username;
         const userimage = ePlayerData[i].user_image;
         const userid = ePlayerData[i].id
-        
+
         choosePlayerHTML += `
         <option value="${userimage}_${userid}">${username}</option>
         `;
@@ -269,7 +269,7 @@ document.querySelectorAll(".players").forEach((element) => {
               });
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`; 
+              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
               console.log(result3.imageData[0])
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
@@ -280,15 +280,15 @@ document.querySelectorAll(".players").forEach((element) => {
         } else if (result.isDismissed) {
           const selectedName = document.querySelector("#existingName option:checked").innerText
 
-          if(selectedName){
+          if (selectedName) {
             document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
             document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
             document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
-          }else{
+          } else {
             document.querySelector(`#${e.target.id} ul .name`).innerHTML = ("");
             document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
           }
-        
+
           // Handle cancel button clicked
         }
       });
@@ -335,13 +335,13 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           didOpen: () => {
             const fanSelect = document.querySelector('#fanSelect')
             fanSelect.innerHTML = ''
-            for (let i = 3; i <= maxFanLimit.fan; i++){
+            for (let i = 3; i <= maxFanLimit.fan; i++) {
               fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
             }
           },
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
-          html:`
+          html: `
           <form class="fanDropSelectForm">
             <label for="fanSelect">fanSelect</label>
             <select name="fanSelect" id="fanSelect">
@@ -356,46 +356,64 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           confirmButtonText: "Yes",
           cancelButtonText: "Retry"
         })
-        .then(async (result) => {
-          if (result.isConfirmed) {
+          .then(async (result) => {
+            if (result.isConfirmed) {
 
-            let testDummy = "potato"
-            await Swal.fire({
-              didOpen: () => {
-                // const playerList = fetchPlayer()
-              },
-              title: "Select Winner and Loser",
-              html: `
+              let testDummy = "potato"
+              await Swal.fire({
+                didOpen: () => {
+                  const result = document.querySelectorAll(".name")
+                  const winner = document.querySelector('#winner_or_loser_1')
+                  const loser = document.querySelector('#winner_or_loser_2')
+                  for (let i of result) {
+                    winner.innerHTML += `<option value="${i.innerHTML}">${i.innerHTML}</option>`
+                  }
+                  for (let i of result) {
+                    loser.innerHTML += `<option value="${i.innerHTML}">${i.innerHTML}</option>`
+                  }
+
+                  window.CheckDropDowns = function(thisSelect) {
+                    var otherSelectId = ("winner_or_loser_1" == thisSelect.id) ? "winner_or_loser_2" : "winner_or_loser_1";
+                    var otherSelect = document.getElementById(otherSelectId);
+                    console.log(otherSelect.options[0].innerHTML)
+                  
+                    for (let i = 0; i < otherSelect.options.length; i++) {
+                      otherSelect.options[i].style.display = 'block';
+                      // otherSelect.options[i].removeAttribute('hidden');
+                      if (otherSelect.options[i].value == thisSelect.value) {
+                        otherSelect.options[i].style.display = 'none';
+                        // otherSelect.options[i].setAttribute('hidden', 'hidden');
+                      }
+                    }
+                  }
+
+                },
+                title: "Select Winner and Loser",
+                html: `
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
               <form class="dropSelect">
                 <label for="winner">Winner</label>
-                <select name="winner" id="winner">
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
+                <select name="winner_or_loser" onchange="CheckDropDowns(this)" id="winner_or_loser_1">
+                <option value=""></option>
                 </select>
                 <label for="loser">Loser</label>
-                <select name="loser" id="loser">
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="${testDummy}">${testDummy}</option>
-                  <option value="none">None</option>
+                <select name="winner_or_loser" onchange="CheckDropDowns(this)" id="winner_or_loser_2">
+                <option value=""></option>
                 </select>
               </form>
               `,
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Yes",
-              cancelButtonText: "Retry"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                isPhotoCorrect = 1
-              }
-            });
-          }
-        });
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+                cancelButtonText: "Retry"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  isPhotoCorrect = 1
+                }
+              });
+            }
+          });
       } else {
         await stopCamera()
         isPhotoCorrect = 1
@@ -419,7 +437,7 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
       const scoreS = historyData[i].score_s;
       const scoreW = historyData[i].score_w;
       const scoreN = historyData[i].score_n;
-      const round = (historyData[i].id)-1;
+      const round = (historyData[i].id) - 1;
 
       historyScoreHTML +=
         `
