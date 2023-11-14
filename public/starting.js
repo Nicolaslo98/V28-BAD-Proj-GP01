@@ -98,11 +98,15 @@ document.querySelectorAll(".selector2 input").forEach((element) => {
   })
 })
 
-document.querySelector("#startForm").addEventListener("submit", function(event) {
-  event.preventDefault()
-  const form = event.target
-  const formObject = {
-    fan: form.Fan.value
-  }  
-  console.log(formObject)
-})
+export function fanLimit() {
+  document.querySelector("#startForm").addEventListener("submit", function(event) {
+    event.preventDefault()
+    const form = event.target
+    const formObject = {
+      fan: form.Fan.value
+    }  
+    console.log(formObject)
+  })
+}
+
+
