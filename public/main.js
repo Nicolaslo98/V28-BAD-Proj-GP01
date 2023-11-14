@@ -18,6 +18,7 @@ function createPassword(roomName) {
     allowOutsideClick: false,
     title: "Create a unique password",
     input: "text",
+    confirmButtonColor: `#B0926A`,
     inputValidator: (value) => {
       if (!value) {
         return "You need to write something!";
@@ -117,6 +118,8 @@ async function createJoinRoom() {
           maxlength="5">
         </div>
       `,
+      confirmButtonColor: `#B0926A`,
+      cancelButtonColor: `#706233`,
       allowOutsideClick: false,
       title: "Create or Join a room",
       showCancelButton: true,
@@ -170,6 +173,7 @@ async function createJoinRoom() {
               icon: "error",
               title: "Oops...",
               text: "Cannot find this room!",
+              confirmButtonColor: `#B0926A`,
             });
             // createPassword(result)
             // isNameValid = true

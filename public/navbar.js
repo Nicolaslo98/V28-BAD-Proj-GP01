@@ -33,23 +33,33 @@ settingBtn.addEventListener("click", function (e) {
 })
 document.querySelector(".startingBtn").addEventListener("click", async function(e) {
   const players = document.querySelectorAll(".name")
-  const fetchData = []
+  const formData = []
   let isName = true
-  // for (let i of players){
-  //   if (!i.innerHTML){
-  //     isName = false
-  //   }else{
-  //     fetchData.push(i.id)
-  //   }
-  // }
-  console.log(fetchData)
-  // if (isName){
-  //   const res = await fetch('/api/user', {
-  //     method: 'PUT',
-  //     body: fetchData,
-  //   });
-  //   const result = await res.json();
-  // }
+  for (let i of players){
+    if (!i.innerHTML){
+      isName = false
+    }else{
+      formData.push(i.id)
+    }
+  }
+  const formObject = {
+    player_e: formData[2],
+    player_s: formData[3],
+    player_w: formData[1],
+    player_n: formData[0],
+  }
+  console.log(formObject)
+  if (isName){
+    const res = await fetch('/api/start', {
+      method: 'POST',
+      body: JSON.stringify(formObject)
+    });
+    const result = await res.json();
+  }
+
+
+
+
   startingBtn.style.display = 'none';
   cameraBtn.style.display = 'flex';
   showBottomBtn = cameraBtn
