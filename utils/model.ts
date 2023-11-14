@@ -10,3 +10,12 @@ export interface RoundData {
     score3: number;
     score4: number;
   }
+
+
+export interface Game {
+  player_e: string, 
+  player_s: string, 
+  player_w: string, 
+  player_n: string, 
+  room_id: number
+}
