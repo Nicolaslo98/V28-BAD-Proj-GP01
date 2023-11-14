@@ -30,7 +30,6 @@ settingBtn.addEventListener("click", function(e){
     });
   })
   
-  
   rightBtn.addEventListener("click", function (e) {
     if (check) {
       leaderBoard.style.display = 'flex';
@@ -61,6 +60,7 @@ settingBtn.addEventListener("click", function(e){
       check = true
     }
   })
+
   leftBtn.addEventListener("click", function(e){
     if (check2) {
       leaderBoard.style.display = 'none';

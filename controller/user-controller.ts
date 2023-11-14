@@ -31,8 +31,8 @@ export class UserController {
                 })
                 const user_image = (files.image as formidable.File)?.newFilename
                 const room_id = req.session.room?.roomId
-                const imageData= await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
-                res.json({ success: true, message: "create player successfully", imageData: imageData });
+                const playerResult = await this.userService.userSetUp( (fields.username as string), user_image, (room_id as number) )
+                res.json({ success: true, message: "create player successfully", imageData: playerResult });
             });
         } catch (err) {
             res.json({ success: false, message: "fail to create user", err });

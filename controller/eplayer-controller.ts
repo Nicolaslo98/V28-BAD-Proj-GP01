@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { EplayerService } from '../service/eplayer-service';
+import '../server/session'
 
 export class EplayerController {
     constructor(private ePlayerService: EplayerService) {}

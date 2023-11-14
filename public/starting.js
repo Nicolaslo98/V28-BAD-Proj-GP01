@@ -84,10 +84,6 @@ function genFan(fan, mul) {
   }
 }
 
-
-
-
-
 const startRow = document.querySelector(".startBox .container-fluid .row")
 document.querySelectorAll(".selector1 input").forEach((element) => {
   element.addEventListener('click', async (e) => {
@@ -102,15 +98,11 @@ document.querySelectorAll(".selector2 input").forEach((element) => {
   })
 })
 
-
-
-
-
 document.querySelector("#startForm").addEventListener("submit", function(event) {
   event.preventDefault()
   const form = event.target
   const formObject = {
-    fan: form.FAn.value
+    fan: form.Fan.value
   }  
   console.log(formObject)
 })

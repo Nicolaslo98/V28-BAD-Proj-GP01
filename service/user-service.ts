@@ -16,7 +16,7 @@ export class UserService {
                 room_id: room_id
             }      
         )
-        .returning('user_image')
+        .returning(['user_image', 'room_id', 'username','user_total_score' ] )
         return result
     }
 }

@@ -3,6 +3,7 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 window.onload= function(){
 }
 
+//Function: Don't have room createPassword
 function createPassword(roomName) {
   Swal.fire({
     didOpen: () => {
@@ -38,8 +39,8 @@ function createPassword(roomName) {
     }
   })
 }
-console.log("5")
-//Function: Has Room 
+
+//Function: Has Room then enterPassword 
 function enterPassword(roomName) {
   Swal.fire({
     didOpen: () => {
@@ -86,7 +87,8 @@ function enterPassword(roomName) {
     }
   })
 }
-console.log("6")
+
+//Function: Create Room
 async function createJoinRoom() {
   console.log("3")
   const res = await fetch('/api/room', {
@@ -179,9 +181,7 @@ async function createJoinRoom() {
 }
 createJoinRoom()
 
-
-
-
+//Function: Call player
 document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     try {
@@ -288,10 +288,7 @@ document.querySelectorAll(".players").forEach((element) => {
 
 // }
 
-
-
-
-//run camera
+//Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
   let isPhotoCorrect = 0
 
@@ -378,7 +375,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 
 
-//history
+//Function: call history
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   try {
     const res = await fetch('/api/history/game');
