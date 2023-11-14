@@ -270,7 +270,7 @@ document.querySelectorAll(".players").forEach((element) => {
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
               console.log(result3) 
-              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}.png`;
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
             } else {
               await stopCamera();
