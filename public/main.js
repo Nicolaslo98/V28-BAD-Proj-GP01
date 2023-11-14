@@ -192,9 +192,10 @@ document.querySelectorAll(".players").forEach((element) => {
       for (let i = 0; i < ePlayerData.length; i++) {
         const username = ePlayerData[i].username;
         const userimage = ePlayerData[i].user_image;
+        const userid = ePlayerData[i].id
         
         choosePlayerHTML += `
-        <option value="${userimage}">${username}</option>
+        <option value="${userimage}.${userid}">${username}</option>
         `;
       }
       Swal.fire({
@@ -204,7 +205,7 @@ document.querySelectorAll(".players").forEach((element) => {
           if (existingName.innerHTML) {
 
             existingName.addEventListener('change', function (e) {
-              existingPic.src = `/image/${e.target.value}`
+              existingPic.src = `/image/${e.target.value.split(".")[0]}`
             })
           } else {
             document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
