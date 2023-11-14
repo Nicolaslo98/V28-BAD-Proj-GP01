@@ -222,7 +222,7 @@ document.querySelectorAll(".players").forEach((element) => {
             <ul>
               <li class="existingPicHolder">
                 <img class="existingPic"
-                src="https://pbs.twimg.com/profile_images/521554275713830913/TBY5IslL_400x400.jpeg">
+                src="/image/${ePlayerData[0].user_image}">
               </li>
               <form class="existingNameForm">
                 <label for="existingName">Name</label>
@@ -270,7 +270,6 @@ document.querySelectorAll(".players").forEach((element) => {
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
               document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`; 
-              console.log(result3.imageData[0])
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
             } else {
@@ -281,6 +280,19 @@ document.querySelectorAll(".players").forEach((element) => {
           const selectedName = document.querySelector("#existingName option:checked").innerText
 
           if(selectedName){
+
+            for (let i of document.querySelectorAll(".players")){
+              console.log(i.id)
+              if(document.querySelector(`#${i.id} .name`).innerHTML === selectedName){
+                console.log("fuck you")
+                document.querySelector(`#${i.id} .name`).innerHTML = ("");
+                document.querySelector(`#${i.id} .name`).id = ``;
+                document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
+              }
+            }
+
+
+
             document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
             document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
             document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
