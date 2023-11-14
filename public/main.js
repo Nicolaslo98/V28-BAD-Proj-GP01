@@ -246,7 +246,7 @@ document.querySelectorAll(".players").forEach((element) => {
             html: `
               <form class="playerVideoContainer">
                 <video id="video" autoplay playsInline muted>
-                  <canvas id="canvas" width="640" height="480"></canvas>
+                  <canvas id="canvas" width="480" height="640"></canvas>
                 </video>
               </form>
             `,
