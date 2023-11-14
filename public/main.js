@@ -1,15 +1,11 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-import { fanLimit } from "./starting.js"
 
 window.onload= async () => {
+  createJoinRoom()
   const maxFan = await fanLimit()
   console.log(maxFan)
 }
-// const maxFan = fanLimit()
-// console.log(maxFan)
-// const maxFan = fanLimit()
-// console.log(maxFan)
 
 //Function: Don't have room createPassword
 function createPassword(roomName) {
@@ -98,12 +94,10 @@ function enterPassword(roomName) {
 
 //Function: Create Room
 async function createJoinRoom() {
-  console.log("3")
   const res = await fetch('/api/room', {
     method: 'GET',
   })
   const result = await res.json()
-  console.log("result")
   if (result.haveSession) {
     return
   }
@@ -187,7 +181,7 @@ async function createJoinRoom() {
     })
   }
 }
-createJoinRoom()
+
 
 //Function: Call player
 document.querySelectorAll(".players").forEach((element) => {
@@ -281,7 +275,6 @@ document.querySelectorAll(".players").forEach((element) => {
           });
         } else if (result.isDismissed) {
           console.log(document.querySelector(`#${e.target.id} ul .name`));
-          
           document.querySelector(`#${e.target.id} ul .name`).innerHTML = (`${document.querySelector("#existingName option:checked").innerText}`);
           document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value}`;
         
@@ -326,6 +319,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           body: fetchData,
         })
         await stopCamera()
+        console.log(maxFan)
         await Swal.fire({
           title: "Is this correct?",
           text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
