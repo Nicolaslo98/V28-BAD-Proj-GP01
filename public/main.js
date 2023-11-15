@@ -422,6 +422,8 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     const historyData = (await res.json()).roundData;
     console.log(historyData);
 
+    let historyPlayerHTML = '';
+
     let historyScoreHTML = '';
 
     for (let i = 0; i < historyData.length; i++) {
