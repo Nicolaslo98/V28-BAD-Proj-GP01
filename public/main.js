@@ -1,5 +1,11 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
+import { returnResult } from "../ai/roboflowapi.js"
+
+const a = returnResult()
+console.log(a)
+
+
 let maxFanLimit = ""
 window.onload = async () => {
   createJoinRoom()
@@ -350,7 +356,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
             }
           },
           title: "Is this correct?",
-          text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
+          text: winningHand.toString(),
           html: `
           <form class="fanDropSelectForm">
             <label for="fanSelect">fanSelect</label>

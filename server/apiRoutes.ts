@@ -6,6 +6,8 @@ import { historyRoutes } from "./historyRoutes";
 import { eplayerRoutes } from "./eplayerRoutes";
 import { rankRoutes } from "./rankRoutes";
 import { startRoutes } from "./startRoutes";
+import { aiRoutes } from "./aiRoutes";
+
 export const apiRoutes = express.Router();
 
 apiRoutes.use('/camera', captureRoutes);
@@ -15,3 +17,4 @@ apiRoutes.use('/history', historyRoutes);
 apiRoutes.use('/eplayer', eplayerRoutes);
 apiRoutes.use('/rank', rankRoutes);
 apiRoutes.use('/start', startRoutes);
+apiRoutes.use('/ai', aiRoutes);
