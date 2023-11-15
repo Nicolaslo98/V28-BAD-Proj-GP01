@@ -20,11 +20,11 @@ import { rank } from './ranking.js';
 settingBtn.addEventListener("click", function (e) {
   Swal.fire({
     html: `
-      <div class="form-check form-switch">
+      <div class="form-check form-switch settingForm">
       <input class="form-check-input" type="checkbox" role="switch" id="theme">
       <label class="form-check-label" for="theme">Theme</label>
       </div>
-      <div class="form-check form-switch">
+      <div class="form-check form-switch settingForm">
       <input class="form-check-input" type="checkbox" role="switch" id="language">
       <label class="form-check-label" for="language">Language</label>
       </div>
