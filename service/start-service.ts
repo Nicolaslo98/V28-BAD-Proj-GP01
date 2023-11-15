@@ -17,5 +17,5 @@ export class StartService{
         )
         .returning(['id', 'player_e', 'player_s', 'player_w', 'player_n', 'room_id'] )
         return result    
-    }
+    } 
 }

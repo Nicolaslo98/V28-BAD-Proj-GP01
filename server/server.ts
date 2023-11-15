@@ -49,6 +49,11 @@ export const startController = new StartController(startService);
 import { AiController } from "../controller/ai-result-controller";
 export const aiController = new AiController();
 
+import { ConfirmFanController } from "../controller/confirmFan-controller";
+import { ConfirmFanService } from "../service/confirmFan-service";
+export const confirmFanService = new ConfirmFanService(knex);
+export const confirmFanController = new ConfirmFanController(confirmFanService, startService);
+
 
 //Request Log
 app.use((req, res, next) => {

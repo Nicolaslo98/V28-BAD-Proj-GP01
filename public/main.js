@@ -504,7 +504,10 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
   try {
     const res = await fetch('/api/history/game');
     const historyData = (await res.json()).roundData;
-    console.log(historyData);
+
+    if(!res.ok) {
+      alert (" please start game first")
+    }
 
     let historyPlayerHTML = '';
 
