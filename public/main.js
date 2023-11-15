@@ -2,8 +2,6 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
 
 let maxFanLimit = ""
-let chosenWinner = ""
-let chosenLoser = ""
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -354,6 +352,9 @@ document.querySelectorAll(".players").forEach((element) => {
   });
 });
 
+// function genPlayer() {
+
+// }
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
@@ -382,18 +383,22 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           method: 'POST',
           body: fetchData,
         })
-        await stopCamera()
-        console.log(await maxFanLimit)
+        stopCamera()
         await Swal.fire({
-          didOpen: () => {
+          didOpen: async () => {
             const fanSelect = document.querySelector('#fanSelect')
-            const getFan = fetch('/api/ai', {
+            const getFan = await fetch('/api/ai', {
               method: 'GET',
             })
-            console.log(getFan.json())
-            fanSelect.innerHTML = ''
-            for (let i = 3; i <= maxFanLimit.fan; i++) {
-              fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+            const fan = await getFan.json()
+            console.log(fan.faanValue.value)
+            if (fan.faanValue.value >= maxFanLimit.fan) {
+              fan.faanValue.value = maxFanLimit.fan 
+              fanSelect.innerHTML = ''
+              fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
+              for (let i = 3; i <= maxFanLimit.fan; i++) {
+                fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+              }
             }
           },
           title: "Is this correct?",
@@ -546,31 +551,4 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
 });
 
 
-
-// Swal.fire({
-//   html: `
-//   <div class="container-fluid confirmWinnerContainer">
-//     <div class="row"> 
-//       <div class="winnerPicHolder col-3" id="test1">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">  
-//         <p>Potato1</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test2">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato2</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test3">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato3</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test4">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato4</p>
-//       </div>
-//     </div>
-
-//   </div>
-  
-//   `
-// })
 

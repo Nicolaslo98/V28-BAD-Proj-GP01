@@ -8,7 +8,7 @@ export class HistoryService {
   async getRoundData(game_id: number){
     const roundData = await this.knex('game')
     .join('round', 'game.id', '=', 'round.game_id')
-    .select('round.id , player_e, score_e, player_s, score_s, player_w, score_w, player_n, score_n')
+    .select('player_e, score_e, player_s, score_s, player_w, score_w, player_n, score_n')
     return roundData;
   }
 }
