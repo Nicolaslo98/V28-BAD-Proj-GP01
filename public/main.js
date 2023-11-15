@@ -1,10 +1,5 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-import { returnResult } from "../ai/roboflowapi.js"
-
-const a = returnResult()
-console.log(a)
-
 
 let maxFanLimit = ""
 window.onload = async () => {
@@ -350,6 +345,10 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         await Swal.fire({
           didOpen: () => {
             const fanSelect = document.querySelector('#fanSelect')
+            const getFan = fetch('/api/ai', {
+              method: 'GET',
+            })
+            console.log(getFan.json())
             fanSelect.innerHTML = ''
             for (let i = 3; i <= maxFanLimit.fan; i++) {
               fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
