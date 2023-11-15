@@ -2,6 +2,8 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
 
 let maxFanLimit = ""
+let chosenWinner = ""
+let chosenLoser = ""
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -268,7 +270,7 @@ document.querySelectorAll(".players").forEach((element) => {
               });
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`; 
+              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
             } else {
@@ -278,11 +280,11 @@ document.querySelectorAll(".players").forEach((element) => {
         } else if (result.isDismissed) {
           const selectedName = document.querySelector("#existingName option:checked").innerText
 
-          if(selectedName){
+          if (selectedName) {
 
-            for (let i of document.querySelectorAll(".players")){
+            for (let i of document.querySelectorAll(".players")) {
               console.log(i.id)
-              if(document.querySelector(`#${i.id} .name`).innerHTML === selectedName){
+              if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
                 console.log("fuck you")
                 document.querySelector(`#${i.id} .name`).innerHTML = ("");
                 document.querySelector(`#${i.id} .name`).id = ``;
@@ -309,9 +311,6 @@ document.querySelectorAll(".players").forEach((element) => {
   });
 });
 
-// function genPlayer() {
-
-// }
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
@@ -375,48 +374,45 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           .then(async (result) => {
             if (result.isConfirmed) {
 
-              let testDummy = "potato"
               await Swal.fire({
                 didOpen: () => {
-                  const result = document.querySelectorAll(".name")
-                  const winner = document.querySelector('#winner_or_loser_1')
-                  const loser = document.querySelector('#winner_or_loser_2')
-                  for (let i of result) {
-                    winner.innerHTML += `<option value="${i.innerHTML}">${i.innerHTML}</option>`
-                  }
-                  for (let i of result) {
-                    loser.innerHTML += `<option value="${i.innerHTML}">${i.innerHTML}</option>`
-                  }
-
-                  window.CheckDropDowns = function(thisSelect) {
-                    var otherSelectId = ("winner_or_loser_1" == thisSelect.id) ? "winner_or_loser_2" : "winner_or_loser_1";
-                    var otherSelect = document.getElementById(otherSelectId);
-                    console.log(otherSelect.options[0].innerHTML)
-                  
-                    for (let i = 0; i < otherSelect.options.length; i++) {
-                      otherSelect.options[i].style.display = 'block';
-                      // otherSelect.options[i].removeAttribute('hidden');
-                      if (otherSelect.options[i].value == thisSelect.value) {
-                        otherSelect.options[i].style.display = 'none';
-                        // otherSelect.options[i].setAttribute('hidden', 'hidden');
+                  document.querySelectorAll(".winnerPicHolder").forEach((element) => {
+                    element.addEventListener('click', async (e) => {
+                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
+                      console.log(chosenWinner)
+                      for (let i of document.querySelectorAll(".winnerPic")) {
+                        i.style.outline = "none"
                       }
-                    }
-                  }
+                      document.querySelector(`#${e.target.id} img`).style.outline = "3px solid green"
+                  
+                    })
+                  })
 
                 },
                 title: "Select Winner and Loser",
                 html: `
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
-              <form class="dropSelect">
-                <label for="winner">Winner</label>
-                <select name="winner_or_loser" onchange="CheckDropDowns(this)" id="winner_or_loser_1">
-                <option value=""></option>
-                </select>
-                <label for="loser">Loser</label>
-                <select name="winner_or_loser" onchange="CheckDropDowns(this)" id="winner_or_loser_2">
-                <option value=""></option>
-                </select>
-              </form>
+              <div class="container-fluid confirmWinnerContainer">
+                <div class="row"> 
+                  <div class="winnerPicHolder col-3" id="test1">
+                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">  
+                    <p>Potato1</p>
+                  </div>
+                  <div class="winnerPicHolder col-3" id="test2">
+                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+                    <p>Potato2</p>
+                  </div>
+                  <div class="winnerPicHolder col-3" id="test3">
+                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+                    <p>Potato3</p>
+                  </div>
+                  <div class="winnerPicHolder col-3" id="test4">
+                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+                    <p>Potato4</p>
+                  </div>
+                </div>
+
+              </div>
               `,
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -491,4 +487,31 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
 });
 
 
+
+// Swal.fire({
+//   html: `
+//   <div class="container-fluid confirmWinnerContainer">
+//     <div class="row"> 
+//       <div class="winnerPicHolder col-3" id="test1">
+//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">  
+//         <p>Potato1</p>
+//       </div>
+//       <div class="winnerPicHolder col-3" id="test2">
+//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+//         <p>Potato2</p>
+//       </div>
+//       <div class="winnerPicHolder col-3" id="test3">
+//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+//         <p>Potato3</p>
+//       </div>
+//       <div class="winnerPicHolder col-3" id="test4">
+//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
+//         <p>Potato4</p>
+//       </div>
+//     </div>
+
+//   </div>
+  
+//   `
+// })
 
