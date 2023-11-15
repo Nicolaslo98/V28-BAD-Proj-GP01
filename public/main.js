@@ -1,6 +1,7 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-
+let chosenWinner = ''
+let chosenLoser = ''
 let maxFanLimit = ""
 window.onload = async () => {
   createJoinRoom()
@@ -324,7 +325,6 @@ document.querySelectorAll(".players").forEach((element) => {
               for (let i of document.querySelectorAll(".players")) {
                 console.log(i.id)
                 if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
-                  console.log("fuck you")
                   document.querySelector(`#${i.id} .name`).innerHTML = ("");
                   document.querySelector(`#${i.id} .name`).id = ``;
                   document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
@@ -435,8 +435,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 </div>
                 `;
                 loserHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}.2">
-                  <img class="winnerPic" src="${userimage}">  
+                <div class="loserPicHolder col-3" id="${userid}.2">
+                  <img class="loserPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
@@ -445,22 +445,33 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 didOpen: () => {
                   document.querySelectorAll(".winnerPicHolder").forEach((element) => {
                     element.addEventListener('click', async (e) => {
-                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
-                      console.log(chosenWinner)
+                      chosenWinner = e.target.id.split(".")[0]
+                      console.log(`winner is ${chosenWinner}`)
                       for (let i of document.querySelectorAll(".winnerPic")) {
-                        i.style.outline = "none"
+                        i.style.outline = "none";
                       }
-                      document.querySelector(`.winnerRow #${e.target.id} img`).style.outline = "3px solid green"
+                      for (let i of document.querySelectorAll(".loserPicHolder")){
+                        i.style["pointer-events"] = "auto";
+                        i.style.opacity = "1"
+                      }
+                      document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
+                      document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
+                      document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
+                      if (chosenLoser === `${e.target.id.split(".")[0]}`){
+                        chosenLoser = ""
+                        console.log(`new loser = ${chosenLoser}`)
+                      }
+                      document.querySelector(`.winnerRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
                     })
                   })
                   document.querySelectorAll(".loserPicHolder").forEach((element) => {
                     element.addEventListener('click', async (e) => {
-                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
-                      console.log(chosenWinner)
+                      chosenLoser = e.target.id.split(".")[0]
+                      console.log(`loser is ${chosenLoser}`)
                       for (let i of document.querySelectorAll(".loserPic")) {
                         i.style.outline = "none"
                       }
-                      document.querySelector(`.loserRow #${e.target.id} img`).style.outline = "3px solid green"
+                      document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
                     })
                   })
 
