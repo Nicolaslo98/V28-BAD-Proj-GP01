@@ -1,7 +1,9 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
-
+let chosenWinner = ''
+let chosenLoser = ''
 let maxFanLimit = ""
+let positionArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -17,14 +19,14 @@ function createPassword(roomName) {
     
     `,
     allowOutsideClick: false,
-    title: "Create a unique password",
+    title: "建立密碼",
     input: "text",
     confirmButtonColor: `#B0926A`,
     inputValidator: (value) => {
       if (!value) {
-        return "You need to write something!";
+        return "你需要寫點東西！";
       } else if (value.length <= 5) {
-        return "Password must be at least 6 letter long"
+        return "密碼長度必須至少 6 個字母"
       }
     }
   }).then(async (result) => {
@@ -41,7 +43,6 @@ function createPassword(roomName) {
         },
         body: JSON.stringify(FormData),
       })
-      console.log(await res.json())
     }
   })
 }
@@ -55,13 +56,13 @@ function enterPassword(roomName) {
     
     `,
     allowOutsideClick: false,
-    title: "Enter password",
+    title: "輸入密碼",
     input: "text",
     inputValidator: (value) => {
       if (!value) {
-        return "You need to write something!";
+        return "你需要寫點東西！";
       } else if (value.length <= 2) {
-        return "Password must be at least 2 letter long"
+        return "密碼長度必須至少 6 個字母"
       }
     }
   }).then(async (result) => {
@@ -81,14 +82,12 @@ function enterPassword(roomName) {
       //when password false
       if (!res.ok) {
         await Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Wrong Password",
+          icon: "錯誤",
+          title: "哎呀...",
+          text: "密碼錯誤",
         });
         enterPassword(roomName)
       } else if (res.ok) {
-        console.log("check password")
-        console.log(await res.json())
       }
     }
   })
@@ -122,10 +121,10 @@ async function createJoinRoom() {
       confirmButtonColor: `#B0926A`,
       cancelButtonColor: `#706233`,
       allowOutsideClick: false,
-      title: "Create or Join a room",
+      title: "創建或加入房間",
       showCancelButton: true,
-      cancelButtonText: 'Join room',
-      confirmButtonText: 'Create',
+      cancelButtonText: '加入房間',
+      confirmButtonText: '創建房間',
     }).then(async (result) => {
       //create
       if (result.isConfirmed && document.querySelector("#pinCode").value) {
@@ -147,9 +146,9 @@ async function createJoinRoom() {
           // isNameValid = true
         } else {
           await Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Has this room!",
+            icon: "錯誤",
+            title: "哎呀...",
+            text: "這個房間存在！",
           });
         }
       } //join
@@ -169,9 +168,9 @@ async function createJoinRoom() {
           if (!(await res.json()).success) {
             console.log("Join button")
             await Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Cannot find this room!",
+              icon: "錯誤",
+              title: "哎呀...",
+              text: "找不到這個房間！",
               confirmButtonColor: `#B0926A`,
             });
             // createPassword(result)
@@ -206,11 +205,11 @@ document.querySelectorAll(".players").forEach((element) => {
             </form>
           `,
           input: "text",
-          inputPlaceholder: "Enter Name",
+          inputPlaceholder: "輸入名字",
           showCancelButton: true,
           inputValidator: (value) => {
             if (!value) {
-              return "You need to write something!";
+              return "你需要寫點東西！";
             }
           }
         }).then(async (result) => {
@@ -253,7 +252,7 @@ document.querySelectorAll(".players").forEach((element) => {
                 existingPic.src = `./image/${e.target.value.split("_")[0]}`
               })
             } else {
-              document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+              document.querySelector(".choosePlayer").innerHTML = "未偵測到現有玩家"
             }
           },
           html: `
@@ -275,7 +274,7 @@ document.querySelectorAll(".players").forEach((element) => {
           </div>
           `,
           showCancelButton: true,
-          confirmButtonText: 'Add new player',
+          confirmButtonText: '新增玩家',
           cancelButtonText: 'Ok'
         }).then((result) => {
           if (result.isConfirmed) {
@@ -291,11 +290,11 @@ document.querySelectorAll(".players").forEach((element) => {
                 </form>
               `,
               input: "text",
-              inputPlaceholder: "Enter Name",
+              inputPlaceholder: "輸入名字",
               showCancelButton: true,
               inputValidator: (value) => {
                 if (!value) {
-                  return "You need to write something!";
+                  return "你需要寫點東西！";
                 }
               }
             }).then(async (result) => {
@@ -324,7 +323,6 @@ document.querySelectorAll(".players").forEach((element) => {
               for (let i of document.querySelectorAll(".players")) {
                 console.log(i.id)
                 if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
-                  console.log("fuck you")
                   document.querySelector(`#${i.id} .name`).innerHTML = ("");
                   document.querySelector(`#${i.id} .name`).id = ``;
                   document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
@@ -352,9 +350,7 @@ document.querySelectorAll(".players").forEach((element) => {
   });
 });
 
-// function genPlayer() {
 
-// }
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
@@ -401,7 +397,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               }
             }
           },
-          title: "Is this correct?",
+          title: "是否正確？",
           text: "winningHand.toString()",
           html: `
           <form class="fanDropSelectForm">
@@ -423,49 +419,114 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               document.querySelectorAll(".players")
               let winnerHTML = '';
               let loserHTML = '';
+              let selfEat = false;
               for (let i of document.querySelectorAll(".players")) {
                 const username = document.querySelector(`#${i.id} ul .name`).innerHTML
                 const userimage = document.querySelector(`#${i.id} ul .profilePic`).src
                 const userid = document.querySelector(`#${i.id} ul .name`).id
 
                 winnerHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}.1">
+                <div class="winnerPicHolder col-3" id="${i.id}.1">
                   <img class="winnerPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
                 loserHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}.2">
-                  <img class="winnerPic" src="${userimage}">  
+                <div class="loserPicHolder col-3" id="${i.id}.2">
+                  <img class="loserPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
               }
               await Swal.fire({
                 didOpen: () => {
-                  document.querySelectorAll(".winnerPicHolder").forEach((element) => {
-                    element.addEventListener('click', async (e) => {
-                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
-                      console.log(chosenWinner)
-                      for (let i of document.querySelectorAll(".winnerPic")) {
+                  document.querySelector("#isSelfEat").addEventListener("change", function(e){
+                    selfEat = !selfEat
+                    if (!selfEat){
+                      for (let i of document.querySelectorAll(".loserPicHolder")){
+                        i.style["pointer-events"] = "auto";
+                        i.style.opacity = "1"
+                      }
+                      for (let i of document.querySelectorAll(".loserPicHolder img")){
                         i.style.outline = "none"
                       }
-                      document.querySelector(`.winnerRow #${e.target.id} img`).style.outline = "3px solid green"
+                      if(chosenWinner){
+                        document.querySelector(`[id="${chosenWinner}.2"]`).style["pointer-events"] = "none"
+                        document.querySelector(`[id="${chosenWinner}.2"]`).style.opacity = "0.3"
+                        document.querySelector(`[id="${chosenWinner}.2"] img`).style.outline = "none"
+                        chosenLoser = ""
+                        console.log(`new loser = ${chosenLoser}`)
+                      }
+                    }else{
+                      if(chosenWinner){
+                        chosenLoser = []
+                        for (let i of document.querySelectorAll(".loserPicHolder")){
+                          i.style["pointer-events"] = "none"                 
+                          i.style.opacity = "0.8"       
+                          if (i.id.split(".")[0] === chosenWinner){
+                            i.style.opacity = "0.3"
+                          }else {
+                            document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                            chosenLoser.push(i.id.split(".")[0])
+                          }
+                        }
+                        
+                        console.log(`new loser = ${chosenLoser}`)
+                      }
+                    }
+                  })
+                  document.querySelectorAll(".winnerPicHolder").forEach((element) => {
+                    element.addEventListener('click', async (e) => {
+                      chosenWinner = e.target.id.split(".")[0]
+                      console.log(`winner is ${chosenWinner}`)
+                      for (let i of document.querySelectorAll(".winnerPic")) {
+                        i.style.outline = "none";
+                      }
+                      for (let i of document.querySelectorAll(".loserPicHolder")){
+                        i.style["pointer-events"] = "auto";
+                        i.style.opacity = "1"
+                      }
+                      for (let i of document.querySelectorAll(".loserPicHolder img")){
+                        i.style.outline = "none"
+                      }
+                      document.querySelector(`.winnerRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
+                      if(!selfEat){
+                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
+                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
+                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
+                        if (chosenLoser === `${e.target.id.split(".")[0]}`){
+                          chosenLoser = []
+                          console.log(`new loser = ${chosenLoser}`)
+                        }
+                      } else {
+                        chosenLoser = []
+                        for (let i of document.querySelectorAll(".loserPicHolder")){
+                          i.style["pointer-events"] = "none"                 
+                          i.style.opacity = "0.8"       
+                          if (i.id.split(".")[0] === chosenWinner){
+                            i.style.opacity = "0.3"
+                          }else {
+                            document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                            chosenLoser.push(i.id.split(".")[0])
+                          }
+                        }
+                        console.log(`new loser = ${chosenLoser}`)
+                      }
                     })
                   })
                   document.querySelectorAll(".loserPicHolder").forEach((element) => {
                     element.addEventListener('click', async (e) => {
-                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
-                      console.log(chosenWinner)
+                      chosenLoser = [e.target.id.split(".")[0]]
+                      console.log(`loser is ${chosenLoser}`)
                       for (let i of document.querySelectorAll(".loserPic")) {
                         i.style.outline = "none"
                       }
-                      document.querySelector(`.loserRow #${e.target.id} img`).style.outline = "3px solid green"
+                      document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
                     })
                   })
 
                 },
-                title: "Select Winner and Loser",
+                title: "選擇贏家和輸家",
                 html: `
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
               <div class="container-fluid confirmWinnerContainer">
@@ -474,6 +535,10 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 </div>
                 <div class="row loserRow"> 
                   ${loserHTML}
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="isSelfEat">
+                  <label class="form-check-label" for="isSelfEat">自摸</label>
                 </div>
 
               </div>
@@ -485,7 +550,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 cancelButtonText: "Retry"
               }).then((result) => {
                 if (result.isConfirmed) {
-                  isPhotoCorrect = 1
+                  
                 }
               });
             }

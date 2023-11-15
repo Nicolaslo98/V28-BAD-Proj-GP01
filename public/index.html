@@ -27,7 +27,7 @@
         <div class="box">
             <div class="container-fluid">
                 <div class="row topRow">
-                    <div class="col-4 players" id="north">
+                    <div class="col-4 players" id="player_n">
                         <ul>
                             <li class="profilePicHolder">
                                 <img class="profilePic"
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="row middleRow flex-nowrap">
-                    <div class="col-4 players" id="west">
+                    <div class="col-4 players" id="player_w">
                         <ul>
                             <li class="profilePicHolder">
                                 <img class="profilePic"
@@ -50,7 +50,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-4 players" id="east">
+                    <div class="col-4 players" id="player_e">
                         <ul>
                             <li class="profilePicHolder">
                                 <img class="profilePic"
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="row bottomRow">
-                    <div class="col-4 players" id="south">
+                    <div class="col-4 players" id="player_s">
                         <ul>
                             <li class="profilePicHolder">
                                 <img class="profilePic"
@@ -78,7 +78,11 @@
         <div class="leaderBoardBox">
             
             <div class="history noScrollBar">
-                <div class="historySpace"></div>
+                <div class="historySpace">
+
+
+                </div>
+                <div class="playerInfo-container">
                 <div class="playerInfo">
                     <p>1</p>
                     <p>玩家</p>
@@ -88,6 +92,7 @@
                     <p>2</p>
                     <p>玩家</p>
                     <p>60</p>
+                </div>
                 </div>
                 
             </div>
@@ -158,7 +163,7 @@
         </form>
         <div class="container-fluid bottomBox">
             <div class="row">
-                <button class="col-6 leftBtn" type="submit" form="startForm">
+                <button id="myButton" class="col-6 leftBtn" type="submit" form="startForm">
                     <i class="fa-solid fa-backward"></i>
                     <p>開局</p>
                 </button>
@@ -189,10 +194,10 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sound.js"></script>
     <script type="module" src="camera.js"></script>
     <script type="module" src="starting.js"></script>
-    <script src="ranking.js"></script>
-    <script src="navbar.js"></script>
+    <script type="module" src="navbar.js"></script>
     <script src="logout.js"></script>
     <script type="module" src="main.js"></script>
 </body>

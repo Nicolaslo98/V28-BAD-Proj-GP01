@@ -13,7 +13,7 @@
     background-size: cover;
     background-position: center;
     position: fixed;
-    filter: blur(3px);
+    filter: blur(5px);
 
 
 }
@@ -118,11 +118,11 @@ li {
 
 }
 
-#north {
+#player_n {
     top: 50%;
 }
 
-#west {
+#player_w {
     margin-right: 50px;
 }
 
@@ -318,13 +318,13 @@ button {
 
 
 
-.form-switch .form-check-input {
+.settingForm .form-check-input {
     height: 2.5rem;
     width: 5rem;
     margin-right: 30px;
 }
 
-.form-switch .form-check-label {
+.settingForm .form-check-label {
     font-size: 30px;
     font-weight: 800;
     text-shadow: 0 3px 3px rgb(0, 0, 0);
@@ -621,8 +621,8 @@ div:where(.swal2-container) .swal2-html-container {
 } */
 
 .winnerPicHolder img{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 100%;
     pointer-events: none;
@@ -632,8 +632,8 @@ div:where(.swal2-container) .swal2-html-container {
     white-space: nowrap;
 }
 .loserPicHolder img{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 100%;
     pointer-events: none;
@@ -645,4 +645,18 @@ div:where(.swal2-container) .swal2-html-container {
 
 .confirmWinnerContainer .row{
     margin-top: 10px;
+}
+
+.confirmWinnerContainer .form-check-input{
+    height: 2rem;
+    width: 4rem;
+    margin-right: 30px;
+}
+
+.confirmWinnerContainer label{
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 0 3px 3px rgb(0, 0, 0);
+    color: white;
+    letter-spacing: 3px;
 }

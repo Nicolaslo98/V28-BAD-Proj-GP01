@@ -15,15 +15,16 @@ let check2 = false
 const cameraBtn = document.querySelector(".cameraBtn")
 const startingBtn = document.querySelector(".startingBtn")
 let showBottomBtn = startingBtn
+import { rank } from './ranking.js';
 
 settingBtn.addEventListener("click", function (e) {
   Swal.fire({
     html: `
-      <div class="form-check form-switch">
+      <div class="form-check form-switch settingForm">
       <input class="form-check-input" type="checkbox" role="switch" id="theme">
       <label class="form-check-label" for="theme">Theme</label>
       </div>
-      <div class="form-check form-switch">
+      <div class="form-check form-switch settingForm">
       <input class="form-check-input" type="checkbox" role="switch" id="language">
       <label class="form-check-label" for="language">Language</label>
       </div>
@@ -33,19 +34,19 @@ settingBtn.addEventListener("click", function (e) {
 })
 document.querySelector(".startingBtn").addEventListener("click", async function(e) {
   const players = document.querySelectorAll(".name")
-  // const formData = []
+  const formData = []
 
   //got rid of check for dev
-  const formData = ["1", "2", "3", "4"]
+  // const formData = ["1", "2", "3", "4"]
 
   let isName = true
-  // for (let i of players){
-  //   if (!i.innerHTML){
-  //     isName = false
-  //   }else{
-  //     formData.push(i.id)
-  //   }
-  // }
+  for (let i of players){
+    if (!i.innerHTML){
+      isName = false
+    }else{
+      formData.push(i.id)
+    }
+  }
   
   if (isName){
     const formObject = {
@@ -77,6 +78,7 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
 rightBtn.addEventListener("click", function (e) {
   if (check) {
     leaderBoard.style.display = 'flex';
+    rank()
     home.style.display = 'none';
     showBottomBtn.style.display = 'none'
     settingBtn.style.display = 'flex'
