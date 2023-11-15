@@ -46,6 +46,8 @@ import { StartService } from "../service/start-service";
 export const startService = new StartService(knex);
 export const startController = new StartController(startService);
 
+import { AiController } from "../controller/ai-result-controller";
+export const aiController = new AiController();
 
 
 //Request Log

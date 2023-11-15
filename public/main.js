@@ -1,5 +1,6 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
+
 let maxFanLimit = ""
 let chosenWinner = ""
 let chosenLoser = ""
@@ -343,13 +344,17 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         await Swal.fire({
           didOpen: () => {
             const fanSelect = document.querySelector('#fanSelect')
+            const getFan = fetch('/api/ai', {
+              method: 'GET',
+            })
+            console.log(getFan.json())
             fanSelect.innerHTML = ''
             for (let i = 3; i <= maxFanLimit.fan; i++) {
               fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
             }
           },
           title: "Is this correct?",
-          text: "🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡",
+          text: winningHand.toString(),
           html: `
           <form class="fanDropSelectForm">
             <label for="fanSelect">fanSelect</label>
@@ -435,6 +440,8 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     const res = await fetch('/api/history/game');
     const historyData = (await res.json()).roundData;
     console.log(historyData);
+
+    let historyPlayerHTML = '';
 
     let historyScoreHTML = '';
 
