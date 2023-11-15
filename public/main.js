@@ -340,22 +340,23 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           method: 'POST',
           body: fetchData,
         })
-        await stopCamera()
-        console.log(await maxFanLimit)
+        stopCamera()
         await Swal.fire({
-          didOpen: () => {
+          didOpen: async () => {
             const fanSelect = document.querySelector('#fanSelect')
-            const getFan = fetch('/api/ai', {
+            const getFan = await fetch('/api/ai', {
               method: 'GET',
             })
-            console.log(getFan.json())
+          const fan = await getFan.json()
+          console.log(fan.faanValue.value)
             fanSelect.innerHTML = ''
+            fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
             for (let i = 3; i <= maxFanLimit.fan; i++) {
               fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
             }
           },
           title: "Is this correct?",
-          text: winningHand.toString(),
+          text: 'hi',
           html: `
           <form class="fanDropSelectForm">
             <label for="fanSelect">fanSelect</label>
