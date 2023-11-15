@@ -268,7 +268,7 @@ document.querySelectorAll(".players").forEach((element) => {
               });
               const result3 = await result2.json();
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`; 
+              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
               await stopCamera();
             } else {
@@ -278,11 +278,11 @@ document.querySelectorAll(".players").forEach((element) => {
         } else if (result.isDismissed) {
           const selectedName = document.querySelector("#existingName option:checked").innerText
 
-          if(selectedName){
+          if (selectedName) {
 
-            for (let i of document.querySelectorAll(".players")){
+            for (let i of document.querySelectorAll(".players")) {
               console.log(i.id)
-              if(document.querySelector(`#${i.id} .name`).innerHTML === selectedName){
+              if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
                 console.log("fuck you")
                 document.querySelector(`#${i.id} .name`).innerHTML = ("");
                 document.querySelector(`#${i.id} .name`).id = ``;
@@ -347,15 +347,15 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
             const getFan = await fetch('/api/ai', {
               method: 'GET',
             })
-          const fan = await getFan.json()
-          console.log(fan.faanValue.value)
-            fanSelect.innerHTML = ''
-            if () {
-              
-            }
-            fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
-            for (let i = 3; i <= maxFanLimit.fan; i++) {
-              fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+            const fan = await getFan.json()
+            console.log(fan.faanValue.value)
+            if (fan.faanValue.value >= maxFanLimit.fan) {
+              fan.faanValue.value = maxFanLimit.fan 
+              fanSelect.innerHTML = ''
+              fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
+              for (let i = 3; i <= maxFanLimit.fan; i++) {
+                fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+              }
             }
           },
           title: "Is this correct?",
@@ -391,11 +391,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                     loser.innerHTML += `<option value="${i.innerHTML}">${i.innerHTML}</option>`
                   }
 
-                  window.CheckDropDowns = function(thisSelect) {
+                  window.CheckDropDowns = function (thisSelect) {
                     var otherSelectId = ("winner_or_loser_1" == thisSelect.id) ? "winner_or_loser_2" : "winner_or_loser_1";
                     var otherSelect = document.getElementById(otherSelectId);
                     console.log(otherSelect.options[0].innerHTML)
-                  
+
                     for (let i = 0; i < otherSelect.options.length; i++) {
                       otherSelect.options[i].style.display = 'block';
                       // otherSelect.options[i].removeAttribute('hidden');
