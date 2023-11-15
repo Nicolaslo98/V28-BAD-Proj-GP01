@@ -15,7 +15,7 @@ export class StartController {
     
                 const room_id = req.session.room!.roomId  // Assuming you have the room ID stored in the session
     
-                const startResult = await this.startService.startGame( {player_e, player_s, room_id, player_w, player_n, });
+                const startResult = await this.startService.startGame( {room_id, player_e, player_s, player_w, player_n, });
     
                 res.json({ success: true, message: "start game successfully", startData: startResult });
             } catch (err) {
