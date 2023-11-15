@@ -1,9 +1,10 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
 let chosenWinner = ''
-let chosenLoser = ''
+let chosenLoser = []
 let maxFanLimit = ""
 let positionArr = []
+let chosenFanNum 
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -354,7 +355,7 @@ document.querySelectorAll(".players").forEach((element) => {
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
-  let isPhotoCorrect = 0
+  let isPhotoCorrect = false
 
   while (!isPhotoCorrect) {
     await Swal.fire({
@@ -416,6 +417,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         })
           .then(async (result) => {
             if (result.isConfirmed) {
+              chosenFanNum = document.querySelector("#fanSelect").value
               document.querySelectorAll(".players")
               let winnerHTML = '';
               let loserHTML = '';
@@ -438,121 +440,156 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 </div>
                 `;
               }
-              await Swal.fire({
-                didOpen: () => {
-                  document.querySelector("#isSelfEat").addEventListener("change", function(e){
-                    selfEat = !selfEat
-                    if (!selfEat){
-                      for (let i of document.querySelectorAll(".loserPicHolder")){
-                        i.style["pointer-events"] = "auto";
-                        i.style.opacity = "1"
-                      }
-                      for (let i of document.querySelectorAll(".loserPicHolder img")){
-                        i.style.outline = "none"
-                      }
-                      if(chosenWinner){
-                        document.querySelector(`[id="${chosenWinner}.2"]`).style["pointer-events"] = "none"
-                        document.querySelector(`[id="${chosenWinner}.2"]`).style.opacity = "0.3"
-                        document.querySelector(`[id="${chosenWinner}.2"] img`).style.outline = "none"
-                        chosenLoser = ""
-                        console.log(`new loser = ${chosenLoser}`)
-                      }
-                    }else{
-                      if(chosenWinner){
-                        chosenLoser = []
+              let isWinnerEmpty = true
+              while (isWinnerEmpty){
+                await Swal.fire({
+                  didOpen: () => {
+                    document.querySelector("#isSelfEat").addEventListener("change", function(e){
+                      selfEat = !selfEat
+                      if (!selfEat){
                         for (let i of document.querySelectorAll(".loserPicHolder")){
-                          i.style["pointer-events"] = "none"                 
-                          i.style.opacity = "0.8"       
-                          if (i.id.split(".")[0] === chosenWinner){
-                            i.style.opacity = "0.3"
-                          }else {
-                            document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
-                            chosenLoser.push(i.id.split(".")[0])
-                          }
+                          i.style["pointer-events"] = "auto";
+                          i.style.opacity = "1"
                         }
-                        
-                        console.log(`new loser = ${chosenLoser}`)
-                      }
-                    }
-                  })
-                  document.querySelectorAll(".winnerPicHolder").forEach((element) => {
-                    element.addEventListener('click', async (e) => {
-                      chosenWinner = e.target.id.split(".")[0]
-                      console.log(`winner is ${chosenWinner}`)
-                      for (let i of document.querySelectorAll(".winnerPic")) {
-                        i.style.outline = "none";
-                      }
-                      for (let i of document.querySelectorAll(".loserPicHolder")){
-                        i.style["pointer-events"] = "auto";
-                        i.style.opacity = "1"
-                      }
-                      for (let i of document.querySelectorAll(".loserPicHolder img")){
-                        i.style.outline = "none"
-                      }
-                      document.querySelector(`.winnerRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
-                      if(!selfEat){
-                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
-                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
-                        document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
-                        if (chosenLoser === `${e.target.id.split(".")[0]}`){
+                        for (let i of document.querySelectorAll(".loserPicHolder img")){
+                          i.style.outline = "none"
+                        }
+                        if(chosenWinner){
+                          document.querySelector(`[id="${chosenWinner}.2"]`).style["pointer-events"] = "none"
+                          document.querySelector(`[id="${chosenWinner}.2"]`).style.opacity = "0.3"
+                          document.querySelector(`[id="${chosenWinner}.2"] img`).style.outline = "none"
                           chosenLoser = []
                           console.log(`new loser = ${chosenLoser}`)
                         }
-                      } else {
-                        chosenLoser = []
-                        for (let i of document.querySelectorAll(".loserPicHolder")){
-                          i.style["pointer-events"] = "none"                 
-                          i.style.opacity = "0.8"       
-                          if (i.id.split(".")[0] === chosenWinner){
-                            i.style.opacity = "0.3"
-                          }else {
-                            document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
-                            chosenLoser.push(i.id.split(".")[0])
+                      }else{
+                        if(chosenWinner){
+                          chosenLoser = []
+                          for (let i of document.querySelectorAll(".loserPicHolder")){
+                            i.style["pointer-events"] = "none"                 
+                            i.style.opacity = "0.8"       
+                            if (i.id.split(".")[0] === chosenWinner){
+                              i.style.opacity = "0.3"
+                            }else {
+                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                              chosenLoser.push(i.id.split(".")[0])
+                            }
                           }
+                          
+                          console.log(`new loser = ${chosenLoser}`)
                         }
-                        console.log(`new loser = ${chosenLoser}`)
                       }
                     })
-                  })
-                  document.querySelectorAll(".loserPicHolder").forEach((element) => {
-                    element.addEventListener('click', async (e) => {
-                      chosenLoser = [e.target.id.split(".")[0]]
-                      console.log(`loser is ${chosenLoser}`)
-                      for (let i of document.querySelectorAll(".loserPic")) {
-                        i.style.outline = "none"
-                      }
-                      document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
+                    document.querySelectorAll(".winnerPicHolder").forEach((element) => {
+                      element.addEventListener('click', async (e) => {
+                        chosenWinner = e.target.id.split(".")[0]
+                        console.log(`winner is ${chosenWinner}`)
+                        for (let i of document.querySelectorAll(".winnerPic")) {
+                          i.style.outline = "none";
+                        }
+                        for (let i of document.querySelectorAll(".loserPicHolder")){
+                          i.style["pointer-events"] = "auto";
+                          i.style.opacity = "1"
+                        }
+                        for (let i of document.querySelectorAll(".loserPicHolder img")){
+                          i.style.outline = "none"
+                        }
+                        document.querySelector(`.winnerRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
+                        if(!selfEat){
+                          document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
+                          document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
+                          document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
+                          if (chosenLoser[0] === `${e.target.id.split(".")[0]}`){
+                            chosenLoser = []
+                            console.log(`new loser = ${chosenLoser}`)
+                          }
+                        } else {
+                          chosenLoser = []
+                          for (let i of document.querySelectorAll(".loserPicHolder")){
+                            i.style["pointer-events"] = "none"                 
+                            i.style.opacity = "0.8"       
+                            if (i.id.split(".")[0] === chosenWinner){
+                              i.style.opacity = "0.3"
+                            }else {
+                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                              chosenLoser.push(i.id.split(".")[0])
+                            }
+                          }
+                          console.log(`new loser = ${chosenLoser}`)
+                        }
+                      })
                     })
-                  })
-
-                },
-                title: "選擇贏家和輸家",
-                html: `
-              <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
-              <div class="container-fluid confirmWinnerContainer">
-                <div class="row winnerRow"> 
-                  ${winnerHTML}
+                    document.querySelectorAll(".loserPicHolder").forEach((element) => {
+                      element.addEventListener('click', async (e) => {
+                        chosenLoser = []
+                        chosenLoser.push([e.target.id.split(".")[0]])
+                        console.log(`loser is ${chosenLoser}`)
+                        for (let i of document.querySelectorAll(".loserPic")) {
+                          i.style.outline = "none"
+                        }
+                        document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
+                      })
+                    })
+  
+                  },
+                  title: "選擇贏家和輸家",
+                  html: `
+                <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
+                <div class="container-fluid confirmWinnerContainer">
+                  <div class="row winnerRow"> 
+                    ${winnerHTML}
+                  </div>
+                  <div class="row loserRow"> 
+                    ${loserHTML}
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="isSelfEat">
+                    <label class="form-check-label" for="isSelfEat">自摸</label>
+                  </div>
+  
                 </div>
-                <div class="row loserRow"> 
-                  ${loserHTML}
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="isSelfEat">
-                  <label class="form-check-label" for="isSelfEat">自摸</label>
-                </div>
-
-              </div>
-              `,
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes",
-                cancelButtonText: "Retry"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  
-                }
-              });
+                `,
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes",
+                  cancelButtonText: "Retry"
+                }).then(async (result) => { 
+                  if (result.isConfirmed && chosenWinner[0] && chosenLoser[0]) {
+                    isPhotoCorrect = true
+                    isWinnerEmpty = false
+                    const formObject = {
+                      player_e: 0,
+                      player_n: 0,
+                      player_s: 0,
+                      player_w: 0
+                    } 
+                    formObject[chosenWinner] = +chosenFanNum
+                    if (chosenLoser.length === 1){
+                      formObject[chosenLoser[0]] = -chosenFanNum
+                    }else{
+                      for (let i in chosenLoser){
+                        formObject[chosenLoser[i]] = -chosenFanNum/3
+                      }
+                    }
+                    chosenWinner = ""
+                    chosenLoser = []
+                    console.log(formObject)
+                    const res = await fetch('/api/confirmFan', {
+                      method: 'POST',
+                      headers:{
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(formObject)
+                    });
+                  }else {
+                    await Swal.fire({
+                      icon: "錯誤",
+                      title: "哎呀...",
+                      text: "這請不要留空！",
+                    })
+                  }
+                });
+              }
             }
           });
       } else {
