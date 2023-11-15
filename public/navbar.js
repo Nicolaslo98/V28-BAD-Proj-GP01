@@ -55,7 +55,6 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       player_w: formData[1],
       player_n: formData[0],
     }
-    console.log(formObject)
     const res = await fetch('/api/start', {
       method: 'POST',
       headers:{
@@ -63,7 +62,11 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
       },
       body: JSON.stringify(formObject)
     });
-    // const result = await res.json();
+    const result = await res.json();
+    const gameId = result.startData[0].id;
+    console.log(gameId)
+    localStorage.setItem("gameId",gameId)
+    console.log(result)
     startingBtn.style.display = 'none';
     cameraBtn.style.display = 'flex';
     showBottomBtn = cameraBtn
@@ -74,6 +77,8 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
 
   
 })
+
+console.log(localStorage.getItem("gameId"))
 
 rightBtn.addEventListener("click", function (e) {
   if (check) {
