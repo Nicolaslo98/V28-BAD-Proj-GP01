@@ -424,14 +424,14 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 const userid = document.querySelector(`#${i.id} ul .name`).id
 
                 winnerHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}">
-                  <img class="winnerPic" src="/image/${userimage}">  
+                <div class="winnerPicHolder col-3" id="${userid}.1">
+                  <img class="winnerPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
                 loserHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}">
-                  <img class="winnerPic" src="/image/${userimage}">  
+                <div class="winnerPicHolder col-3" id="${userid}.2">
+                  <img class="winnerPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
