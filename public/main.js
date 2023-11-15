@@ -3,6 +3,7 @@ import { fanLimit } from "./starting.js"
 let chosenWinner = ''
 let chosenLoser = ''
 let maxFanLimit = ""
+let positionArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -349,9 +350,7 @@ document.querySelectorAll(".players").forEach((element) => {
   });
 });
 
-// function genPlayer() {
 
-// }
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
@@ -427,13 +426,13 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 const userid = document.querySelector(`#${i.id} ul .name`).id
 
                 winnerHTML += `
-                <div class="winnerPicHolder col-3" id="${userid}.1">
+                <div class="winnerPicHolder col-3" id="${i.id}.1">
                   <img class="winnerPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
                 `;
                 loserHTML += `
-                <div class="loserPicHolder col-3" id="${userid}.2">
+                <div class="loserPicHolder col-3" id="${i.id}.2">
                   <img class="loserPic" src="${userimage}">  
                   <p>${username}</p>
                 </div>
@@ -460,6 +459,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       }
                     }else{
                       if(chosenWinner){
+                        chosenLoser = []
                         for (let i of document.querySelectorAll(".loserPicHolder")){
                           i.style["pointer-events"] = "none"                 
                           i.style.opacity = "0.8"       
@@ -467,9 +467,10 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                             i.style.opacity = "0.3"
                           }else {
                             document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                            chosenLoser.push(i.id.split(".")[0])
                           }
                         }
-                        chosenLoser = ""
+                        
                         console.log(`new loser = ${chosenLoser}`)
                       }
                     }
@@ -494,10 +495,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
                         document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
                         if (chosenLoser === `${e.target.id.split(".")[0]}`){
-                          chosenLoser = ""
+                          chosenLoser = []
                           console.log(`new loser = ${chosenLoser}`)
                         }
                       } else {
+                        chosenLoser = []
                         for (let i of document.querySelectorAll(".loserPicHolder")){
                           i.style["pointer-events"] = "none"                 
                           i.style.opacity = "0.8"       
@@ -505,14 +507,16 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                             i.style.opacity = "0.3"
                           }else {
                             document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                            chosenLoser.push(i.id.split(".")[0])
                           }
                         }
+                        console.log(`new loser = ${chosenLoser}`)
                       }
                     })
                   })
                   document.querySelectorAll(".loserPicHolder").forEach((element) => {
                     element.addEventListener('click', async (e) => {
-                      chosenLoser = e.target.id.split(".")[0]
+                      chosenLoser = [e.target.id.split(".")[0]]
                       console.log(`loser is ${chosenLoser}`)
                       for (let i of document.querySelectorAll(".loserPic")) {
                         i.style.outline = "none"
@@ -546,7 +550,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 cancelButtonText: "Retry"
               }).then((result) => {
                 if (result.isConfirmed) {
-                  isPhotoCorrect = 1
+                  
                 }
               });
             }
