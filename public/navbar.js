@@ -15,6 +15,7 @@ let check2 = false
 const cameraBtn = document.querySelector(".cameraBtn")
 const startingBtn = document.querySelector(".startingBtn")
 let showBottomBtn = startingBtn
+import { rank } from './ranking.js';
 
 settingBtn.addEventListener("click", function (e) {
   Swal.fire({
@@ -33,7 +34,7 @@ settingBtn.addEventListener("click", function (e) {
 })
 document.querySelector(".startingBtn").addEventListener("click", async function(e) {
   const players = document.querySelectorAll(".name")
-  // const formData = []
+  // const formData = 
 
   //got rid of check for dev
   const formData = ["1", "2", "3", "4"]
@@ -77,6 +78,7 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
 rightBtn.addEventListener("click", function (e) {
   if (check) {
     leaderBoard.style.display = 'flex';
+    rank()
     home.style.display = 'none';
     showBottomBtn.style.display = 'none'
     settingBtn.style.display = 'flex'

@@ -354,7 +354,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
             }
           },
           title: "Is this correct?",
-          text: winningHand.toString(),
+          text: "winningHand.toString()",
           html: `
           <form class="fanDropSelectForm">
             <label for="fanSelect">fanSelect</label>
