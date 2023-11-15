@@ -564,9 +564,15 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_w: 0
                     } 
                     formObject[chosenWinner] = +chosenFanNum
-                    for (let i in chosenLoser){
-                      formObject[chosenLoser[i]] = -chosenFanNum
+                    if (chosenLoser.length === 1){
+                      formObject[chosenLoser[0]] = -chosenFanNum
+                    }else{
+                      for (let i in chosenLoser){
+                        formObject[chosenLoser[i]] = -chosenFanNum/3
+                      }
                     }
+                    chosenWinner = ""
+                    chosenLoser = []
                     console.log(formObject)
                     const res = await fetch('/api/confirmFan', {
                       method: 'POST',
