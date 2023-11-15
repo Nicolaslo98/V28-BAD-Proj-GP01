@@ -629,8 +629,19 @@ div:where(.swal2-container) .swal2-html-container {
 }
 .winnerPicHolder p{
     pointer-events: none;
+    white-space: nowrap;
 }
- 
+.loserPicHolder img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+    pointer-events: none;
+}
+.loserPicHolder p{
+    pointer-events: none;
+    white-space: nowrap;
+}
 
 .confirmWinnerContainer .row{
     margin-top: 10px;

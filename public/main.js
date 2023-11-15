@@ -2,8 +2,6 @@ import { genCamera, capture, stopCamera } from "./camera.js"
 import { fanLimit } from "./starting.js"
 
 let maxFanLimit = ""
-let chosenWinner = ""
-let chosenLoser = ""
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
@@ -193,124 +191,170 @@ document.querySelectorAll(".players").forEach((element) => {
   element.addEventListener('click', async (e) => {
     try {
       const res = await fetch('/api/eplayer/room');
-      const ePlayerData = (await res.json()).ePlayerData;
-      let choosePlayerHTML = '';
-      for (let i = 0; i < ePlayerData.length; i++) {
-        const username = ePlayerData[i].username;
-        const userimage = ePlayerData[i].user_image;
-        const userid = ePlayerData[i].id
-
-        choosePlayerHTML += `
-        <option value="${userimage}_${userid}">${username}</option>
-        `;
-      }
-      Swal.fire({
-        didOpen: () => {
-          let existingName = document.querySelector("#existingName")
-          let existingPic = document.querySelector(".existingPic")
-          if (existingName.innerHTML) {
-
-            existingName.addEventListener('change', function (e) {
-              existingPic.src = `./image/${e.target.value.split("_")[0]}`
-            })
-          } else {
-            document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+      const result = await res.json()
+      console.log(result)
+      if (!result.ePlayerData[0]){
+        Swal.fire({
+          didOpen: () => {
+            genCamera();
+          },
+          html: `
+            <form class="playerVideoContainer">
+              <video id="video" autoplay playsInline muted>
+                <canvas id="canvas" width="480" height="640"></canvas>
+              </video>
+            </form>
+          `,
+          input: "text",
+          inputPlaceholder: "Enter Name",
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return "You need to write something!";
+            }
           }
-        },
-        html: `
-        <div class="choosePlayer">
-          <div class="existingPlayer">
-            <ul>
-              <li class="existingPicHolder">
-                <img class="existingPic"
-                src="/image/${ePlayerData[0].user_image}">
-              </li>
-              <form class="existingNameForm">
-                <label for="existingName">Name</label>
-                <select name="existingName" id="existingName">
-                  ${choosePlayerHTML}
-                </select>
-              </form>
-            </ul>
-          </div>
-        </div>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Add new player',
-        cancelButtonText: 'Ok'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            didOpen: () => {
-              genCamera();
-            },
-            html: `
-              <form class="playerVideoContainer">
-                <video id="video" autoplay playsInline muted>
-                  <canvas id="canvas" width="480" height="640"></canvas>
-                </video>
-              </form>
-            `,
-            input: "text",
-            inputPlaceholder: "Enter Name",
-            showCancelButton: true,
-            inputValidator: (value) => {
-              if (!value) {
-                return "You need to write something!";
-              }
-            }
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              const fetchData = capture();
-              console.log(fetchData);
-              fetchData.append("username", result.value);
-              const result2 = await fetch('/api/user', {
-                method: 'POST',
-                body: fetchData,
-              });
-              const result3 = await result2.json();
-              document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
-              document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
-              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
-              await stopCamera();
-            } else {
-              await stopCamera();
-            }
-          });
-        } else if (result.isDismissed) {
-          const selectedName = document.querySelector("#existingName option:checked").innerText
-
-          if (selectedName) {
-
-            for (let i of document.querySelectorAll(".players")) {
-              console.log(i.id)
-              if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
-                console.log("fuck you")
-                document.querySelector(`#${i.id} .name`).innerHTML = ("");
-                document.querySelector(`#${i.id} .name`).id = ``;
-                document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
-              }
-            }
-
-
-
-            document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
-            document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
-            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const fetchData = capture();
+            console.log(fetchData);
+            fetchData.append("username", result.value);
+            const result2 = await fetch('/api/user', {
+              method: 'POST',
+              body: fetchData,
+            });
+            const result3 = await result2.json();
+            document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
+            document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
+            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
+            await stopCamera();
           } else {
-            document.querySelector(`#${e.target.id} ul .name`).innerHTML = ("");
-            document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
+            await stopCamera();
           }
+        });
+      }else {
+        const ePlayerData = result.ePlayerData;
+        let choosePlayerHTML = '';
+        for (let i = 0; i < ePlayerData.length; i++) {
+          const username = ePlayerData[i].username;
+          const userimage = ePlayerData[i].user_image;
+          const userid = ePlayerData[i].id
 
-          // Handle cancel button clicked
+          choosePlayerHTML += `
+          <option value="${userimage}_${userid}">${username}</option>
+          `;
         }
-      });
+        Swal.fire({
+          didOpen: () => {
+            let existingName = document.querySelector("#existingName")
+            let existingPic = document.querySelector(".existingPic")
+            if (existingName.innerHTML) {
+  
+              existingName.addEventListener('change', function (e) {
+                existingPic.src = `./image/${e.target.value.split("_")[0]}`
+              })
+            } else {
+              document.querySelector(".choosePlayer").innerHTML = "No existing player detected"
+            }
+          },
+          html: `
+          <div class="choosePlayer">
+            <div class="existingPlayer">
+              <ul>
+                <li class="existingPicHolder">
+                  <img class="existingPic"
+                  src="/image/${ePlayerData[0].user_image}">
+                </li>
+                <form class="existingNameForm">
+                  <label for="existingName">Name</label>
+                  <select name="existingName" id="existingName">
+                    ${choosePlayerHTML}
+                  </select>
+                </form>
+              </ul>
+            </div>
+          </div>
+          `,
+          showCancelButton: true,
+          confirmButtonText: 'Add new player',
+          cancelButtonText: 'Ok'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              didOpen: () => {
+                genCamera();
+              },
+              html: `
+                <form class="playerVideoContainer">
+                  <video id="video" autoplay playsInline muted>
+                    <canvas id="canvas" width="480" height="640"></canvas>
+                  </video>
+                </form>
+              `,
+              input: "text",
+              inputPlaceholder: "Enter Name",
+              showCancelButton: true,
+              inputValidator: (value) => {
+                if (!value) {
+                  return "You need to write something!";
+                }
+              }
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                const fetchData = capture();
+                console.log(fetchData);
+                fetchData.append("username", result.value);
+                const result2 = await fetch('/api/user', {
+                  method: 'POST',
+                  body: fetchData,
+                });
+                const result3 = await result2.json();
+                document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${result.value}`;
+                document.querySelector(`#${e.target.id} ul .name`).id = `${result3.imageData[0].id}`;
+                document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${result3.imageData[0].user_image}`;
+                await stopCamera();
+              } else {
+                await stopCamera();
+              }
+            });
+          } else if (result.isDismissed) {
+            const selectedName = document.querySelector("#existingName option:checked").innerText
+  
+            if (selectedName) {
+  
+              for (let i of document.querySelectorAll(".players")) {
+                console.log(i.id)
+                if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
+                  console.log("fuck you")
+                  document.querySelector(`#${i.id} .name`).innerHTML = ("");
+                  document.querySelector(`#${i.id} .name`).id = ``;
+                  document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
+                }
+              }
+  
+  
+  
+              document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
+              document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
+            } else {
+              document.querySelector(`#${e.target.id} ul .name`).innerHTML = ("");
+              document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
+            }
+            // Handle cancel button clicked
+          }
+        });
+      }
+
+
     } catch (error) {
       console.error('Error:', error);
     }
   });
 });
 
+// function genPlayer() {
+
+// }
 
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
@@ -339,18 +383,22 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
           method: 'POST',
           body: fetchData,
         })
-        await stopCamera()
-        console.log(await maxFanLimit)
+        stopCamera()
         await Swal.fire({
-          didOpen: () => {
+          didOpen: async () => {
             const fanSelect = document.querySelector('#fanSelect')
-            const getFan = fetch('/api/ai', {
+            const getFan = await fetch('/api/ai', {
               method: 'GET',
             })
-            console.log(getFan.json())
-            fanSelect.innerHTML = ''
-            for (let i = 3; i <= maxFanLimit.fan; i++) {
-              fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+            const fan = await getFan.json()
+            console.log(fan.faanValue.value)
+            if (fan.faanValue.value >= maxFanLimit.fan) {
+              fan.faanValue.value = maxFanLimit.fan 
+              fanSelect.innerHTML = ''
+              fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
+              for (let i = 3; i <= maxFanLimit.fan; i++) {
+                fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+              }
             }
           },
           title: "Is this correct?",
@@ -372,7 +420,27 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         })
           .then(async (result) => {
             if (result.isConfirmed) {
+              document.querySelectorAll(".players")
+              let winnerHTML = '';
+              let loserHTML = '';
+              for (let i of document.querySelectorAll(".players")) {
+                const username = document.querySelector(`#${i.id} ul .name`).innerHTML
+                const userimage = document.querySelector(`#${i.id} ul .profilePic`).src
+                const userid = document.querySelector(`#${i.id} ul .name`).id
 
+                winnerHTML += `
+                <div class="winnerPicHolder col-3" id="${userid}.1">
+                  <img class="winnerPic" src="${userimage}">  
+                  <p>${username}</p>
+                </div>
+                `;
+                loserHTML += `
+                <div class="winnerPicHolder col-3" id="${userid}.2">
+                  <img class="winnerPic" src="${userimage}">  
+                  <p>${username}</p>
+                </div>
+                `;
+              }
               await Swal.fire({
                 didOpen: () => {
                   document.querySelectorAll(".winnerPicHolder").forEach((element) => {
@@ -382,8 +450,17 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       for (let i of document.querySelectorAll(".winnerPic")) {
                         i.style.outline = "none"
                       }
-                      document.querySelector(`#${e.target.id} img`).style.outline = "3px solid green"
-                  
+                      document.querySelector(`.winnerRow #${e.target.id} img`).style.outline = "3px solid green"
+                    })
+                  })
+                  document.querySelectorAll(".loserPicHolder").forEach((element) => {
+                    element.addEventListener('click', async (e) => {
+                      chosenWinner = document.querySelector(`#${e.target.id} p`).innerHTML
+                      console.log(chosenWinner)
+                      for (let i of document.querySelectorAll(".loserPic")) {
+                        i.style.outline = "none"
+                      }
+                      document.querySelector(`.loserRow #${e.target.id} img`).style.outline = "3px solid green"
                     })
                   })
 
@@ -392,23 +469,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 html: `
               <p>🀙🀙🀙🀚🀚🀚🀛🀛🀛🀜🀜🀜🀡🀡</p>
               <div class="container-fluid confirmWinnerContainer">
-                <div class="row"> 
-                  <div class="winnerPicHolder col-3" id="test1">
-                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">  
-                    <p>Potato1</p>
-                  </div>
-                  <div class="winnerPicHolder col-3" id="test2">
-                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-                    <p>Potato2</p>
-                  </div>
-                  <div class="winnerPicHolder col-3" id="test3">
-                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-                    <p>Potato3</p>
-                  </div>
-                  <div class="winnerPicHolder col-3" id="test4">
-                    <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-                    <p>Potato4</p>
-                  </div>
+                <div class="row winnerRow"> 
+                  ${winnerHTML}
+                </div>
+                <div class="row loserRow"> 
+                  ${loserHTML}
                 </div>
 
               </div>
@@ -486,31 +551,4 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
 });
 
 
-
-// Swal.fire({
-//   html: `
-//   <div class="container-fluid confirmWinnerContainer">
-//     <div class="row"> 
-//       <div class="winnerPicHolder col-3" id="test1">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">  
-//         <p>Potato1</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test2">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato2</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test3">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato3</p>
-//       </div>
-//       <div class="winnerPicHolder col-3" id="test4">
-//         <img class="winnerPic" src="https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg">
-//         <p>Potato4</p>
-//       </div>
-//     </div>
-
-//   </div>
-  
-//   `
-// })
 
