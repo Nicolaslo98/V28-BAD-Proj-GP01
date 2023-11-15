@@ -11,4 +11,6 @@ export class HistoryService {
     .select('player_e, score_e, player_s, score_s, player_w, score_w, player_n, score_n')
     return roundData;
   }
+
+  
 }
