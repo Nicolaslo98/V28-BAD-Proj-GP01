@@ -33,15 +33,19 @@ settingBtn.addEventListener("click", function (e) {
 })
 document.querySelector(".startingBtn").addEventListener("click", async function(e) {
   const players = document.querySelectorAll(".name")
-  const formData = []
+  // const formData = []
+
+  //got rid of check for dev
+  const formData = ["1", "2", "3", "4"]
+
   let isName = true
-  for (let i of players){
-    if (!i.innerHTML){
-      isName = false
-    }else{
-      formData.push(i.id)
-    }
-  }
+  // for (let i of players){
+  //   if (!i.innerHTML){
+  //     isName = false
+  //   }else{
+  //     formData.push(i.id)
+  //   }
+  // }
   
   if (isName){
     const formObject = {

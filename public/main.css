@@ -619,3 +619,19 @@ div:where(.swal2-container) .swal2-html-container {
 /* div:where(.swal2-container) div:where(.swal2-popup) {
     width: auto !important;
 } */
+
+.winnerPicHolder img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+    pointer-events: none;
+}
+.winnerPicHolder p{
+    pointer-events: none;
+}
+ 
+
+.confirmWinnerContainer .row{
+    margin-top: 10px;
+}
