@@ -13,7 +13,7 @@
     background-size: cover;
     background-position: center;
     position: fixed;
-    filter: blur(3px);
+    filter: blur(5px);
 
 
 }
@@ -118,11 +118,11 @@ li {
 
 }
 
-#north {
+#player_n {
     top: 50%;
 }
 
-#west {
+#player_w {
     margin-right: 50px;
 }
 
