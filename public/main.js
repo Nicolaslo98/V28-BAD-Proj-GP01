@@ -92,6 +92,7 @@ function enterPassword(roomName) {
           icon: "error",
           title: "哎呀...",
           text: "密碼錯誤",
+          confirmButtonColor: `#B0926A`
         });
         enterPassword(roomName)
       } else if (res.ok) {
@@ -154,6 +155,7 @@ async function createJoinRoom() {
             icon: "error",
             title: "哎呀...",
             text: "這個房間存在！",
+            confirmButtonColor: `#B0926A`
           });
         }
       } //join
