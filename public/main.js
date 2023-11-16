@@ -59,6 +59,7 @@ function enterPassword(roomName) {
     allowOutsideClick: false,
     title: "輸入密碼",
     input: "text",
+    confirmButtonColor:"#B0926A",
     inputValidator: (value) => {
       if (!value) {
         return "你需要寫點東西！";
@@ -270,7 +271,9 @@ document.querySelectorAll(".players").forEach((element) => {
           `,
           showCancelButton: true,
           confirmButtonText: '新增玩家',
-          cancelButtonText: 'Ok'
+          cancelButtonText: 'Ok',
+          confirmButtonColor: `#B0926A`,
+          cancelButtonColor: `#706233`,
         }).then((result) => {
           if (result.isConfirmed) {
             Swal.fire({
@@ -670,7 +673,8 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
         </div>
       </div>
     `,
-      confirmButtonText: "Return"
+      confirmButtonText: "Return",
+      confirmButtonColor: `#B0926A`,
     })
   } catch (error) {
     console.error('Error:', error);
