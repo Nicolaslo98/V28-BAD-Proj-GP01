@@ -4,8 +4,8 @@
   
 let multiplyNumber = 32
 let fanNumber = 8
-let fanArr = []
-function genFan(fan, mul) {
+export let fanArr = []
+export function genFan(fan, mul) {
   startRow.innerHTML = ''
   if (fan === 8){
     switch (mul){
@@ -79,6 +79,7 @@ function genFan(fan, mul) {
           </div>
           `
   }
+  return fanArr
 }
 
 const startRow = document.querySelector(".startBox .container-fluid .row")

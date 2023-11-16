@@ -1,12 +1,15 @@
 import { genCamera, capture, stopCamera } from "./camera.js"
-import { fanLimit } from "./starting.js"
+import { fanLimit, genFan } from "./starting.js"
+// import { fanSwitch } from "./fanSwitch.js"
 let chosenWinner = ''
 let chosenLoser = []
 let maxFanLimit = ""
 let chosenFanNum 
+let fanArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
+  fanArr = genFan ()
 }
 
 //Function: Don't have room createPassword
@@ -345,7 +348,7 @@ document.querySelectorAll(".players").forEach((element) => {
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
   let isPhotoCorrect = false
-
+  console.log(fanArr)
   while (!isPhotoCorrect) {
     await Swal.fire({
       didOpen: () => {
@@ -407,6 +410,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
             if (result.isConfirmed) {
 
               //winner and loser set up
+              console.log(document.querySelector("#fanSelect").value)
               chosenFanNum = document.querySelector("#fanSelect").value
               document.querySelectorAll(".players")
               let winnerHTML = '';
@@ -561,12 +565,14 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_w: 0,
                       gameId: localStorage.getItem("gameId")
                     } 
-                    formObject[chosenWinner] = +chosenFanNum
+                    console.log(fanArr)
                     if (chosenLoser.length === 1){
+                      formObject[chosenWinner] = +chosenFanNum
                       formObject[chosenLoser[0]] = -chosenFanNum
                     }else{
+                       formObject[chosenWinner] = +chosenFanNum*3/2
                       for (let i in chosenLoser){
-                        formObject[chosenLoser[i]] = -chosenFanNum/3
+                        formObject[chosenLoser[i]] = -chosenFanNum
                       }
                     }
                     chosenWinner = ""
@@ -578,6 +584,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       },
                       body: JSON.stringify(formObject)
                     });
+                    const result2 = res.json()
                   }else {
                     chosenWinner = ""
                     chosenLoser = []
