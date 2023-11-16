@@ -59,7 +59,12 @@
     align-items: center;
     background-color: var(--player-color);
 }
-
+#player_e {
+    margin-left: 10px;
+}
+#player_w {
+    margin-right: 10px;
+}
 .players ul {
     pointer-events: none;
 }
