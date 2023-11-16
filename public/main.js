@@ -4,13 +4,19 @@ import { fanLimit, genFan } from "./starting.js"
 let chosenWinner = ''
 let chosenLoser = []
 let maxFanLimit = ""
-let chosenFanNum 
+let chosenFanNum
+let multiplyNumber
 let fanArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
   fanArr = genFan ()
 }
+
+console.log('fan1',fanArr)
+console.log('chosenFanNum1', chosenFanNum)
+console.log('multiplyNumber1', multiplyNumber)
+console.log(typeof +localStorage.getItem("multiplyNumber"))
 
 //Function: Don't have room createPassword
 function createPassword(roomName) {
@@ -348,7 +354,6 @@ document.querySelectorAll(".players").forEach((element) => {
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
   let isPhotoCorrect = false
-  console.log(fanArr)
   while (!isPhotoCorrect) {
     await Swal.fire({
       didOpen: () => {
@@ -380,14 +385,17 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               method: 'GET',
             })
             const fan = await getFan.json()
-            if (fan.faanValue.value >= maxFanLimit.fan) {
-              fan.faanValue.value = maxFanLimit.fan 
+            console.log(+localStorage.getItem("fanNumber"))
+            console.log(fan.faanValue.value)
+            if (fan.faanValue.value >= +localStorage.getItem("fanNumber")) {
+              fan.faanValue.value = +localStorage.getItem("fanNumber")
+            }
               fanSelect.innerHTML = ''
               fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
-              for (let i = 3; i <= maxFanLimit.fan; i++) {
+              for (let i = 3; i <= fan.faanValue.value; i++) {
                 fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
               }
-            }
+            
           },
           title: "是否正確？",
           text: "winningHand.toString()",
@@ -566,7 +574,13 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_w: 0,
                       gameId: localStorage.getItem("gameId")
                     } 
-                    console.log('fan',fanArr)
+                    console.log('fan2',fanArr)
+                    console.log(localStorage.getItem("multiplyNumber"))
+                    console.log(localStorage.getItem("fanNumber"))
+                    
+                    genFan()
+                    
+                    
                     if (chosenLoser.length === 1){
                       formObject[chosenWinner] = +chosenFanNum
                       formObject[chosenLoser[0]] = -chosenFanNum
@@ -576,7 +590,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         formObject[chosenLoser[i]] = -chosenFanNum
                       }
                     }
-                    console.log('chosenFanNum', chosenFanNum)
 
                     chosenWinner = ""
                     chosenLoser = []

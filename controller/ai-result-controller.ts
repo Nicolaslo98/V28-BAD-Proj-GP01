@@ -37,6 +37,7 @@ export class AiController {
             const winningHand = new WinningHand([meld1, meld2, meld3, meld4, meld5]);
             const config = {selfPick: true}
             const faanValue = FaanCalculator.calculate(winningHand);
+            console.log(faanValue)
             
             res.json({ success: true, message: "can find fan", faanValue: faanValue })
         } catch (err) {
