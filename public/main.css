@@ -122,7 +122,7 @@ li {
     top: 50%;
 }
 
-#player_w {
+#info_w {
     margin-right: 50px;
 }
 
@@ -384,7 +384,9 @@ div:where(.swal2-container) .swal2-html-container {
     position: relative;
     overflow-y: scroll;
 }
-
+.playerInfoUsername{
+    position: absolute;
+}
 .historySpace {
     height: 50px;
 }
@@ -393,6 +395,7 @@ div:where(.swal2-container) .swal2-html-container {
     display: flex;
     justify-content: space-around;
     font-weight: 600;
+    position: relative;
 }
 
 .modal-backdrop {
@@ -449,7 +452,11 @@ div:where(.swal2-container) .swal2-html-container {
     position: relative;
     right: 3%;
 }
-
+.playerInfo p {
+    display: flex;
+    justify-content: center;
+    
+}
 .startBox .container-fluid .row .col-6 p {
     margin-bottom: 0;
     margin-right: 15px;
