@@ -3,7 +3,6 @@ import { fanLimit } from "./starting.js"
 let chosenWinner = ''
 let chosenLoser = []
 let maxFanLimit = ""
-let positionArr = []
 let chosenFanNum 
 window.onload = async () => {
   createJoinRoom()
@@ -406,7 +405,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         })
           .then(async (result) => {
             if (result.isConfirmed) {
-              
+
               //winner and loser set up
               chosenFanNum = document.querySelector("#fanSelect").value
               document.querySelectorAll(".players")
@@ -462,7 +461,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                             if (i.id.split(".")[0] === chosenWinner){
                               i.style.opacity = "0.3"
                             }else {
-                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid red"
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
@@ -491,9 +490,12 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
                           console.log(e.target.id.split(".")[0])
                           console.log(chosenLoser[0])
-                          if (chosenLoser[0] == `${e.target.id.split(".")[0]}`){
+                          if (chosenLoser[0] == chosenWinner){
                             chosenLoser = []
-                            console.log("working?")
+                          } else {
+                            if(chosenLoser[0]){
+                              document.querySelector(`[id="${chosenLoser[0]}.2"] img`).style.outline = "3px solid red"
+                            }
                           }
                         } else {
                           chosenLoser = []
@@ -503,7 +505,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                             if (i.id.split(".")[0] === chosenWinner){
                               i.style.opacity = "0.3"
                             }else {
-                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid green"
+                              document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid red"
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
@@ -519,7 +521,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         for (let i of document.querySelectorAll(".loserPic")) {
                           i.style.outline = "none"
                         }
-                        document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
+                        document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid red"
                       })
                     })
   
@@ -577,6 +579,9 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       body: JSON.stringify(formObject)
                     });
                   }else {
+                    chosenWinner = ""
+                    chosenLoser = []
+                    selfEat = false
                     await Swal.fire({
                       icon: "error",
                       title: "哎呀...",
