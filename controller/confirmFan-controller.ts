@@ -30,7 +30,7 @@ export class ConfirmFanController {
             // const game_id = await this.startService.startGame( room_id, player_e, player_s, player_w, player_n )
             
             const result = await this.confirmFanService.inputFan(req.body)
-            res.json({ success: true, message: "cal fan successfully" })
+            res.json({ success: true, message: "cal fan successfully" , result})
         } catch (err) {
             res.json({ success: false, message: "fail to cal fan", err })
         }
