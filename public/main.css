@@ -352,6 +352,8 @@ div:where(.swal2-container) .swal2-html-container {
     display: none;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    position: relative;
 }
 
 .info {
@@ -359,7 +361,7 @@ div:where(.swal2-container) .swal2-html-container {
     width: 260px;
     height: 50px;
     background-color: var(--secondary-color);
-    top: 15%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
@@ -406,6 +408,7 @@ div:where(.swal2-container) .swal2-html-container {
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    margin-top: 20px;
 }
 
 .startContainer {

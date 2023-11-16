@@ -145,6 +145,7 @@ leftBtn.addEventListener("click", function (e) {
           topBoxIcon.style.display = 'none'
           check2 = false
           check = true
+          showBottomBtn = startingBtn
           for (let i of document.querySelectorAll(".players")) {
             i.style["pointer-events"] = "auto"
             document.querySelector(`#${i.id} ul .profilePicHolder img`).src = "https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
