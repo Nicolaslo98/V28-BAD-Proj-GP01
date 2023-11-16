@@ -604,8 +604,20 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   try {
-    const res = await fetch('/api/history/game');
-    const historyData = (await res.json()).roundData;
+    const res = await fetch('/api/history/game',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        gameId: (localStorage.getItem("gameId"))
+      })
+    }
+    
+    );
+    const data = (await res.json()).roundData;
+    const historyData = data.roundData;
+    const  playerList = data.playerNameList;
 
     if(!res.ok) {
       alert (" please start game first")
@@ -620,12 +632,11 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
       const scoreS = historyData[i].score_s;
       const scoreW = historyData[i].score_w;
       const scoreN = historyData[i].score_n;
-      const round = (historyData[i].id) - 1;
 
       historyScoreHTML +=
         `
         <div class="timelineMatchInfo">
-          <p class="roundInfo">${round}</p>
+          <p class="roundInfo">${i + 1}</p>
           <p id="">${scoreE}</p>
           <p id="">${scoreS}</p>
           <p id="">${scoreW}</p>
@@ -641,10 +652,10 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
              
         <div class="timelineInfo">
           <p class="round">局數</p>
-          <p class="timelinePlayer" id="player1">東</p>
-          <p class="timelinePlayer" id="player2">南</p>
-          <p class="timelinePlayer" id="player3">西</p>
-          <p class="timelinePlayer" id="player4">北</p>
+          <p class="timelinePlayer" id="player1">${playerList[0]}</p>
+          <p class="timelinePlayer" id="player2">${playerList[1]}</p>
+          <p class="timelinePlayer" id="player3">${playerList[2]}</p>
+          <p class="timelinePlayer" id="player4">${playerList[3]}</p>
         </div>
       </div>
     `,
