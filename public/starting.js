@@ -79,7 +79,6 @@ export function genFan(fan, mul) {
           </div>
           `
   }
-  return fanArr
 }
 
 const startRow = document.querySelector(".startBox .container-fluid .row")
