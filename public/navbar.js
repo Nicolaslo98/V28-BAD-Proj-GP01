@@ -69,11 +69,6 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
     cameraBtn.style.display = 'flex';
     showBottomBtn = cameraBtn
   }
-
-
-
-
-  
 })
 
 

@@ -556,7 +556,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_e: 0,
                       player_n: 0,
                       player_s: 0,
-                      player_w: 0
+                      player_w: 0,
+                      gameId: localStorage.getItem("gameId")
                     } 
                     formObject[chosenWinner] = +chosenFanNum
                     if (chosenLoser.length === 1){
