@@ -19,6 +19,4 @@ export class HistoryService {
     //const playerList = await this.knex('player').
     return {roundData, playerNameList};
   }
-
-  
 }

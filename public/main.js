@@ -399,7 +399,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               for (let i = 3; i <= fan.faanValue.value; i++) {
                 fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
               }
-            
           },
           title: "是否正確？",
           text: "winningHand.toString()",
@@ -649,6 +648,8 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     const data = (await res.json()).roundData;
     const historyData = data.roundData;
     const  playerList = data.playerNameList;
+    console.log(historyData[0])
+    console.log(playerList)
 
     if(!res.ok) {
       alert (" please start game first")
