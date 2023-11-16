@@ -7,8 +7,6 @@ let fanNumber = 8
 let fanArr = []
 function genFan(fan, mul) {
   startRow.innerHTML = ''
-  console.log(mul)
-  console.log(fan)
   if (fan === 8){
     switch (mul){
       case 32:
@@ -73,7 +71,6 @@ function genFan(fan, mul) {
         break;
     }
   }
-  console.log(fanArr)
   for (let i = 0; i <= fan - 3; i++) {
     startRow.innerHTML += `
           <div class="col-6 fanInputHolder">
@@ -106,8 +103,6 @@ export async function fanLimit() {
       const formObject = {
         fan: form.Fan.value
       }  
-      // console.log(formObject)
-      // return formObject
       resolve(formObject)
     })
   })

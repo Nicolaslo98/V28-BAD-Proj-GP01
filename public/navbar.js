@@ -64,9 +64,7 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
     });
     const result = await res.json();
     const gameId = result.startData[0].id;
-    console.log(gameId)
     localStorage.setItem("gameId",gameId)
-    console.log(result)
     startingBtn.style.display = 'none';
     cameraBtn.style.display = 'flex';
     showBottomBtn = cameraBtn
@@ -78,7 +76,6 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
   
 })
 
-console.log(localStorage.getItem("gameId"))
 
 rightBtn.addEventListener("click", function (e) {
   if (check) {

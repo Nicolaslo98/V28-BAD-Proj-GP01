@@ -8,7 +8,6 @@ let chosenFanNum
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
-  console.log(maxFanLimit)
 }
 
 //Function: Don't have room createPassword
@@ -32,7 +31,6 @@ function createPassword(roomName) {
     }
   }).then(async (result) => {
     if (result.isConfirmed) {
-      console.log(`room_name: ${roomName} , password: ${result.value}`)
       const FormData = {
         room_name: roomName,
         password: result.value
@@ -68,7 +66,6 @@ function enterPassword(roomName) {
     }
   }).then(async (result) => {
     if (result.isConfirmed) {
-      console.log(`checking: ${roomName} ${result.value}`)
       const FormData = {
         room_name: roomName,
         password: result.value
@@ -83,7 +80,7 @@ function enterPassword(roomName) {
       //when password false
       if (!res.ok) {
         await Swal.fire({
-          icon: "錯誤",
+          icon: "error",
           title: "哎呀...",
           text: "密碼錯誤",
         });
@@ -104,9 +101,7 @@ async function createJoinRoom() {
     return
   }
   let isNameValid = false
-  console.log("1")
   while (!isNameValid) {
-    console.log("2")
     await Swal.fire({
       didOpen: () => {
       },
@@ -147,7 +142,7 @@ async function createJoinRoom() {
           // isNameValid = true
         } else {
           await Swal.fire({
-            icon: "錯誤",
+            icon: "error",
             title: "哎呀...",
             text: "這個房間存在！",
           });
@@ -167,9 +162,8 @@ async function createJoinRoom() {
             body: JSON.stringify(FormData),
           })
           if (!(await res.json()).success) {
-            console.log("Join button")
             await Swal.fire({
-              icon: "錯誤",
+              icon: "error",
               title: "哎呀...",
               text: "找不到這個房間！",
               confirmButtonColor: `#B0926A`,
@@ -192,7 +186,6 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const result = await res.json()
-      console.log(result)
       if (!result.ePlayerData[0]){
         Swal.fire({
           didOpen: () => {
@@ -216,7 +209,6 @@ document.querySelectorAll(".players").forEach((element) => {
         }).then(async (result) => {
           if (result.isConfirmed) {
             const fetchData = capture();
-            console.log(fetchData);
             fetchData.append("username", result.value);
             const result2 = await fetch('/api/user', {
               method: 'POST',
@@ -301,7 +293,6 @@ document.querySelectorAll(".players").forEach((element) => {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 const fetchData = capture();
-                console.log(fetchData);
                 fetchData.append("username", result.value);
                 const result2 = await fetch('/api/user', {
                   method: 'POST',
@@ -322,7 +313,6 @@ document.querySelectorAll(".players").forEach((element) => {
             if (selectedName) {
   
               for (let i of document.querySelectorAll(".players")) {
-                console.log(i.id)
                 if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
                   document.querySelector(`#${i.id} .name`).innerHTML = ("");
                   document.querySelector(`#${i.id} .name`).id = ``;
@@ -388,7 +378,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               method: 'GET',
             })
             const fan = await getFan.json()
-            console.log(fan.faanValue.value)
             if (fan.faanValue.value >= maxFanLimit.fan) {
               fan.faanValue.value = maxFanLimit.fan 
               fanSelect.innerHTML = ''
@@ -417,6 +406,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         })
           .then(async (result) => {
             if (result.isConfirmed) {
+              
+              //winner and loser set up
               chosenFanNum = document.querySelector("#fanSelect").value
               document.querySelectorAll(".players")
               let winnerHTML = '';
@@ -444,6 +435,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               while (isWinnerEmpty){
                 await Swal.fire({
                   didOpen: () => {
+
+                    //checking self eat button is triggered
                     document.querySelector("#isSelfEat").addEventListener("change", function(e){
                       selfEat = !selfEat
                       if (!selfEat){
@@ -459,7 +452,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                           document.querySelector(`[id="${chosenWinner}.2"]`).style.opacity = "0.3"
                           document.querySelector(`[id="${chosenWinner}.2"] img`).style.outline = "none"
                           chosenLoser = []
-                          console.log(`new loser = ${chosenLoser}`)
                         }
                       }else{
                         if(chosenWinner){
@@ -474,15 +466,14 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
-                          
-                          console.log(`new loser = ${chosenLoser}`)
                         }
                       }
                     })
+
+                    //when winner is chosen
                     document.querySelectorAll(".winnerPicHolder").forEach((element) => {
                       element.addEventListener('click', async (e) => {
                         chosenWinner = e.target.id.split(".")[0]
-                        console.log(`winner is ${chosenWinner}`)
                         for (let i of document.querySelectorAll(".winnerPic")) {
                           i.style.outline = "none";
                         }
@@ -498,9 +489,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
-                          if (chosenLoser[0] === `${e.target.id.split(".")[0]}`){
+                          console.log(e.target.id.split(".")[0])
+                          console.log(chosenLoser[0])
+                          if (chosenLoser[0] == `${e.target.id.split(".")[0]}`){
                             chosenLoser = []
-                            console.log(`new loser = ${chosenLoser}`)
+                            console.log("working?")
                           }
                         } else {
                           chosenLoser = []
@@ -514,15 +507,15 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
-                          console.log(`new loser = ${chosenLoser}`)
                         }
                       })
                     })
+
+                    //when loser is chosen
                     document.querySelectorAll(".loserPicHolder").forEach((element) => {
                       element.addEventListener('click', async (e) => {
                         chosenLoser = []
                         chosenLoser.push([e.target.id.split(".")[0]])
-                        console.log(`loser is ${chosenLoser}`)
                         for (let i of document.querySelectorAll(".loserPic")) {
                           i.style.outline = "none"
                         }
@@ -554,6 +547,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                   confirmButtonText: "Yes",
                   cancelButtonText: "Retry"
                 }).then(async (result) => { 
+
+                  //send chosen winner and loser with fan to server
                   if (result.isConfirmed && chosenWinner[0] && chosenLoser[0]) {
                     isPhotoCorrect = true
                     isWinnerEmpty = false
@@ -573,7 +568,6 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                     }
                     chosenWinner = ""
                     chosenLoser = []
-                    console.log(formObject)
                     const res = await fetch('/api/confirmFan', {
                       method: 'POST',
                       headers:{
@@ -583,7 +577,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                     });
                   }else {
                     await Swal.fire({
-                      icon: "錯誤",
+                      icon: "error",
                       title: "哎呀...",
                       text: "這請不要留空！",
                     })
