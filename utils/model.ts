@@ -19,3 +19,11 @@ export interface Game {
   player_n: string, 
   room_id: number
 }
+
+export interface GameData {
+  player_e: number;
+  player_s: number;
+  player_w: number;
+  player_n: number;
+  gameId: string;
+}

@@ -1,16 +1,18 @@
 import { Knex } from 'knex';
+import { GameData } from '../utils/model';
 
 export class ConfirmFanService {
   constructor(private knex: Knex) {
   }
 
-  async inputFan( score_e: number, score_s: number, score_n: number, score_w: number){
+  async inputFan( gameData: GameData ){
     const result = await this.knex('round')
     .insert({
-      score_e: score_e, 
-      score_s: score_s, 
-      score_n: score_n,
-      score_w: score_w 
+      score_e: gameData.player_e, 
+      score_s: gameData.player_s, 
+      score_n: gameData.player_n,
+      score_w: gameData.player_w,
+      game_id: +gameData.gameId
     })
     .returning(['id'])
     return result;

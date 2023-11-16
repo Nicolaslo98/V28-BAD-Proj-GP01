@@ -9,7 +9,6 @@ export class StartController {
         startGame = async (req: Request, res: Response) => {
             try {
                 const formObject = req.body; // Retrieve the form data directly from the request body
-                console.log(formObject)
                 
                 const { player_e, player_s, player_w, player_n } = formObject; // Destructure the form data
     
