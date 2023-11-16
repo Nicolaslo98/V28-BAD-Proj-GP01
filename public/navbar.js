@@ -9,7 +9,7 @@ const rightBtnIcon = document.querySelector(".rightBtn i")
 const leftBtnText = document.querySelector(".leftBtn p")
 const leftBtnIcon = document.querySelector(".leftBtn i")
 const topBoxText = document.querySelector(".topBox p")
-const topBoxIcon = document.querySelector(".topBox i")
+const topBoxIcon = document.querySelector(".topBox i:nth-child(2)")
 let check = true
 let check2 = false
 const cameraBtn = document.querySelector(".cameraBtn")
@@ -128,8 +128,8 @@ leftBtn.addEventListener("click", function (e) {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "刪除了！",
+            text: "您選擇的玩家已被刪除。",
             icon: "success"
           });
           leaderBoard.style.display = 'none';
@@ -157,6 +157,7 @@ leftBtn.addEventListener("click", function (e) {
       });
     } else {
       home.style.display = 'none';
+      leaderBoard.style.display = 'none';
       showBottomBtn.style.display = 'none'
       settingBtn.style.display = 'none'
       start.style.display = 'flex'
