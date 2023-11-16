@@ -4,13 +4,9 @@ import { RankService } from '../service/rank-service';
 export class RankController {
     constructor(private rankService: RankService) {}
     getRankData = async(req: Request, res: Response)=> {
-      const roomId: number | undefined = req.session.room?.roomId
-      if (!roomId) {
-        res.status(400).json({ error: 'Room id not found' });
-        return;
-      }
+      const room_id = req.session.room!.roomId
       try {
-        const rankData = await this.rankService.getRankData(roomId);
+        const rankData = await this.rankService.getRankData(room_id);
         res.json({success: true, message:'Get rank data successfully ', rankData: rankData});
       } catch (error) {
         console.error(error);
