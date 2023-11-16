@@ -366,7 +366,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         </div>
       `,
       width: '100%',
-      confirmButtonText: 'Capture'
+      confirmButtonText: 'Capture',
+      confirmButtonColor: `#B0926A`,
     }).then(async (result) => {
       if (result.isConfirmed) {
         capture()
