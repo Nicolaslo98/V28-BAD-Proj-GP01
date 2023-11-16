@@ -32,7 +32,7 @@ settingBtn.addEventListener("click", function (e) {
     confirmButtonText: "Return"
   });
 })
-document.querySelector(".startingBtn").addEventListener("click", async function(e) {
+document.querySelector(".startingBtn").addEventListener("click", async function (e) {
   const players = document.querySelectorAll(".name")
   const formData = []
 
@@ -40,15 +40,15 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
   // const formData = ["1", "2", "3", "4"]
 
   let isName = true
-  for (let i of players){
-    if (!i.innerHTML){
+  for (let i of players) {
+    if (!i.innerHTML) {
       isName = false
-    }else{
+    } else {
       formData.push(i.id)
     }
   }
-  
-  if (isName){
+
+  if (isName) {
     const formObject = {
       player_e: formData[2],
       player_s: formData[3],
@@ -57,23 +57,26 @@ document.querySelector(".startingBtn").addEventListener("click", async function(
     }
     const res = await fetch('/api/start', {
       method: 'POST',
-      headers:{
+      headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formObject)
     });
     const result = await res.json();
     const gameId = result.startData[0].id;
-    localStorage.setItem("gameId",gameId)
+    localStorage.setItem("gameId", gameId)
     startingBtn.style.display = 'none';
     cameraBtn.style.display = 'flex';
     showBottomBtn = cameraBtn
+    for (let i of document.querySelectorAll(".players")) {
+      i.style["pointer-events"] = "none"
+    }
   }
 
 
 
 
-  
+
 })
 
 
@@ -111,19 +114,61 @@ rightBtn.addEventListener("click", function (e) {
 
 leftBtn.addEventListener("click", function (e) {
   if (check2) {
-    leaderBoard.style.display = 'none';
-    home.style.display = 'none';
-    showBottomBtn.style.display = 'none'
-    settingBtn.style.display = 'none'
-    start.style.display = 'flex'
-    rightBtnText.innerHTML = "排行榜"
-    rightBtnIcon.classList = "fa-solid fa-ranking-star"
-    leftBtnText.innerHTML = "開局"
-    leftBtnIcon.classList = "fa-solid fa-backward"
-    topBoxText.innerHTML = "今晚打老虎"
-    topBoxIcon.style.display = 'none'
-    check2 = false
-    check = true
+
+    if (document.querySelector(".players").style["pointer-events"] === "none") {
+      Swal.fire({
+        title: "你確定嗎？",
+        text: "選定的玩家將被抹去！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "刪除",
+        cancelButtonText: "取消"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+          leaderBoard.style.display = 'none';
+          home.style.display = 'none';
+          showBottomBtn.style.display = 'none'
+          settingBtn.style.display = 'none'
+          start.style.display = 'flex'
+          rightBtnText.innerHTML = "排行榜"
+          rightBtnIcon.classList = "fa-solid fa-ranking-star"
+          leftBtnText.innerHTML = "開局"
+          leftBtnIcon.classList = "fa-solid fa-backward"
+          topBoxText.innerHTML = "今晚打老虎"
+          topBoxIcon.style.display = 'none'
+          check2 = false
+          check = true
+          for (let i of document.querySelectorAll(".players")) {
+            i.style["pointer-events"] = "auto"
+            document.querySelector(`#${i.id} ul .profilePicHolder img`).src = "https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+            document.querySelector(`#${i.id} ul .name`).innerHTML = ""
+            document.querySelector(`#${i.id} ul .name`).id = ""
+            document.querySelector(`#${i.id} ul .score`).innerHTML = "分數: 0"
+
+          }
+        }
+      });
+    } else {
+      home.style.display = 'none';
+      showBottomBtn.style.display = 'none'
+      settingBtn.style.display = 'none'
+      start.style.display = 'flex'
+      rightBtnText.innerHTML = "排行榜"
+      rightBtnIcon.classList = "fa-solid fa-ranking-star"
+      leftBtnText.innerHTML = "開局"
+      leftBtnIcon.classList = "fa-solid fa-backward"
+      topBoxText.innerHTML = "今晚打老虎"
+      topBoxIcon.style.display = 'none'
+      check2 = false
+      check = true
+    }
 
   } else {
 

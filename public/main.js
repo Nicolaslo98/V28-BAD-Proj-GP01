@@ -3,7 +3,6 @@ import { fanLimit } from "./starting.js"
 let chosenWinner = ''
 let chosenLoser = []
 let maxFanLimit = ""
-let positionArr = []
 let chosenFanNum 
 window.onload = async () => {
   createJoinRoom()
@@ -406,7 +405,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         })
           .then(async (result) => {
             if (result.isConfirmed) {
-              
+
               //winner and loser set up
               chosenFanNum = document.querySelector("#fanSelect").value
               document.querySelectorAll(".players")
