@@ -10,10 +10,11 @@ export const rank = async () => {
                 const totalScore = rankData[i].user_total_score;
 
                 gameHistoryHTML += `
-                <div class="playerInfo">
-                    <p>${i + 1}</p>
-                    <p>${username}</p>
-                    <p>${totalScore}</p>
+                <div class="playerInfo row">
+                    <p class="col-4">${i + 1}</p>
+                    <p class="col-4"></p>
+                    <p class="playerInfoUsername">${username}</p>
+                    <p class="col-4">${totalScore}</p>
                 </div>
               `;
             } document.querySelector('.playerInfo-container').innerHTML = gameHistoryHTML;
