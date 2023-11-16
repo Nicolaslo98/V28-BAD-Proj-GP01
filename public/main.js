@@ -513,6 +513,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
+                          console.log(chosenLoser)
                         }
                       })
                     })
@@ -565,7 +566,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_w: 0,
                       gameId: localStorage.getItem("gameId")
                     } 
-                    console.log(fanArr)
+                    console.log('fan',fanArr)
                     if (chosenLoser.length === 1){
                       formObject[chosenWinner] = +chosenFanNum
                       formObject[chosenLoser[0]] = -chosenFanNum
@@ -575,6 +576,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         formObject[chosenLoser[i]] = -chosenFanNum
                       }
                     }
+                    console.log('chosenFanNum', chosenFanNum)
+
                     chosenWinner = ""
                     chosenLoser = []
                     const res = await fetch('/api/confirmFan', {
