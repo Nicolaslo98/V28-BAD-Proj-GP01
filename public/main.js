@@ -587,8 +587,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       },
                       body: JSON.stringify(formObject)
                     });
-                    const result2 = await res.json()
-                    console.log(result2)
+                    const result = await res.json()
+                    console.log(result.result[0])
+                    for (let i in result.result[0]){
+                      document.querySelector(`#${i} ul .score`).innerHTML = `分數: ${result.result[0][i]}`
+                    }
                   }else {
                     chosenWinner = ""
                     chosenLoser = []
