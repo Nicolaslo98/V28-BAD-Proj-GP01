@@ -584,7 +584,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       },
                       body: JSON.stringify(formObject)
                     });
-                    const result2 = res.json()
+                    const result2 = await res.json()
+                    console.log(result2)
                   }else {
                     chosenWinner = ""
                     chosenLoser = []
