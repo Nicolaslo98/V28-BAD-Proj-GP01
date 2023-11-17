@@ -618,6 +618,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       formObject[chosenLoser[0]] = -chosenFanNum
                     } else {
                       formObject[chosenWinner] = +chosenFanNum * 3 / 2
+                      formObject[chosenWinner] = +chosenFanNum * 3 / 2 / 3
                       for (let i in chosenLoser) {
                         formObject[chosenLoser[i]] = -chosenFanNum
                       }
