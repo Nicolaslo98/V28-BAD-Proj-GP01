@@ -9,10 +9,10 @@ export function genCamera() {
         (async function () {
             try {
                 // Desktop webCam for dev
-                // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
                 //Mobile backCam for User
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, video: {facingMode: {exact: 'environment'}}});
+                // const stream = await navigator.mediaDevices.getUserMedia({ video: true, video: {facingMode: {exact: 'environment'}}});
 
                 // Set the video source
                 video.srcObject = stream;
