@@ -10,13 +10,11 @@ let fanArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
-  fanArr = genFan ()
+  fanArr = await genFan()
 }
 
-console.log('fan1',fanArr)
-console.log('chosenFanNum1', chosenFanNum)
-console.log('multiplyNumber1', multiplyNumber)
-console.log(typeof +localStorage.getItem("multiplyNumber"))
+console.log('fan1', fanArr)
+
 
 //Function: Don't have room createPassword
 function createPassword(roomName) {
@@ -65,7 +63,7 @@ function enterPassword(roomName) {
     allowOutsideClick: false,
     title: "輸入密碼",
     input: "text",
-    confirmButtonColor:"#B0926A",
+    confirmButtonColor: "#B0926A",
     inputValidator: (value) => {
       if (!value) {
         return "你需要寫點東西！";
@@ -197,7 +195,7 @@ document.querySelectorAll(".players").forEach((element) => {
     try {
       const res = await fetch('/api/eplayer/room');
       const result = await res.json()
-      if (!result.ePlayerData[0]){
+      if (!result.ePlayerData[0]) {
         Swal.fire({
           didOpen: () => {
             genCamera();
@@ -234,7 +232,7 @@ document.querySelectorAll(".players").forEach((element) => {
             await stopCamera();
           }
         });
-      }else {
+      } else {
         const ePlayerData = result.ePlayerData;
         let choosePlayerHTML = '';
         for (let i = 0; i < ePlayerData.length; i++) {
@@ -251,7 +249,7 @@ document.querySelectorAll(".players").forEach((element) => {
             let existingName = document.querySelector("#existingName")
             let existingPic = document.querySelector(".existingPic")
             if (existingName.innerHTML) {
-  
+
               existingName.addEventListener('change', function (e) {
                 existingPic.src = `./image/${e.target.value.split("_")[0]}`
               })
@@ -322,9 +320,9 @@ document.querySelectorAll(".players").forEach((element) => {
             });
           } else if (result.isDismissed) {
             const selectedName = document.querySelector("#existingName option:checked").innerText
-  
+
             if (selectedName) {
-  
+
               for (let i of document.querySelectorAll(".players")) {
                 if (document.querySelector(`#${i.id} .name`).innerHTML === selectedName) {
                   document.querySelector(`#${i.id} .name`).innerHTML = ("");
@@ -332,9 +330,9 @@ document.querySelectorAll(".players").forEach((element) => {
                   document.querySelector(`#${i.id} .profilePicHolder .profilePic`).src = `https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg`;
                 }
               }
-  
-  
-  
+
+
+
               document.querySelector(`#${e.target.id} ul .name`).innerHTML = `${selectedName}`;
               document.querySelector(`#${e.target.id} ul .name`).id = `${document.querySelector("#existingName").value.split("_")[1]}`;
               document.querySelector(`#${e.target.id} ul .profilePicHolder .profilePic`).src = `./image/${document.querySelector("#existingName").value.split("_")[0]}`;
@@ -396,11 +394,11 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
             if (fan.faanValue.value >= +localStorage.getItem("fanNumber")) {
               fan.faanValue.value = +localStorage.getItem("fanNumber")
             }
-              fanSelect.innerHTML = ''
-              fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
-              for (let i = 3; i <= fan.faanValue.value; i++) {
-                fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
-              }
+            fanSelect.innerHTML = ''
+            fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
+            for (let i = 3; i <= fan.faanValue.value; i++) {
+              fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
+            }
           },
           title: "是否正確？",
           text: "winningHand.toString()",
@@ -448,36 +446,36 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                 `;
               }
               let isWinnerEmpty = true
-              while (isWinnerEmpty){
+              while (isWinnerEmpty) {
                 await Swal.fire({
                   didOpen: () => {
 
                     //checking self eat button is triggered
-                    document.querySelector("#isSelfEat").addEventListener("change", function(e){
+                    document.querySelector("#isSelfEat").addEventListener("change", function (e) {
                       selfEat = !selfEat
-                      if (!selfEat){
-                        for (let i of document.querySelectorAll(".loserPicHolder")){
+                      if (!selfEat) {
+                        for (let i of document.querySelectorAll(".loserPicHolder")) {
                           i.style["pointer-events"] = "auto";
                           i.style.opacity = "1"
                         }
-                        for (let i of document.querySelectorAll(".loserPicHolder img")){
+                        for (let i of document.querySelectorAll(".loserPicHolder img")) {
                           i.style.outline = "none"
                         }
-                        if(chosenWinner){
+                        if (chosenWinner) {
                           document.querySelector(`[id="${chosenWinner}.2"]`).style["pointer-events"] = "none"
                           document.querySelector(`[id="${chosenWinner}.2"]`).style.opacity = "0.3"
                           document.querySelector(`[id="${chosenWinner}.2"] img`).style.outline = "none"
                           chosenLoser = []
                         }
-                      }else{
-                        if(chosenWinner){
+                      } else {
+                        if (chosenWinner) {
                           chosenLoser = []
-                          for (let i of document.querySelectorAll(".loserPicHolder")){
-                            i.style["pointer-events"] = "none"                 
-                            i.style.opacity = "0.8"       
-                            if (i.id.split(".")[0] === chosenWinner){
+                          for (let i of document.querySelectorAll(".loserPicHolder")) {
+                            i.style["pointer-events"] = "none"
+                            i.style.opacity = "0.8"
+                            if (i.id.split(".")[0] === chosenWinner) {
                               i.style.opacity = "0.3"
-                            }else {
+                            } else {
                               document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid red"
                               chosenLoser.push(i.id.split(".")[0])
                             }
@@ -493,35 +491,35 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         for (let i of document.querySelectorAll(".winnerPic")) {
                           i.style.outline = "none";
                         }
-                        for (let i of document.querySelectorAll(".loserPicHolder")){
+                        for (let i of document.querySelectorAll(".loserPicHolder")) {
                           i.style["pointer-events"] = "auto";
                           i.style.opacity = "1"
                         }
-                        for (let i of document.querySelectorAll(".loserPicHolder img")){
+                        for (let i of document.querySelectorAll(".loserPicHolder img")) {
                           i.style.outline = "none"
                         }
                         document.querySelector(`.winnerRow [id="${e.target.id}"] img`).style.outline = "3px solid green"
-                        if(!selfEat){
+                        if (!selfEat) {
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style["pointer-events"] = "none"
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"]`).style.opacity = "0.3"
                           document.querySelector(`[id="${e.target.id.split(".")[0]}.2"] img`).style.outline = "none"
                           console.log(e.target.id.split(".")[0])
                           console.log(chosenLoser[0])
-                          if (chosenLoser[0] == chosenWinner){
+                          if (chosenLoser[0] == chosenWinner) {
                             chosenLoser = []
                           } else {
-                            if(chosenLoser[0]){
+                            if (chosenLoser[0]) {
                               document.querySelector(`[id="${chosenLoser[0]}.2"] img`).style.outline = "3px solid red"
                             }
                           }
                         } else {
                           chosenLoser = []
-                          for (let i of document.querySelectorAll(".loserPicHolder")){
-                            i.style["pointer-events"] = "none"                 
-                            i.style.opacity = "0.8"       
-                            if (i.id.split(".")[0] === chosenWinner){
+                          for (let i of document.querySelectorAll(".loserPicHolder")) {
+                            i.style["pointer-events"] = "none"
+                            i.style.opacity = "0.8"
+                            if (i.id.split(".")[0] === chosenWinner) {
                               i.style.opacity = "0.3"
-                            }else {
+                            } else {
                               document.querySelector(`[id="${i.id}"] img`).style.outline = "3px solid red"
                               chosenLoser.push(i.id.split(".")[0])
                             }
@@ -542,7 +540,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         document.querySelector(`.loserRow [id="${e.target.id}"] img`).style.outline = "3px solid red"
                       })
                     })
-  
+
                   },
                   title: "選擇贏家和輸家",
                   html: `
@@ -566,7 +564,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                   cancelButtonColor: "#d33",
                   confirmButtonText: "Yes",
                   cancelButtonText: "Retry"
-                }).then(async (result) => { 
+                }).then(async (result) => {
 
                   //send chosen winner and loser with fan to server
                   if (result.isConfirmed && chosenWinner[0] && chosenLoser[0]) {
@@ -578,20 +576,49 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_s: 0,
                       player_w: 0,
                       gameId: localStorage.getItem("gameId")
-                    } 
-                    console.log('fan2',fanArr)
-                    console.log(localStorage.getItem("multiplyNumber"))
-                    console.log(localStorage.getItem("fanNumber"))
-                    
-                    genFan()
-                    
-                    
-                    if (chosenLoser.length === 1){
+                    }
+
+                    switch (+chosenFanNum) {
+                      case 3:
+                        chosenFanNum = fanArr[0]
+                        break;
+                      case 4:
+                        chosenFanNum = fanArr[1]
+                        break;
+                      case 5:
+                        chosenFanNum = fanArr[2]
+                        break;
+                      case 6:
+                        chosenFanNum = fanArr[3]
+                        break;
+                      case 7:
+                        chosenFanNum = fanArr[4]
+                        break;
+                      case 8:
+                        chosenFanNum = fanArr[5]
+                        break;
+                      case 9:
+                        chosenFanNum = fanArr[6]
+                        break;
+                      case 10:
+                        chosenFanNum = fanArr[7]
+                        break;
+                      case 11:
+                        chosenFanNum = fanArr[8]
+                        break;
+                      case 12:
+                        chosenFanNum = fanArr[9]
+                        break;
+                      case 13:
+                        chosenFanNum = fanArr[10]
+                        break;
+                    }
+                    if (chosenLoser.length === 1) {
                       formObject[chosenWinner] = +chosenFanNum
                       formObject[chosenLoser[0]] = -chosenFanNum
-                    }else{
-                       formObject[chosenWinner] = +chosenFanNum*3/2
-                      for (let i in chosenLoser){
+                    } else {
+                      formObject[chosenWinner] = +chosenFanNum * 3 / 2
+                      for (let i in chosenLoser) {
                         formObject[chosenLoser[i]] = -chosenFanNum
                       }
                     }
@@ -600,17 +627,17 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                     chosenLoser = []
                     const res = await fetch('/api/confirmFan', {
                       method: 'POST',
-                      headers:{
+                      headers: {
                         'Content-Type': 'application/json'
                       },
                       body: JSON.stringify(formObject)
                     });
                     const result = await res.json()
                     console.log(result.result[0])
-                    for (let i in result.result[0]){
+                    for (let i in result.result[0]) {
                       document.querySelector(`#${i} ul .score`).innerHTML = `分數: ${result.result[0][i]}`
                     }
-                  }else {
+                  } else {
                     chosenWinner = ""
                     chosenLoser = []
                     selfEat = false
@@ -636,7 +663,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
 
 document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async function (e) {
   try {
-    const res = await fetch('/api/history/game',{
+    const res = await fetch('/api/history/game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -645,16 +672,16 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
         gameId: (localStorage.getItem("gameId"))
       })
     }
-    
+
     );
     const data = (await res.json()).roundData;
     const historyData = data.roundData;
-    const  playerList = data.playerNameList;
+    const playerList = data.playerNameList;
     console.log(historyData[0])
     console.log(playerList)
 
-    if(!res.ok) {
-      alert (" please start game first")
+    if (!res.ok) {
+      alert(" please start game first")
     }
 
     let historyPlayerHTML = '';

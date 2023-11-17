@@ -14,7 +14,6 @@ export function genCamera() {
                 //Mobile backCam for User
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, video: {facingMode: {exact: 'environment'}}});
 
-
                 // Set the video source
                 video.srcObject = stream;
             } catch (error) {

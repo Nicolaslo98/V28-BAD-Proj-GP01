@@ -6,7 +6,8 @@ export let multiplyNumber = 32
 let fanNumber = 8
 export let fanArr = []
 export function genFan(fan, mul) {
-  startRow.innerHTML = ''
+  return new Promise((resolve, reject) => {
+    startRow.innerHTML = ''
   if (fan === 8){
     switch (mul){
       case 32:
@@ -79,6 +80,8 @@ export function genFan(fan, mul) {
           </div>
           `
   }
+  resolve(fanArr)
+  })
 }
 
 const startRow = document.querySelector(".startBox .container-fluid .row")
