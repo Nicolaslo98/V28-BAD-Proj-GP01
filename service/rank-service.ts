@@ -8,6 +8,7 @@ export class RankService {
     const rankData = await this.knex('player')
     .select('username', 'user_total_score')
     .orderBy('user_total_score', 'desc')
+    .where({room_id:room_id})
     return rankData;
   }
 }
