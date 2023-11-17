@@ -4,13 +4,19 @@ import { fanLimit, genFan } from "./starting.js"
 let chosenWinner = ''
 let chosenLoser = []
 let maxFanLimit = ""
-let chosenFanNum 
+let chosenFanNum
+let multiplyNumber
 let fanArr = []
 window.onload = async () => {
   createJoinRoom()
   maxFanLimit = await fanLimit()
   fanArr = genFan ()
 }
+
+console.log('fan1',fanArr)
+console.log('chosenFanNum1', chosenFanNum)
+console.log('multiplyNumber1', multiplyNumber)
+console.log(typeof +localStorage.getItem("multiplyNumber"))
 
 //Function: Don't have room createPassword
 function createPassword(roomName) {
@@ -86,6 +92,7 @@ function enterPassword(roomName) {
           icon: "error",
           title: "哎呀...",
           text: "密碼錯誤",
+          confirmButtonColor: `#B0926A`
         });
         enterPassword(roomName)
       } else if (res.ok) {
@@ -148,6 +155,7 @@ async function createJoinRoom() {
             icon: "error",
             title: "哎呀...",
             text: "這個房間存在！",
+            confirmButtonColor: `#B0926A`
           });
         }
       } //join
@@ -351,7 +359,6 @@ document.querySelectorAll(".players").forEach((element) => {
 //Function: Run camera
 document.querySelector(".cameraBtn").addEventListener("click", async function (e) {
   let isPhotoCorrect = false
-  console.log(fanArr)
   while (!isPhotoCorrect) {
     await Swal.fire({
       didOpen: () => {
@@ -366,7 +373,8 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
         </div>
       `,
       width: '100%',
-      confirmButtonText: 'Capture'
+      confirmButtonText: 'Capture',
+      confirmButtonColor: `#B0926A`,
     }).then(async (result) => {
       if (result.isConfirmed) {
         capture()
@@ -383,14 +391,16 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
               method: 'GET',
             })
             const fan = await getFan.json()
-            if (fan.faanValue.value >= maxFanLimit.fan) {
-              fan.faanValue.value = maxFanLimit.fan 
+            console.log(+localStorage.getItem("fanNumber"))
+            console.log(fan.faanValue.value)
+            if (fan.faanValue.value >= +localStorage.getItem("fanNumber")) {
+              fan.faanValue.value = +localStorage.getItem("fanNumber")
+            }
               fanSelect.innerHTML = ''
               fanSelect.innerHTML += `<option value="${fan.faanValue.value}">${fan.faanValue.value}</option>`
-              for (let i = 3; i <= maxFanLimit.fan; i++) {
+              for (let i = 3; i <= fan.faanValue.value; i++) {
                 fanSelect.innerHTML += `<option value="${i.toString()}">${i.toString()}</option>`
               }
-            }
           },
           title: "是否正確？",
           text: "winningHand.toString()",
@@ -516,6 +526,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                               chosenLoser.push(i.id.split(".")[0])
                             }
                           }
+                          console.log(chosenLoser)
                         }
                       })
                     })
@@ -568,7 +579,13 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                       player_w: 0,
                       gameId: localStorage.getItem("gameId")
                     } 
-                    console.log(fanArr)
+                    console.log('fan2',fanArr)
+                    console.log(localStorage.getItem("multiplyNumber"))
+                    console.log(localStorage.getItem("fanNumber"))
+                    
+                    genFan()
+                    
+                    
                     if (chosenLoser.length === 1){
                       formObject[chosenWinner] = +chosenFanNum
                       formObject[chosenLoser[0]] = -chosenFanNum
@@ -578,6 +595,7 @@ document.querySelector(".cameraBtn").addEventListener("click", async function (e
                         formObject[chosenLoser[i]] = -chosenFanNum
                       }
                     }
+
                     chosenWinner = ""
                     chosenLoser = []
                     const res = await fetch('/api/confirmFan', {
@@ -632,6 +650,8 @@ document.querySelector(".topBox i:nth-child(2)").addEventListener("click", async
     const data = (await res.json()).roundData;
     const historyData = data.roundData;
     const  playerList = data.playerNameList;
+    console.log(historyData[0])
+    console.log(playerList)
 
     if(!res.ok) {
       alert (" please start game first")

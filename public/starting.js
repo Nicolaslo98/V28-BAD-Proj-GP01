@@ -2,10 +2,10 @@
 
 
   
-let multiplyNumber = 32
+export let multiplyNumber = 32
 let fanNumber = 8
-let fanArr = []
-function genFan(fan, mul) {
+export let fanArr = []
+export function genFan(fan, mul) {
   startRow.innerHTML = ''
   if (fan === 8){
     switch (mul){
@@ -86,12 +86,14 @@ document.querySelectorAll(".selector1 input").forEach((element) => {
   element.addEventListener('click', async (e) => {
     genFan(Number(e.target.value), multiplyNumber)
     fanNumber = Number(e.target.value)
+    localStorage.setItem("fanNumber", fanNumber)
   });
 })
 document.querySelectorAll(".selector2 input").forEach((element) => {
   element.addEventListener('click', async (e) => {
     genFan(fanNumber, Number(e.target.value))
     multiplyNumber = Number(e.target.value)
+    localStorage.setItem("multiplyNumber", multiplyNumber)
   })
 })
 
